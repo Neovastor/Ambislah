@@ -18,7 +18,7 @@ async function connect() {
     
     dbSend = database
 
-    return database
+    return {database, client}
 }
 
 function database(){

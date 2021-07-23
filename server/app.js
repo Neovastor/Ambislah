@@ -2,7 +2,7 @@
 const express = require("express")
 const { connect } = require("./config/mongodb")
 const app = express()
-const port = 4001
+// const port = 4001
 
 const router = require('./routes')
 
@@ -14,15 +14,18 @@ app.use(express.urlencoded({
 
 app.use(router);
 
-connect()
-    .then(async database => {
+// connect()
+//     .then(async database => {
+//         
+//         app.listen(port, () => {
+//             // console.log(`listening app at http://localhost:${port}`);
+//         })
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     })
 
-        app.listen(port, () => {
-            console.log(`listening app at http://localhost:${port}`);
-        })
-    })
-    .catch(err => {
-        console.log(err);
-    })
+
+module.exports = app
 
 
