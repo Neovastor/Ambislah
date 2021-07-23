@@ -26,14 +26,17 @@ class AuthController {
     const name = email.split('@')[0]
     console.log('login masuk >>>', email, name, 'masuk login')
     const output = await getDatabase().collection('cek').findOne({ email: email })
-    console.log('>>', output)
+    console.log('>>', output, '<<')
     if (output) {
+      console.log('>>2', output, '<<')
+      console.log('333', comparePassword(password, output.password))
       if (comparePassword(password, output.password)) {
         const userInfo = {
           email: output.email,
           name: output.name
         }
-        const token = generateJWT(userInfo)
+        console.log(userInfo)
+        const token = await generateJWT(userInfo)
         console.log(token)
         req.headers.access_token = token
         res.status(200).json({ access_token: token })
