@@ -1,4 +1,8 @@
 const Kahoot = require('../models/Kahoot')
+const { getDatabase } = require('../config/mongodb')
+const { ObjectId } = require('mongodb')
+const { comparePassword } = require('../helpers/bcrypt')
+const {generateJWT, verifyJWT} = require('../helpers/jwt')
 
 class AuthController {
   static async findAll(req, res) {
@@ -16,6 +20,25 @@ class AuthController {
     console.log('data register masuk>>>', email, password, name, '<< register masuk')
     const output = await Kahoot.register(input)
     res.status(201).json(output)
+  }
+  static async login(req, res, next) {
+    const { email, password } = req.body
+    const name = email.split('@')[0]
+    console.log('login masuk >>>', email, name, 'masuk login')
+    const output = await getDatabase().collection('cek').findOne({ email: email })
+    console.log('>>', output)
+    if (output) {
+      if (comparePassword(password, output.password)) {
+        const userInfo = {
+          email: output.email,
+          name: output.name
+        }
+        const token = generateJWT(userInfo)
+        console.log(token)
+        req.headers.access_token = token
+        res.status(200).json({ access_token: token })
+      }
+    }
   }
   static async findOne(req, res) {
     const id = req.params.id
