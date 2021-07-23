@@ -50,29 +50,30 @@ class AuthController {
   static async googlelogin(req, res, next) {
     let payload = null
     const token = req.body.id_token
-    console.log(token)  
+    console.log('baruuu>>',token)   
     const client = new OAuth2Client(process.env.CLIENT_ID)
-    const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.CLIENT_ID,
-    })
-    console.log('ini TICKETnya>>', ticket, '<< si TIKET')
-    payload = ticket.getPayload()
-    const email = payload.email
-    const output = await Kahoot.login(email)
-    if (output) {
-      console.log('output', '<><>')
-      const userInfo = {
-        email: output.email,
-        name: output.name,
-        id: JSON.stringify(output._id)
-      }
-      console.log(userInfo)
-      const token = generateJWT(userInfo)
-      console.log(token)
-      req.headers.access_token = token
-      res.status(200).json({ access_token: token })
-    }
+    console.log(client)
+    // const ticket = await client.verifyIdToken({
+    //   idToken: token,
+    //   audience: process.env.CLIENT_ID,
+    // })
+    // console.log('ini TICKETnya>>', ticket, '<< si TIKET')
+    // payload = ticket.getPayload()
+    // const email = payload.email
+    // const output = await Kahoot.login(email)
+    // if (output) {
+    //   console.log('output', '<><>')
+    //   const userInfo = {
+    //     email: output.email,
+    //     name: output.name,
+    //     id: JSON.stringify(output._id)
+    //   }
+    //   console.log(userInfo)
+    //   const token = generateJWT(userInfo)
+    //   console.log(token)
+    //   req.headers.access_token = token
+    //   res.status(200).json({ access_token: token })
+    // }
 
   }
   static async findOne(req, res) {
