@@ -8,7 +8,9 @@ async function connect() {
 
     const client = new MongoClient(url)
 
-    const dbName = 'test'
+    const environment = process.env.NODE_ENV
+    const dbName = environment === 'test' ? 'test' : 'ambislah' // ni untuk db test sm dev
+    
      
     // Use connect method to connect to the server
     await client.connect()

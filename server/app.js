@@ -1,6 +1,6 @@
 
 const express = require("express")
-const { connect } = require("./config/mongodb")
+// const { connect } = require("./config/mongodb")
 const app = express()
 // const port = 4001
 

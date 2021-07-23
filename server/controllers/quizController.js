@@ -14,7 +14,7 @@ class QuizController {
   static getQuizByIdHandler(req, res, next) {
     const { id } = req.params;
     if (id.length !== 24) {
-      next({ code: 400, message: "id should be 24 hex characters" });
+      next({ code: 400, message: ["id should be 24 hex characters"] });
     }
 
     Quizzes.findOne(id)
@@ -22,7 +22,7 @@ class QuizController {
         if (result) {
           res.status(200).send(result);
         } else {
-          next({ code: 404, message: "Quiz not found" });
+          next({ code: 404, message: ["Quiz not found"] });
         }
       })
       .catch((err) => {
@@ -57,7 +57,7 @@ class QuizController {
     const { id } = req.params;
 
     if (id.length !== 24) {
-      next({ code: 400, message: "id should be 24 hex characters" });
+      next({ code: 400, message: ["id should be 24 hex characters"] });
     }
 
     Quizzes.putQuiz(payload, id)
@@ -65,7 +65,7 @@ class QuizController {
         if (result.matchedCount === 1) {
           res.status(200).send(result);
         } else if (result.matchedCount == 0) {
-          next({ code: 404, message: "Quiz not found" });
+          next({ code: 404, message: ["Quiz not found"] });
         } else {
           next({ code: 400, message: result.message });
         }
@@ -79,7 +79,7 @@ class QuizController {
     const { id } = req.params;
 
     if (id.length !== 24) {
-      next({ code: 400, message: "id should be 24 hex characters" });
+      next({ code: 400, message: ["id should be 24 hex characters"] });
     }
 
     Quizzes.deleteQuiz(id)
@@ -89,7 +89,7 @@ class QuizController {
             message: `quiz with id ${id} deleted successfully`,
           });
         } else {
-          next({ code: 404, message: "quiz not found" });
+          next({ code: 404, message: ["quiz not found"] });
         }
       })
       .catch((err) => {

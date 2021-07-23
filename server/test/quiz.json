@@ -1,6 +1,5 @@
 [
   {
-    "_id": "60fa6abd627869bd4b72ec24",
     "userId": 1,
     "questions": [
       {
@@ -15,7 +14,6 @@
     "mode": "live"
   },
   {
-    "_id": "60fa6c3cad250f803ca72c67",
     "userId": 1,
     "questions": [
       {
