@@ -17,7 +17,7 @@ export default function NavBar() {
                         <ul className="sm:flex items-center justify-between text-base text-gray-700 pt-4 sm:pt-0">
                             <li><Link className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-white" to="/">Home</Link></li>
                             <li><Link className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-white" to="/">Library</Link></li>
-                            <li><Link className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-white" to="/">Report</Link></li>
+                            <li><Link className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-white" to="/report">Report</Link></li>
                             <li><Link className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-white" to="/">Login</Link></li>
                             <li><Link className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-white" to="/">Logout</Link></li>
                             <li><Link className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-white" to="/create">Create</Link></li>
