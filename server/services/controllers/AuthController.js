@@ -36,7 +36,7 @@ class AuthController {
           name: output.name
         }
         console.log(userInfo)
-        const token = await generateJWT(userInfo)
+        const token = generateJWT(userInfo)
         console.log(token)
         req.headers.access_token = token
         res.status(200).json({ access_token: token })

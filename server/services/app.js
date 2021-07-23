@@ -1,6 +1,7 @@
 // if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
   // require('dotenv').config()
   // }
+require('dotenv').config()
 const { connect } = require('./config/mongodb')
 const express = require('express')
 const AuthController = require('./controllers/AuthController')
