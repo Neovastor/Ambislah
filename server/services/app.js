@@ -13,16 +13,16 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 let db = null
 
-// app.get('/', async (req, res) => {
-//   const students = await db.collection('Movies').find().toArray()
-//   res.json(students)
-// })
-app.get('/', (req, res) => {
-  res.send('server 4001 is running in home')
+app.get('/', async (req, res) => {
+  const cek = await db.collection('cek').find().toArray()
+  res.json(cek)
 })
+// app.get('/', (req, res) => {
+//   res.send('server 4001 is running in home')
+// })
 
 //finalproject
-app.get('/login', AuthController)
+app.get('/login', AuthController.findAll)
 
 connect().then(async (database) => {
   const cek = await database.collection('cek').find().toArray()
