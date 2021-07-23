@@ -21,7 +21,7 @@ class AuthController {
     console.log('data register masuk>>>', email, password, name, '<< register masuk')
     const output = await Kahoot.register(input)
     res.status(201).json(output)
-  }
+  } 
   static async login(req, res, next) {
     const { email, password } = req.body
     const name = email.split('@')[0]
@@ -51,14 +51,15 @@ class AuthController {
     let payload = null
     const token = req.body.id_token
     console.log('baruuu>>',token)   
-    const client = new OAuth2Client(process.env.CLIENT_ID)
-    console.log(client)
-    // const ticket = await client.verifyIdToken({
-    //   idToken: token,
-    //   audience: process.env.CLIENT_ID,
-    // })
-    // console.log('ini TICKETnya>>', ticket, '<< si TIKET')
-    // payload = ticket.getPayload()
+    const client = new OAuth2Client('126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com')
+    console.log('ini CLIENT CLIENT⭐⭐⭐',client)
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: '126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com',
+    }) 
+    console.log('ini TICKETnya>>', ticket, '<< si TIKET')
+    payload = ticket.getPayload()
+    console.log('ini payload',payload, 'ini payload')
     // const email = payload.email
     // const output = await Kahoot.login(email)
     // if (output) {
