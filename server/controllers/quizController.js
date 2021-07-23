@@ -33,7 +33,10 @@ class QuizController {
   static postQuizHandler(req, res, next) {
     let payload = req.body;
 
-    Quizzes.postMovie(payload)
+    //di uncomment kalau sudah di merge dengan middleware login
+    // payload.userId = req.user.id
+
+    Quizzes.postQuiz(payload)
       .then((result) => {
         if (result.message === undefined) {
           res.status(201).send(result);
@@ -48,15 +51,19 @@ class QuizController {
 
   static putQuizHandler(req, res, next) {
     let payload = req.body;
+    //di uncomment kalau sudah di merge dengan middleware login
+    // payload.userId = req.user.id
+
     const { id } = req.params;
+
     if (id.length !== 24) {
       next({ code: 400, message: "id should be 24 hex characters" });
     }
 
-    Quizzes.putMovie(payload, id)
+    Quizzes.putQuiz(payload, id)
       .then((result) => {
         if (result.matchedCount === 1) {
-          res.status(200).send(result.data);
+          res.status(200).send(result);
         } else if (result.matchedCount == 0) {
           next({ code: 404, message: "Quiz not found" });
         } else {
@@ -75,7 +82,7 @@ class QuizController {
       next({ code: 400, message: "id should be 24 hex characters" });
     }
 
-    Quizzes.deleteMovie(id)
+    Quizzes.deleteQuiz(id)
       .then((result) => {
         if (result.deletedCount !== 0) {
           res.status(200).send({
