@@ -1,11 +1,13 @@
 const { getDatabase } = require('../config/mongodb')
 const { ObjectId } = require('mongodb')
+const { hash } = require('../helpers/bcrypt')
 
 class Kahoot {
   static async findAll() {
     return await getDatabase().collection('cek').find().toArray()
   }
   static async register(input) {
+    input.password = hash(input.password)
     return await getDatabase().collection('cek').insertOne(input)
   }
   static async findOne(id) {
