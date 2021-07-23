@@ -7,9 +7,13 @@
     "express": "^4.17.1",
     "mongodb": "^4.0.1"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "supertest": "^6.1.4"
+  },
+  "scripts": {    
+    "start": "node ./bin/http",
+    "test": "jest --detectOpenHandles --forceExit --runInBand"
   },
   "keywords": [],
   "author": "",
