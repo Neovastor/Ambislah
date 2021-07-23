@@ -1,13 +1,19 @@
 function errorHandler(err, req, res, next) {
-    let message = []
+    let message = [];
     let code; 
 
     if (err.code === 404){
         code = 404
-        message.push(err.message)
+        err.message.forEach(element => {
+            
+            message.push(element)    
+        });
+        
     }else if (err.code === 400){
         code = 400
-        message.push(err.message)
+        err.message.forEach(element => {
+            message.push(element)    
+        });
     }else {
         code = 500
         message.push("Internal server error")

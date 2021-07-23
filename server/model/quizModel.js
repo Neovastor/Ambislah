@@ -47,7 +47,7 @@ class Quizzes {
         const quizzesCollectios = database().collection('Quizzes')
 
         let quizzes = await quizzesCollectios.insertOne(result)
-
+        
         result._id = quizzes.insertedId
 
         return result
