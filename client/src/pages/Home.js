@@ -105,7 +105,7 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="bg-blue-500 box-border h-32 w-full p-4 border-4 md-max:col-span-4">box quis report</div>
+                <div className="bg-blue-500 box-border h-32 w-full p-4 border-4 md-max:col-span-4">masukbox quis report</div>
             </div>
         </>
     )
