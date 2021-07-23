@@ -8,6 +8,7 @@ class Kahoot {
   }
   static async register(input) {
     input.password = hash(input.password)
+    input.createdAt = new Date()
     return await getDatabase().collection('cek').insertOne(input)
   }
   static async findOne(id) {
