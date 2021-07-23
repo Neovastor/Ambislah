@@ -16,8 +16,7 @@ class Model {
     static async findOneReports (id) {
         try {
             const data = await Model.collection().findOne({"_id": ObjectId(id)})
-            return data 
-            
+            return data
         } catch (error) {}
     }
 

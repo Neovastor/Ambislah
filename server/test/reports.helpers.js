@@ -8,7 +8,7 @@ function dummyReports() {
             userId: '123abc',
             quizId: i % 2 === 0 ? '345cde' : '679efg',
             date: new Date(),
-            playerCount: 2,
+            playersCount: 2,
             players: [
                 {name: 'a', score: 90},
                 {name: 'b', score: 80}
