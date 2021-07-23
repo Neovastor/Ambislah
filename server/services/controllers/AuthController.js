@@ -3,6 +3,7 @@ const { getDatabase } = require('../config/mongodb')
 const { ObjectId } = require('mongodb')
 const { comparePassword } = require('../helpers/bcrypt')
 const {generateJWT, verifyJWT} = require('../helpers/jwt')
+const {OAuth2Client} = require('google-auth-library')
 
 class AuthController {
   static async findAll(req, res) {
@@ -31,10 +32,12 @@ class AuthController {
     if (output) {
       console.log('>>2', output, '<<')
       console.log('333', comparePassword(password, output.password))
+      console.log('4444', JSON.stringify(output._id))
       if (comparePassword(password, output.password)) {
         const userInfo = {
           email: output.email,
-          name: output.name
+          name: output.name,
+          id: JSON.stringify(output._id)
         }
         console.log(userInfo)
         const token = generateJWT(userInfo)
@@ -43,6 +46,26 @@ class AuthController {
         res.status(200).json({ access_token: token })
       }
     }
+  }
+  static async googlelogin(req, res, next) {
+    let payload = null
+    const token = req.body.id_token
+    const client = new OAuth2Client(process.env.CLIENT_ID)
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.CLIENT_ID,
+    })
+    console.log('ini TICKETnya>>', ticket, '<< si TIKET')
+    payload = ticket.getPayload()
+    const email = payload.email
+    const output = await Kahoot.login(email)
+    if (output) {
+      console.log('output', '<><>')
+      const userInfo = {
+        email 
+      }
+    }
+
   }
   static async findOne(req, res) {
     const id = req.params.id
