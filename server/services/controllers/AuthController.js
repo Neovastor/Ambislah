@@ -9,6 +9,14 @@ class AuthController {
       err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
     }
   }
+  static async register(req, res, next) {
+    const { email, password } = req.body
+    const name = email.split('@')[0]
+    const input = { email, password, name }
+    console.log('data register masuk>>>', email, password, name, '<< register masuk')
+    const output = await Kahoot.register(input)
+    res.status(201).json(output)
+  }
   static async findOne(req, res) {
     const id = req.params.id
     try {

@@ -5,6 +5,9 @@ class Kahoot {
   static async findAll() {
     return await getDatabase().collection('cek').find().toArray()
   }
+  static async register(input) {
+    return await getDatabase().collection('cek').insertOne(input)
+  }
   static async findOne(id) {
     return await getDatabase().collection('cek').findOne({_id: ObjectId(id)})
   }
