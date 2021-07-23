@@ -50,6 +50,7 @@ class AuthController {
   static async googlelogin(req, res, next) {
     let payload = null
     const token = req.body.id_token
+    console.log(token)  
     const client = new OAuth2Client(process.env.CLIENT_ID)
     const ticket = await client.verifyIdToken({
       idToken: token,
@@ -62,8 +63,15 @@ class AuthController {
     if (output) {
       console.log('output', '<><>')
       const userInfo = {
-        email 
+        email: output.email,
+        name: output.name,
+        id: JSON.stringify(output._id)
       }
+      console.log(userInfo)
+      const token = generateJWT(userInfo)
+      console.log(token)
+      req.headers.access_token = token
+      res.status(200).json({ access_token: token })
     }
 
   }
