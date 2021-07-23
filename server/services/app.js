@@ -26,6 +26,7 @@ app.get('/', async (req, res) => {
 app.get('/login', AuthController.findAll)
 app.post('/register', AuthController.register)
 app.post('/login', AuthController.login)
+app.post('/googlelogin', AuthController.googlelogin)
 
 connect().then(async (database) => {
   const cek = await database.collection('cek').find().toArray()
