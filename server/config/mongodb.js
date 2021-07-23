@@ -19,7 +19,7 @@ async function connect() {
 } 
 
 function getDatabase () {
-    return database
+    return db
 }
 
 module.exports = {
