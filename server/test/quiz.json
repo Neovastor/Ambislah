@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "60fa6abd627869bd4b72ec24",
+    "userId": 1,
+    "questions": [
+      {
+        "type": "text",
+        "question": "penemu bola lampu ?",
+        "image": "null",
+        "choose": ["aku", "kamu", "dia", "mereka"],
+        "answer": "aku"
+      }
+    ],
+    "timer": 20,
+    "mode": "live"
+  },
+  {
+    "_id": "60fa6c3cad250f803ca72c67",
+    "userId": 1,
+    "questions": [
+      {
+        "type": "text",
+        "question": "siap presiden pertama indonesia ?",
+        "image": "null",
+        "choose": ["Soekarno", "Soeharto", "SBY", "Jokowi"],
+        "answer": "Soekarno"
+      }
+    ],
+    "timer": 20,
+    "mode": "challenge"
+  }
+]
