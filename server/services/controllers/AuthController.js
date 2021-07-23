@@ -25,7 +25,8 @@ class AuthController {
     const { email, password } = req.body
     const name = email.split('@')[0]
     console.log('login masuk >>>', email, name, 'masuk login')
-    const output = await getDatabase().collection('cek').findOne({ email: email })
+    const output = await Kahoot.login(email)
+    // const output = await getDatabase().collection('cek').findOne({ email: email })
     console.log('>>', output, '<<')
     if (output) {
       console.log('>>2', output, '<<')
