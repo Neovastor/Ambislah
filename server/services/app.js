@@ -15,7 +15,7 @@ let db = null
 
 app.get('/', async (req, res) => {
   const cek = await db.collection('cek').find().toArray()
-  res.json(cek)
+  res.status(201).json(cek)
 })
 // app.get('/', (req, res) => {
 //   res.send('server 4001 is running in home')
@@ -23,6 +23,7 @@ app.get('/', async (req, res) => {
 
 //finalproject
 app.get('/login', AuthController.findAll)
+app.post('/register', AuthController.register)
 
 connect().then(async (database) => {
   const cek = await database.collection('cek').find().toArray()
