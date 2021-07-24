@@ -6,7 +6,7 @@ export default function Home() {
             <div className="grid grid-cols-6 gap-2 md-max:grid-cols-3 pt-16">
                 {/* <div className="flex flex-wrap justify-center md-max:flex-col md-max:items-center "> */}
                 <div className="bg-red-500 box-border w-full p-4 border-4 md-max:col-span-4 grid-rows-2">
-                    <div className="bg-custom_red box-border h-32 my-2 p-2">box username</div>
+                    <div className="bg-red-500 box-border h-32 my-2 p-2">box username</div>
                     <div className="bg-yellow-700 box-border h-32 my-2 p-2">Challenge
                         Overview (Offline quiz still active)</div>
                 </div>
