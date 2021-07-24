@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.8.3",
     "i": "^0.3.6",
     "npm": "^7.20.1",
+    "postcss-cli": "^7.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
@@ -24,7 +25,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch:css": "postcss -w src/styles/tailwind.css -o src/styles/output.css"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +49,6 @@
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.36",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.6"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
   }
 }
