@@ -4,7 +4,11 @@ export {
     DELETE_REPORT, 
     GET_ALL_REPORTS, 
     GET_REPORT,
-    SEARCH_REPORT
+    SEARCH_REPORT,
 } from './reportQueries'
 
+export {
+    REGISTER,
+    LOGIN
+} from './userQueries'
 

@@ -12,7 +12,21 @@ function errorHandler(err, req, res, next) {
     err.message.forEach((element) => {
       message.push(element);
     });
-  } else {
+
+  }else if (err.code === 401) {
+    code = 401;
+    err.message.forEach((element) => {
+      message.push(element);
+    });
+  
+  
+  } else if (err.code === 403) {
+    code = 403;
+    err.message.forEach((element) => {
+      message.push(element);
+    });
+  } 
+  else {
     code = 500;
     message.push("Internal server error");
   }
@@ -22,6 +36,8 @@ function errorHandler(err, req, res, next) {
     message,
   });
 }
+
+
 // function errorHandler(err, req, res, next) {
 //   const { code, message } = err;
 
@@ -39,6 +55,18 @@ function errorHandler(err, req, res, next) {
 //       .status(code)
 //       .json({ code, message: message || "Internal Server Error" });
 //   }
+// }
+
+// module.exports = (err, req, res, next) => {
+//   switch (err.code) {
+//     case 400: message = err.message ; break;
+//     case 401: message = err.message || `Username and Password Not Match`; break;
+//     case 403: message = `Forbidden Access`; break;
+//     case 404: message = `No Match Found`; break;
+//     case 500: message = err || `Internal Server Error`; break;
+//   }
+//   console.log(err)
+//   return res.status(err.code).json({message})
 // }
 
 module.exports = errorHandler;

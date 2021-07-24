@@ -2,11 +2,23 @@
   "name": "orchestrator",
   "version": "1.0.0",
   "description": "",
+<<<<<<< HEAD
+  "main": "index.js",
+=======
   "main": "app.js",
+>>>>>>> development
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
+<<<<<<< HEAD
+  "author": "Isra Hadi",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.0.2",
+    "axios": "^0.21.1",
+    "graphql": "^15.5.1",
+=======
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -17,6 +29,7 @@
     "dayjs": "^1.10.6",
     "graphql": "^15.5.1",
     "graphql-scalars": "^1.10.0",
+>>>>>>> development
     "ioredis": "^4.27.6"
   }
 }

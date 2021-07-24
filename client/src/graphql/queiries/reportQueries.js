@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client'
 
 export const ADD_REPORT = gql `
-utation Mutation($input: InputReport) {
+mutation Mutation($input: InputReport) {
   addReports(input: $input) {
       getReportsAll {
       _id
