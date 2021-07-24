@@ -5,12 +5,12 @@ export default function Home() {
         <>
             <div className="grid grid-cols-6 gap-2 md-max:grid-cols-3 pt-16">
                 {/* <div className="flex flex-wrap justify-center md-max:flex-col md-max:items-center "> */}
-                <div className="bg-red-500 box-border w-full p-4 border-4 md-max:col-span-4 grid-rows-2">
-                    <div className="bg-red-500 box-border h-32 my-2 p-2">box username</div>
-                    <div className="bg-yellow-700 box-border h-32 my-2 p-2">Challenge
+                <div className="bg-[#F8E2CF] box-border w-full p-4 border-4 md-max:col-span-4 grid-rows-2">
+                    <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">box username</div>
+                    <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">Challenge
                         Overview (Offline quiz still active)</div>
                 </div>
-                <div className="bg-yellow-500 box-border h-auto w-full p-4 border-4 col-span-4">
+                <div className="bg-[#FFEACA] box-border h-auto w-full p-4 border-4 col-span-4">
                     <div>Collection Kuis</div>
                     <div>
                         <div className="flex flex-wrap">
@@ -56,9 +56,9 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="bg-blue-500 box-border w-full p-4 border-4 md-max:col-span-4 grid-rows-2">
-                    <div className="bg-blue-200 box-border h-32 my-2 p-2">Quiz file</div>
-                    <div className="bg-blue-300 box-border h-32 my-2 p-2">Report</div>
+                <div className="bg-[#F8E2CF] box-border w-full p-4 border-4 md-max:col-span-4 grid-rows-2">
+                    <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">Quiz file</div>
+                    <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">Report</div>
                 </div>
             </div>
         </>
