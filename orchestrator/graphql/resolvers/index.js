@@ -15,7 +15,7 @@ const resolvers = {
                     return JSON.parse(QuizzesRedis)
                 } else {
                     const dataQuizzes = await axiosQuizzes.get(`/`)
-                    console.log(JSON.stringify(dataQuizzes.data));
+                    // console.log(JSON.stringify(dataQuizzes.data));
                     redis.set('Quizzes', JSON.stringify(dataQuizzes.data))
                 }
             } catch (err) {
@@ -54,7 +54,7 @@ const resolvers = {
                 redis.del('Quizzes')
                 return DestroyQuiz.data.message
             } catch (err) {
-                console.log(err.response.data.message);
+                // console.log(err.response.data.message);
                 throw new ApolloError(err.response.data.message)
             }
         },
@@ -67,7 +67,7 @@ const resolvers = {
                     timer: args.timer,
                     mode: args.mode
                 }
-                console.log(data);
+                // console.log(data);
                 const updateQuizzes = await axiosQuizzes.put(`/${args.id}`, data)
                 // console.log(updateQuizzes.data, 'masuk');
                 redis.del('Quizzes')
@@ -84,7 +84,7 @@ const resolvers = {
                     timer: args.timer,
                     mode: args.mode
                 }
-                console.log(data);
+                // console.log(data);
                 const postQuizzes = await axiosQuizzes.post(`/`, data)
                 // console.log(postQuizzes.data, 'masuk');
                 redis.del('Quizzes')
