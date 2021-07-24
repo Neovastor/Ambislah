@@ -1,9 +1,15 @@
-const { connect } = require('../config/mongodb')
-const {app, port} = require('../app')
+const app = require("../app.js");
+const { connect } = require("../config/mongodb")
 
-connect().then(async (database) => {
-    // console.log(database);
-    app.listen(port, () => {
-      console.log(`Reports running at http://localhost:${port}`)
+const port = process.env.PORT || 4001 
+
+connect()
+    .then(async database => {
+
+        app.listen(port, () => {
+            console.log(`listening app at http://localhost:${port}`);
+        })
     })
-})
+    .catch(err => {
+        console.log(err);
+    })

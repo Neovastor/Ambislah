@@ -1,30 +1,21 @@
 {
-  "name": "ambislah",
+  "name": "client",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ./bin/http.js",
-    "test": "jest --detectOpenHandles --forceExit"
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^4.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Neovastor/Ambislah.git"
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "supertest": "^6.1.4"
+  },
+  "scripts": {    
+    "start": "nodemon ./bin/http",
+    "test": "jest --detectOpenHandles --forceExit --runInBand"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Neovastor/Ambislah/issues"
-  },
-  "homepage": "https://github.com/Neovastor/Ambislah#readme",
-  "dependencies": {
-    "apollo-server-express": "^3.0.2",
-    "express": "^4.17.1",
-    "mongodb": "^4.0.1",
-    "supertest": "^6.1.4"
-  },
-  "devDependencies": {
-    "jest": "^27.0.6"
-  }
+  "license": "ISC"
 }

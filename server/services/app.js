@@ -1,13 +1,31 @@
-const express = require('express')
-const routes = require('./routes')
+
+const express = require("express")
+// const { connect } = require("./config/mongodb")
 const app = express()
-const port = process.env.PORT || 4001
-const cors = require('cors')
+// const port = 4001
 
-app.use(express.urlencoded({extended: false}))
+const router = require('./routes')
+
 app.use(express.json())
-app.use(cors())
 
-app.use('/', routes)
+app.use(express.urlencoded({
+    extended: false
+}))
 
-module.exports = {app, port}
+app.use(router);
+
+// connect()
+//     .then(async database => {
+//         
+//         app.listen(port, () => {
+//             // console.log(`listening app at http://localhost:${port}`);
+//         })
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     })
+
+
+module.exports = app
+
+
