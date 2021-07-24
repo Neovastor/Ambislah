@@ -14,6 +14,11 @@ const typeDefs = gql`
   type GoogleLogin {
     access_token: String
   }
+  type Query {
+    loginpage: Login
+    registerpage: Register
+    googlepage: GoogleLogin
+  }
   type Mutation {
     register(register: Formulir): Register
     login(login: Formulir): Login
