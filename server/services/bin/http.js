@@ -1,7 +1,7 @@
 const app = require("../app.js");
 const { connect } = require("../config/mongodb")
 
-const port =  4001
+const port = process.env.PORT || 4001 
 
 connect()
     .then(async database => {

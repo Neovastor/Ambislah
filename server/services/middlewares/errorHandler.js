@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function errorHandler(err, req, res, next) {
     let message = [];
     let code; 
@@ -23,6 +24,26 @@ function errorHandler(err, req, res, next) {
         code,
         message
     })
+=======
+function errorHandler (err, req, res, next) {
+    const {code, message} = err
+
+    if (code === 400) {
+        res.status(code).json({code, message: message || "Bad Requests"})
+    }
+    else if (code === 401) {
+        res.status(code).json({code, message: message || "Unauthorized"})
+    }
+    else if (code === 403) {
+        res.status(code).json({code, message: message || "Access Forbidden"})
+    }
+    else if (code === 404) {
+        res.status(code).json({code, message: message || "Not Found"})
+    }
+    else {  // 500
+        res.status(code).json({code, message: message || "Internal Server Error"})
+    }
+>>>>>>> development
 }
 
 module.exports = errorHandler
