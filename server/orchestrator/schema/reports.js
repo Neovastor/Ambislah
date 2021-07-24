@@ -9,7 +9,7 @@ const typeDef = gql`
         _id: ID
         userId: String
         quizId: String
-        date: String
+        date: Date
         playersCount: Int
         players: [Player]
     }
@@ -31,7 +31,7 @@ const typeDef = gql`
     } 
 
     extend type Query {
-        getReportsAll(input: String): [Report]
+        getReportsAll(userId: String, quizId: String): [Report]
         getReports(id: ID!): Report
     }
 
