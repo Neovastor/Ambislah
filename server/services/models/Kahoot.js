@@ -17,16 +17,16 @@ class Kahoot {
   static async findOne(id) {
     return await getDatabase().collection('cek').findOne({_id: ObjectId(id)})
   }
-  static async addMovie(cek) {
+  static async add(cek) {
     return await getDatabase().collection('cek').insertOne(cek)
   }
-  static async editMovie(id, cek) {
+  static async edit(id, cek) {
     return await getDatabase().collection('cek').updateOne(
       {_id: ObjectId(id)},
       {$set: cek}
     )
   }
-  static async deleteMovie(id) {
+  static async delete(id) {
     return await getDatabase().collection('cek').deleteOne({_id: ObjectId(id)})
   }
 }
