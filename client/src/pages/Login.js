@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
 
 export default function Report() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   const CALLBACK = (response) => {
     console.log(response);
-}
+  }
+  const changeEmail = e => {
+    setEmail(e.target.value)
+  }
+  const changePassword = e => {
+    setPassword(e.target.value)
+  }
+  const login = e => {
+    e.preventDefault()
+    
+  }
     return (
         <div className="overflow-x-auto pt-14">
             <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
@@ -16,15 +29,16 @@ export default function Report() {
                             <form>
                                 <div className="relative w-full mb-3 mt-5">
                                     <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
-                                    <input type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{"transition": "all 0.15s ease 0s"}} />
+                                    <input onChange={ changeEmail } type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{"transition": "all 0.15s ease 0s"}} />
                                 </div>
                                 <div className="relative w-full mb-3">
                                     <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Password</label>
-                                    <input type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{"transition": "all 0.15s ease 0s"}} />
+                                    <input onChange={ changePassword } type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{"transition": "all 0.15s ease 0s"}} />
                                 </div>
                                 <div>
-                                    <label className="inline-flex items-center cursor-pointer">
-                                    <input id="customCheckLogin" type="checkbox" className="form-checkbox text-gray-800 ml-1 w-5 h-5" style={{"transition": "all 0.15s ease 0s"}} /><span className="ml-2 text-sm font-semibold text-gray-700">Remember me</span></label>
+                                    <h3 className="inline-flex justify-center text items-center cursor-pointer">
+                                      don't have an account, Register here.
+                                    </h3>
                                 </div>
                                 <div className="text-center mt-6">
                                     <button className="bg-[#FFA0A0] text-black active:bg-gray-700 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="button" style={{"transition": "all 0.15s ease 0s"}}>Log In</button>
