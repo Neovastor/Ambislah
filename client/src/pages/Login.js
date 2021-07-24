@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
+import { Link } from 'react-router-dom';
 
 export default function Report() {
   const [email, setEmail] = useState('')
@@ -36,9 +37,9 @@ export default function Report() {
                                     <input onChange={ changePassword } type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{"transition": "all 0.15s ease 0s"}} />
                                 </div>
                                 <div>
-                                    <h3 className="inline-flex justify-center text items-center cursor-pointer">
+                                    <Link to="/register" className="text text-blue-600 cursor-pointer">
                                       don't have an account, Register here.
-                                    </h3>
+                                    </Link>
                                 </div>
                                 <div className="text-center mt-6">
                                     <button className="bg-[#FFA0A0] text-black active:bg-gray-700 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="button" style={{"transition": "all 0.15s ease 0s"}}>Log In</button>

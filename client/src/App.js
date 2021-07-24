@@ -7,6 +7,7 @@ import Footer from './pages/Footer';
 import Create from './pages/Create';
 import Report from './pages/Report';
 import Login from './pages/Login'
+import Register from './pages/Register'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <NavBar></NavBar>
       <Switch>
         <Route exact path="/login"> <Login /> </Route>
+        <Route exact path="/register"> <Register /> </Route>
         <Route exact path="/report"> <Report /> </Route>
         <Route exact path="/create"> <Create /> </Route>
         <Route> <Home /> </Route>
