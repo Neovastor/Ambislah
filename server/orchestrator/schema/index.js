@@ -2,6 +2,9 @@ const { gql } = require('apollo-server')
 const { merge } = require('lodash')
 const {makeExecutableSchema} = require('@graphql-tools/schema')
 const { typeDef: Reports, resolvers: reportsResolvers } = require('./reports')
+const { typeDef: Quizzes, resolvers: quizResolvers } = require('./quizzes')
+const { typeDef: Users, resolvers: userResolvers } = require('./user')
+
 const { GraphQLScalarType, Kind } = require('graphql')
 const dayjs = require('dayjs')
 const localizedFormat = require('dayjs/plugin/localizedFormat')
@@ -46,8 +49,8 @@ const resolvers = {
 };
 
 const schema = makeExecutableSchema({
-    typeDefs: [ typeDef, Reports],
-    resolvers: merge(resolvers, reportsResolvers)
+    typeDefs: [ typeDef, Reports, Quizzes, Users],
+    resolvers: merge(resolvers, reportsResolvers, quizResolvers, userResolvers)
 });
 
 module.exports = schema

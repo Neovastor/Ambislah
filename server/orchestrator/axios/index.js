@@ -4,4 +4,11 @@ const instanceReports = axios.create({
     baseURL: 'http://localhost:4001/reports',
   });
 
-module.exports = {instanceReports}
+const instanceQuizzes = axios.create({
+    baseURL: `http://localhost:4001/quizzes`
+})
+
+
+module.exports = {instanceReports, instanceQuizzes}
+
+
