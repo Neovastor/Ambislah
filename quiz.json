@@ -1,0 +1,55 @@
+{
+  "quizzes": [
+    {
+      "id" : 1,
+      "userId": 1,
+      "questions": [
+        {
+          "type": "text",
+          "question": "penemu bola lampu ?",
+          "image": "null",
+          "choose": ["aku", "kamu", "dia", "mereka"],
+          "answer": "aku"
+        },
+        {
+          "type": "text",
+          "question": "makanan terenak ?",
+          "image": "null",
+          "choose": ["nasi", "jagung", "mie", "sagu"],
+          "answer": "nasi"
+        },
+        {
+          "type": "text",
+          "question": "kendaraan beroda 4 ?",
+          "image": "null",
+          "choose": ["mobil", "sepeda motor", "sepeda", "pesawat"],
+          "answer": "mobil"
+        }
+      ],
+      "timer": 20,
+      "mode": "live"
+    },
+    {
+      "id" : 2,
+      "userId": 1,
+      "questions": [
+        {
+          "type": "text",
+          "question": "siapa presiden pertama indonesia ?",
+          "image": "null",
+          "choose": ["Soekarno", "Soeharto", "SBY", "Jokowi"],
+          "answer": "Soekarno"
+        },
+        {
+          "type": "text",
+          "question": "Nama ibukota Indonesia",
+          "image": "null",
+          "choose": ["Jakarta", "Surabaya", "Bandung", "Semarang"],
+          "answer": "Jakarta"
+        }
+      ],
+      "timer": 20,
+      "mode": "challenge"
+    }
+  ]
+}
