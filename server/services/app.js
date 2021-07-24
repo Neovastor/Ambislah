@@ -14,16 +14,15 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 let db = null
 
-app.get('/', async (req, res) => {
-  const cek = await db.collection('cek').find().toArray()
-  res.status(201).json(cek)
-})
-// app.get('/', (req, res) => {
-//   res.send('server 4001 is running in home')
+// app.get('/', async (req, res) => {
+//   const cek = await db.collection('cek').find().toArray()
+//   res.status(201).json(cek)
 // })
+app.get('/', (req, res) => {
+  res.send('server 4001 is running in home')
+})
 
 //finalproject
-app.get('/login', AuthController.findAll)
 app.post('/register', AuthController.register)
 app.post('/login', AuthController.login)
 app.post('/googlelogin', AuthController.googlelogin)
