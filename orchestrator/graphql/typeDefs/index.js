@@ -5,14 +5,30 @@ const typeDefs = gql`
         type: String
         question: String
         image: String
-        chosse: [String]
+        choose: [String]
         answer: String
     }
 
     type Quizzes {
         _id: ID
-        userId: Int
+        userId: String
         questions: [questions]
+        timer: Int
+        mode: String
+    }
+
+    input InputQuestion{
+        type: String
+        question: String
+        image: String
+        choose: [String]
+        answer: String
+    }
+
+    input InputQuizze {
+        _id: ID
+        userId: String
+        questions: [InputQuestion]
         timer: Int
         mode: String
     }
@@ -21,7 +37,12 @@ const typeDefs = gql`
         Quizzes : [Quizzes]
         QuizzesById (id:ID) : Quizzes
     }
-
+    
+    type Mutation {
+        DeleteQuizzesById(id:ID): String
+        EditQuizzesById(id:ID, userId:String, questions:[InputQuestion],timer:Int,mode:String) : Quizzes
+        AddQuizzesById(userId:String, questions:[InputQuestion],timer:Int,mode:String) : Quizzes
+    }
 `
 
 module.exports = typeDefs
