@@ -1,10 +1,14 @@
+import { useMutation } from '@apollo/client';
 import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { LOGIN } from '../graphql/query';
 
 export default function Report() {
+  const history= useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [login, { data }] = useMutation(LOGIN)
 
   const CALLBACK = (response) => {
     console.log(response);
@@ -15,8 +19,21 @@ export default function Report() {
   const changePassword = e => {
     setPassword(e.target.value)
   }
-  const login = e => {
+  const submitLogin = e => {
     e.preventDefault()
+    login({
+      variables: {
+        input: {
+          email: email,
+          password: password
+        }
+      }
+    })
+    setEmail('')
+    setPassword('')
+    history.push('/')
+    alert.success('Welcome')
+    console.log('>>>>>>', data)
     
   }
     return (
@@ -27,14 +44,14 @@ export default function Report() {
 
                       <div className="relative flex flex-col break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                            <form>
+                            <form onSubmit={ submitLogin }>
                                 <div className="relative w-full mb-3 mt-5">
                                     <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
-                                    <input onChange={ changeEmail } type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{"transition": "all 0.15s ease 0s"}} />
+                                    <input onChange={ changeEmail } value={ email } type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{"transition": "all 0.15s ease 0s"}} />
                                 </div>
                                 <div className="relative w-full mb-3">
                                     <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Password</label>
-                                    <input onChange={ changePassword } type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{"transition": "all 0.15s ease 0s"}} />
+                                    <input onChange={ changePassword } value={ password } type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{"transition": "all 0.15s ease 0s"}} />
                                 </div>
                                 <div>
                                     <Link to="/register" className="text text-blue-600 cursor-pointer">
@@ -42,7 +59,7 @@ export default function Report() {
                                     </Link>
                                 </div>
                                 <div className="text-center mt-6">
-                                    <button className="bg-[#FFA0A0] text-black active:bg-gray-700 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="button" style={{"transition": "all 0.15s ease 0s"}}>Log In</button>
+                                    <button className="bg-[#FFA0A0] text-black active:bg-gray-700 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="submit" style={{"transition": "all 0.15s ease 0s"}}>Log In</button>
                                 </div>
                             </form>
                             </div>
