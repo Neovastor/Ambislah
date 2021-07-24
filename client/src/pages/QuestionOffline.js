@@ -26,18 +26,18 @@ export default function QuestionOffline() {
                         </div>
 
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 gap-1">
                             <div className="flex">
-                                <button className="rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200">add answer 1</button>
+                                <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200">add answer 1</button>
                             </div>
                             <div className="flex">
-                                <button className="rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200">add answer 2</button>
+                                <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200">add answer 2</button>
                             </div>
                             <div className="flex">
-                                <button className="rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200">add answer 3</button>
+                                <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200">add answer 3</button>
                             </div>
                             <div className="flex">
-                                <button className="rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200">add answer 4</button>
+                                <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200">add answer 4</button>
                             </div>
                         </div>
                         <div>
