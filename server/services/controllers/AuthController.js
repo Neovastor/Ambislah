@@ -73,13 +73,13 @@ class AuthController {
       const email = payload.email
       const output = await Kahoot.login(email)
       if (output) {
-        console.log('output', '<><>')
+        console.log('<><>', output, '<><>')
         const userInfo = {
           email: output.email,
           name: output.name,
           id: JSON.stringify(output._id)
         }
-        console.log(userInfo)
+        console.log('>>>>>', userInfo)
         const token = generateJWT(userInfo)
         console.log(token)
         req.headers.access_token = token
