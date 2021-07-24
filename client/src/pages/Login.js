@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
-import { LOGIN } from '../graphql/query';
+import { LOGIN } from '../graphql/queiries/userQueries';
 import { useAlert } from 'react-alert';
 
 export default function Report() {
@@ -31,6 +31,7 @@ export default function Report() {
         }
       }
     })
+    
     setEmail('')
     setPassword('')
     history.push('/')

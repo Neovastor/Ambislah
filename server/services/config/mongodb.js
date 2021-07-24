@@ -1,20 +1,29 @@
-const { MongoClient } = require('mongodb')
+const { MongoClient, ObjectId } = require('mongodb')
+// Connection URL
+// const url = 'mongodb+srv://admin:Admin123@server-movies.rrpd0.mongodb.net/entertainme'
 const url = 'mongodb://localhost:27017'
 let db = null
 
 async function connect() {
-  const client = new MongoClient(url)
-  const dbName = 'databaseFINALP'
-  await client.connect()
+    const client = new MongoClient(url)
+    const environment = process.env.NODE_ENV
+    const dbName = environment === 'test' ? 'ambislah_testing' : 'ambislah'
 
-  const database = client.db(dbName)
-  db = database
-  return database
+    await client.connect()
+    console.log('Connected successfully to server')
+        
+    const database = client.db(dbName)
+    db = database
+
+    return {database, client}
+} 
+
+function getDatabase () {
+    return db
 }
-function getDatabase() {
-  return db
-}
+
 module.exports = {
-  connect,
-  getDatabase
+    connect,
+    getDatabase,
+    ObjectId
 }

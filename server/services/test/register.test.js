@@ -30,7 +30,7 @@ describe('register user', () => {
         expect(res.status).toBe(201)
         expect(res.body).toEqual(
           expect.objectContaining({
-            acknowledge: expect.any(String),
+            acknowledged: expect.any(Boolean),
             insertedId: expect.any(String)
           })
         )

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const { ApolloServer, gql, ApolloError } = require ('apollo-server')
 const axios = require ('axios')
 const Redis = require('ioredis')
@@ -85,3 +86,19 @@ const server = new ApolloServer({ typeDefs, resolvers })
 server.listen().then(({ url }) => {
   console.log('server berjalan  di AWS - http://3.89.146.243:4000 -', url)
 })
+=======
+const { ApolloServer} = require('apollo-server')
+const schema = require('./schema')
+const PORT = process.env.PORT || 4000
+
+const server = new ApolloServer({
+  schema, 
+  cors: true
+});
+
+
+// The `listen` method launches a web server.
+server.listen({port: PORT}).then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
+>>>>>>> development

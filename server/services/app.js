@@ -1,39 +1,35 @@
-// if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-  // require('dotenv').config()
-  // }
+
 require('dotenv').config()
-const { connect } = require('./config/mongodb')
-const express = require('express')
-const AuthController = require('./controllers/AuthController')
+const express = require("express")
+// const { connect } = require("./config/mongodb")
 const app = express()
-const PORT = process.env.PORT || 4001
-// const cors = require('cors')
+const cors = require('cors')
 
-// app.use(cors())
-app.use(express.urlencoded({extended: true}))
+app.use(cors())
+// const port = 4001
+
+const router = require('./routes')
+
 app.use(express.json())
-let db = null
 
-// app.get('/', async (req, res) => {
-//   const cek = await db.collection('cek').find().toArray()
-//   res.status(201).json(cek)
-// })
-app.get('/', (req, res) => {
-  res.send('server 4001 is running in home')
-})
+app.use(express.urlencoded({
+    extended: false
+}))
 
-//finalproject
-app.post('/register', AuthController.register)
-app.post('/login', AuthController.login)
-app.post('/googlelogin', AuthController.googlelogin)
+app.use(router);
 
-connect().then(async (database) => {
-  const cek = await database.collection('cek').find().toArray()
-  console.log('sudah konek>>')
-  db = database
-  app.listen(PORT, () => {
-    console.log('App sudah di listen di port', PORT)
-  })
-})
+// connect()
+//     .then(async database => {
+//         
+//         app.listen(port, () => {
+//             // console.log(`listening app at http://localhost:${port}`);
+//         })
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     })
 
-// module.exports = app
+
+module.exports = app
+
+

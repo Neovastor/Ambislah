@@ -1,6 +1,6 @@
 module.exports ={
   apps: [{
-    name: 'server movies 4001',
+    name: 'server ',
     script: 'node app.js',
     env: {
       PORT: 80,
