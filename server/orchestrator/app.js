@@ -6,7 +6,7 @@ const redis = new Redis()
 const typeDefs = gql`
   type Register {
     acknowledged: String,
-    insertedID: ID
+    insertedId: ID
   }
   type Login {
     access_token: String
