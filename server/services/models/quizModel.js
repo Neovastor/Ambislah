@@ -1,17 +1,17 @@
-const { database } = require('../config/mongodb')
+const { getDatabase } = require('../config/mongodb')
 const { ObjectId } = require("mongodb");
 
 class Quizzes {
     static async findAll() {
 
-        const quizzesCollection = database().collection('Quizzes')
+        const quizzesCollection = getDatabase().collection('Quizzes')
         const quizzes = await quizzesCollection.find().toArray()
         return quizzes
     }
 
     static async findOne(id) {
 
-        const quizzesCollection = database().collection('Quizzes')
+        const quizzesCollection = getDatabase().collection('Quizzes')
 
         const quizzes = await quizzesCollection.find({
             _id: ObjectId(id)
@@ -44,7 +44,7 @@ class Quizzes {
             return err
         }
 
-        const quizzesCollectios = database().collection('Quizzes')
+        const quizzesCollectios = getDatabase().collection('Quizzes')
 
         let quizzes = await quizzesCollectios.insertOne(result)
         
@@ -79,7 +79,7 @@ class Quizzes {
 
         let result = { userId, questions, timer, mode};            
 
-        const quizzesCollection = database().collection('Quizzes')
+        const quizzesCollection = getDatabase().collection('Quizzes')
 
         let quizzes = await quizzesCollection.updateOne(
             {
@@ -96,7 +96,7 @@ class Quizzes {
 
     static async deleteQuiz(id) {
 
-        const quizzesCollection = database().collection('Quizzes')
+        const quizzesCollection = getDatabase().collection('Quizzes')
 
         let quizzes = await quizzesCollection.deleteMany({
             _id: ObjectId(id)

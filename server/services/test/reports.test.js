@@ -1,46 +1,43 @@
-const {connect} = require('../config/mongodb')
-const {app} = require("../app");
+const { connect } = require("../config/mongodb");
+const app = require("../app");
 const request = require("supertest");
-const {dummyReports, isValidDate} = require('./reports.helpers')
+const { dummyReports, isValidDate } = require("./reports.helpers");
 
 // const {signJWT, verifyJWT} = require('../helpers/jwt')
 // require('dotenv').config()
-let db = null
-let client = null
-let connection = null
+let db = null;
+let client = null;
+let connection = null;
 
 const reportData = {
-    userId: '123abcKi',
-    quizId: '1021efg',
-    date: new Date(),
-    playersCount: 1,
-    players: [
-        {name: 'ba', score: 80}
-    ]
-}
+  userId: "123abcKi",
+  quizId: "1021efg",
+  date: new Date(),
+  playersCount: 1,
+  players: [{ name: "ba", score: 80 }],
+};
 
 beforeAll(async () => {
-    if(process.env.NODE_ENV == 'test') {
-        connection = await connect();
-        client = connection.client;
-        db = connection.database;
-        
-        const reports = await db.collection('Reports')
-        await reports.insertMany(dummyReports())
+  if (process.env.NODE_ENV == "test") {
+    connection = await connect();
+    client = connection.client;
+    db = connection.database;
 
-        return connection;
-    }
-  });
-  
+    const reports = await db.collection("Reports");
+    await reports.insertMany(dummyReports());
+
+    return connection;
+  }
+});
 
 afterAll(async () => {
-    if(process.env.NODE_ENV == 'test') {
-        const reports = await db.collection('Reports')
-        await reports.deleteMany({})
+  if (process.env.NODE_ENV == "test") {
+    const reports = await db.collection("Reports");
+    await reports.deleteMany({});
 
-        await client.close()
-    }
-})
+    await client.close();
+  }
+});
 
 jest.setTimeout(10000);
 
@@ -51,138 +48,147 @@ describe("Reports [SUCCESS CASE]", () => {
       .end((err, res) => {
         if (err) done(err);
         else {
-            const reportsArray = res.body
-            // console.log(reportsArray);
-            // expect(res.status).toBe(200);
-            
-            reportsArray.forEach(report => {
-                expect(isValidDate(report.date)).toBe(true)
-                expect(report).toHaveProperty('_id', expect.any(String))
-                expect(report).toHaveProperty('userId', expect.any(String))
-                expect(report).toHaveProperty('quizId', expect.any(String))
-                expect(report).toHaveProperty('playersCount', expect.any(Number))
-                expect(report).toHaveProperty('players', expect.any(Array))
-                report.players.forEach(player => {
-                    expect(player).toHaveProperty('name', expect.any(String))
-                    expect(player).toHaveProperty('score', expect.any(Number))
-                })
-            })
+          const reportsArray = res.body;
+          // console.log(reportsArray);
+          // expect(res.status).toBe(200);
+
+          reportsArray.forEach((report) => {
+            expect(isValidDate(report.date)).toBe(true);
+            expect(report).toHaveProperty("_id", expect.any(String));
+            expect(report).toHaveProperty("userId", expect.any(String));
+            expect(report).toHaveProperty("quizId", expect.any(String));
+            expect(report).toHaveProperty("playersCount", expect.any(Number));
+            expect(report).toHaveProperty("players", expect.any(Array));
+            report.players.forEach((player) => {
+              expect(player).toHaveProperty("name", expect.any(String));
+              expect(player).toHaveProperty("score", expect.any(Number));
+            });
+          });
 
           done();
         }
       });
-  })
+  });
   it("Get report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
     request(app)
       .get("/reports/60fad998cbd8d3ed1ba95f71")
       .end((err, res) => {
         if (err) done(err);
         else {
-            const report = res.body
-            expect(res.status).toBe(200);
-            expect(isValidDate(report.date)).toBe(true)
-            expect(report._id).toBe('60fad998cbd8d3ed1ba95f71')
-            expect(report).toHaveProperty('userId', expect.any(String))
-            expect(report).toHaveProperty('quizId', expect.any(String))
-            expect(report).toHaveProperty('playersCount', expect.any(Number))
-            expect(report).toHaveProperty('players', expect.any(Array))
-            report.players.forEach(player => {
-                expect(player).toHaveProperty('name', expect.any(String))
-                expect(player).toHaveProperty('score', expect.any(Number))
-            })
+          const report = res.body;
+          expect(res.status).toBe(200);
+          expect(isValidDate(report.date)).toBe(true);
+          expect(report._id).toBe("60fad998cbd8d3ed1ba95f71");
+          expect(report).toHaveProperty("userId", expect.any(String));
+          expect(report).toHaveProperty("quizId", expect.any(String));
+          expect(report).toHaveProperty("playersCount", expect.any(Number));
+          expect(report).toHaveProperty("players", expect.any(Array));
+          report.players.forEach((player) => {
+            expect(player).toHaveProperty("name", expect.any(String));
+            expect(player).toHaveProperty("score", expect.any(Number));
+          });
 
-            done();
+          done();
         }
       });
   }),
-  it("Create new report", (done) => {
-    request(app)
-      .post("/reports")
-      .send(reportData)
-      .end((err, res) => {
-        if (err) done(err);
-        else {
-            const report = res.body
+    it("Create new report", (done) => {
+      request(app)
+        .post("/reports")
+        .send(reportData)
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            const report = res.body;
             expect(res.status).toBe(201);
 
             // console.log(report);
-            expect(isValidDate(report.date)).toBe(true)
-            expect(report).toHaveProperty('_id', expect.any(String))
-            expect(report).toHaveProperty('userId', expect.any(String))
-            expect(report).toHaveProperty('quizId', expect.any(String))
-            expect(report).toHaveProperty('playersCount', expect.any(Number))
-            expect(report).toHaveProperty('players', expect.any(Array))
-            report.players.forEach(player => {
-                expect(player).toHaveProperty('name', expect.any(String))
-                expect(player).toHaveProperty('score', expect.any(Number))
-            })
+            expect(isValidDate(report.date)).toBe(true);
+            expect(report).toHaveProperty("_id", expect.any(String));
+            expect(report).toHaveProperty("userId", expect.any(String));
+            expect(report).toHaveProperty("quizId", expect.any(String));
+            expect(report).toHaveProperty("playersCount", expect.any(Number));
+            expect(report).toHaveProperty("players", expect.any(Array));
+            report.players.forEach((player) => {
+              expect(player).toHaveProperty("name", expect.any(String));
+              expect(player).toHaveProperty("score", expect.any(Number));
+            });
 
             done();
-        }
-      });
-  }),
-  it("Delete report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
+          }
+        });
+    }),
+    it("Delete report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
+      request(app)
+        .delete("/reports/60fad998cbd8d3ed1ba95f71")
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            const response = res.body;
+            expect(res.status).toBe(200);
+            expect(response).toHaveProperty("message", "Delete Item Success");
+
+            done();
+          }
+        });
+    });
+});
+
+describe("Reports [FAILURE CASE]", () => {
+  it("Report not found, wrong Id", (done) => {
     request(app)
-      .delete("/reports/60fad998cbd8d3ed1ba95f71")
+      .get("/reports/AbsolutlyWrong")
       .end((err, res) => {
         if (err) done(err);
         else {
-            const response = res.body
-            expect(res.status).toBe(200);
-            expect(response).toHaveProperty('message', 'Delete Item Success')
+          expect(res.status).toBe(404);
+          expect(res.body).toEqual(
+            expect.objectContaining({
+              code: 404,
+              message: expect.arrayContaining([expect.any(String)]),
+            })
+          );
 
-            done();
+          done();
         }
       });
-  })
-});
-
-
-describe("Reports [FAILURE CASE]", () => {
-    it("Report not found, wrong Id", (done) => {
-      request(app)
-        .get("/reports/AbsolutlyWrong")
-        .end((err, res) => {
-          if (err) done(err);
-          else {
-              const response = res.body
-              expect(res.status).toBe(404);
-              expect(response).toHaveProperty('message', 'Report Not Found')
-              
-              done();
-            }
-        });
-    }),
+  }),
     it("User Id is null", (done) => {
-        request(app)
+      request(app)
         .post("/reports")
         .send({
-            ...reportData,
-            userId: null
+          ...reportData,
+          userId: null,
         })
-        .end((err, res) => {
-            if (err) done(err);
-            else {
-              const error = ['userId cannot be empty']
-              const response = res.body
-              expect(res.status).toBe(400);
-              expect(response).toHaveProperty('message', expect.arrayContaining(error))
-              done();
-          }
-        });
-    })
-    it("Cannot delete report, wrong Id", (done) => {
-      request(app)
-        .delete("/reports/AbsolutlyWrong")
         .end((err, res) => {
           if (err) done(err);
           else {
-            const response = res.body
-            expect(res.status).toBe(404);
-            expect(response).toHaveProperty('message', 'Report Not Found')
-  
-              done();
+            const error = ["userId cannot be empty"];
+            const response = res.body;
+            expect(res.status).toBe(400);
+            expect(response).toHaveProperty(
+              "message",
+              expect.arrayContaining(error)
+            );
+            done();
           }
         });
-    })
+    });
+  it("Cannot delete report, wrong Id", (done) => {
+    request(app)
+      .delete("/reports/AbsolutlyWrong")
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.status).toBe(404);
+          expect(res.body).toEqual(
+            expect.objectContaining({
+              code: 404,
+              message: expect.arrayContaining([expect.any(String)]),
+            })
+          );
+          done();
+        }
+      });
   });
+});

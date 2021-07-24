@@ -1,4 +1,4 @@
-const ModelReports = require('../models/reports')
+const ModelReports = require('../models/reportModel')
 
 class Controller {
     static async findAllReports (req, res, next) {
@@ -19,7 +19,7 @@ class Controller {
             if (data) {
                 res.status(200).json(data)
             } else {
-                next({code: 404, message: 'Report Not Found'})
+                next({code: 404, message: ['Report Not Found']})
             }
         })
         .catch(err => {
@@ -60,7 +60,7 @@ class Controller {
                 res.status(200).json({'message': 'Delete Item Success'})
             }
             else {
-                next({code: 404, message: 'Report Not Found'})
+                next({code: 404, message: ['Report Not Found']})
             }
         })
         .catch (err => {

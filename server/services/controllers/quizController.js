@@ -1,4 +1,4 @@
-const Quizzes = require("../model/quizModel");
+const Quizzes = require("../models/quizModel");
 
 class QuizController {
   static getQuizHandler(req, res, next) {

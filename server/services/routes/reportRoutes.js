@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const ControllerReports = require('../controllers/controllerReports')
+const ControllerReports = require('../controllers/reportController')
 
 router.get('/', ControllerReports.findAllReports)
 router.get('/:id', ControllerReports.findOneReports)
