@@ -30,18 +30,18 @@ class Controller {
     static async createReports (req, res, next) {
         try {
             const {userId, quizId, date, playersCount, players} = req.body
-            if (!userId || !quizId || !date || !playersCount || !players) {
-                let err = []
-                !userId && err.push('userId')
-                !quizId && err.push('quizId')
-                !date && err.push('date')
-                !playersCount && err.push('playersCount')
-                !players && err.push('players')
 
-                const fields = err.join(', ')
-                next({code: 400, 'message': `The fields for ${fields} cannot be empty`})
+            let errorInput = []
+            !userId && errorInput.push('userId cannot be empty')
+            !quizId && errorInput.push('quizId cannot be empty')
+            !date && errorInput.push('date cannot be empty')
+            !playersCount && errorInput.push('playersCount cannot be empty')
+            !players && errorInput.push('players cannot be empty')
+            
+            if (errorInput.length) {
+                next({code: 400, 'message': errorInput})
             }
-            const input = {userId, quizId, date, playersCount, players}
+            const input = {userId, quizId, date: new Date(), playersCount: players.length, players}
             
             const data = await ModelReports.createReports(input)
             res.status(201).json(data)

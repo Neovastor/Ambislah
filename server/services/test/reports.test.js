@@ -162,10 +162,11 @@ describe("Reports [FAILURE CASE]", () => {
         })
         .end((err, res) => {
             if (err) done(err);
-          else {
+            else {
+              const error = ['userId cannot be empty']
               const response = res.body
               expect(res.status).toBe(400);
-              expect(response).toHaveProperty('message', 'The fields for userId cannot be empty')
+              expect(response).toHaveProperty('message', expect.arrayContaining(error))
               done();
           }
         });
@@ -185,4 +186,3 @@ describe("Reports [FAILURE CASE]", () => {
         });
     })
   });
-  
