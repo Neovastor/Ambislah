@@ -6,21 +6,17 @@ import NavBar from './pages/NavBar';
 import Footer from './pages/Footer';
 import Create from './pages/Create';
 import Report from './pages/Report';
+import Login from './pages/Login'
 
 function App() {
   return (
     <>
       <NavBar></NavBar>
       <Switch>
-        <Route path="/report">
-          <Report />
-        </Route>
-        <Route path="/create">
-          <Create />
-        </Route>
-        <Route>
-          <Home />
-        </Route>
+        <Route exact path="/login"> <Login /> </Route>
+        <Route exact path="/report"> <Report /> </Route>
+        <Route exact path="/create"> <Create /> </Route>
+        <Route> <Home /> </Route>
       </Switch>
       <Footer></Footer>
     </>
