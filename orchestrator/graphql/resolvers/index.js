@@ -52,14 +52,9 @@ const resolvers = {
             try {
                 const DestroyQuiz = await axiosQuizzes.delete(`/${args.id}`)
                 redis.del('Quizzes')
-                console.log(DestroyQuiz);
-                if (DestroyQuiz.data) {
-                    return DestroyQuiz.data
-                } else if (DestroyQuiz.data.DeleteQuizzesById === null) {
-                    return 'data not found'
-                }
+                return DestroyQuiz.data.message
             } catch (err) {
-                // console.log(err.response.data.message);
+                console.log(err.response.data.message);
                 throw new ApolloError(err.response.data.message)
             }
         },
