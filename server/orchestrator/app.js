@@ -35,10 +35,10 @@ const resolvers = {
           email: args.register.email,
           password: args.register.password
         }
-        const res = await axios.post('http://3.238.38.78/movies', data)
-        const movies = await res.data
-        redis.del('Movies')
-        return data
+        const res = await axios.post('http://localhost:4001/register', data)
+        const output = await res.data
+        redis.del('Register')
+        return output
         
       } catch (err) {
         throw new ApolloError('status: 500 - Internal Server Error')
@@ -47,16 +47,13 @@ const resolvers = {
     login: async (parent, args, context, info) => {
       try {
         const data = {
-          title: args.tv.title,
-          overview: args.tv.overview,
-          poster_path: args.tv.poster_path,
-          popularity: args.tv.popularity,
-          tags: args.tv.tags
+          email: args.login.email,
+          password: args.login.password
         }
-        const res = await axios.post('http://34.232.76.199/tvseries', data)
-        const tv = await res.data
-        redis.del('TV_Series')
-        return data
+        const res = await axios.post('http://localhost:4001/login', data)
+        const output = await res.data
+        redis.del('Login')
+        return output
         
       } catch (err) {
         throw new ApolloError('status: 500 - Internal Server Error')
@@ -65,16 +62,12 @@ const resolvers = {
     googlelogin: async (parent, args, context, info) => {
       try {
         const data = {
-          title: args.movies.title,
-          overview: args.movies.overview,
-          poster_path: args.movies.poster_path,
-          popularity: args.movies.popularity,
-          tags: args.movies.tags
+          id_token: args.idToken.id_token
         }
-        const res = await axios.put(`http://3.238.38.78/movies/${args._id}`, data)
-        const editMovies = await res.data
-        redis.del('Movies')
-        return data
+        const res = await axios.put(`http://localhost:4001/googlelogin`, data)
+        const output = await res.data
+        redis.del('GoogleLogin')
+        return output
         
       } catch (err) {
         throw new ApolloError('status: 500 - Internal Server Error')
