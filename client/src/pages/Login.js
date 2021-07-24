@@ -3,12 +3,14 @@ import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
 import { LOGIN } from '../graphql/query';
+import { useAlert } from 'react-alert';
 
 export default function Report() {
+  const alert = useAlert()
   const history= useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [login, { data }] = useMutation(LOGIN)
+  const [login, { data: datalogin }] = useMutation(LOGIN)
 
   const CALLBACK = (response) => {
     console.log(response);
@@ -33,7 +35,7 @@ export default function Report() {
     setPassword('')
     history.push('/')
     alert.success('Welcome')
-    console.log('>>>>>>', data)
+    console.log('>>>>>>', datalogin)
     
   }
     return (
