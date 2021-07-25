@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import Question from "../components/Question";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import CircleTimer from "../components/CircleTimer";
+import PlayerTable from "../components/PlayerTable";
 
 function WaitingRoom({ db }) {
   let { idroom: idparams } = useParams();
@@ -14,7 +15,6 @@ function WaitingRoom({ db }) {
   const [delay, setDelay] = useState(1000);
   const [indexSoal, setIndexSoal] = useState(0);
 
-  // const [seconds, setSeconds] = useState(0);
   const livegamesRef = db.collection("livegames").doc(idparams);
 
   useEffect(() => {
@@ -22,8 +22,6 @@ function WaitingRoom({ db }) {
       livegamesRef.onSnapshot((doc) => {
         setStatusGame(doc.data().status);
       });
-
-      
 
       const unsubcribe = db
         .collection("quizzes")
@@ -58,7 +56,7 @@ function WaitingRoom({ db }) {
           indexSoal: 0,
         })
         .then(() => {
-          console.log("Document successfully updated!");
+          // console.log("Document successfully updated!");
         })
         .catch((error) => {
           // The document probably doesn't exist.
@@ -68,6 +66,7 @@ function WaitingRoom({ db }) {
   }, [db]);
 
   function onClickStartHandler(e) {
+    setIsRunning(true)
     let timerInterval;
     Swal.fire({
       title: "Start the game",
@@ -100,7 +99,7 @@ function WaitingRoom({ db }) {
             players,
           })
           .then(() => {
-            console.log("Game Live!");
+            
             setStatusGame("live");
             setCount(0);
             setIndexSoal(0);
@@ -147,8 +146,20 @@ function WaitingRoom({ db }) {
             indexSoal: indexSoal + 1,
           })
           .then(() => {
-            console.log("Document successfully updated!");
             setIndexSoal(indexSoal + 1);
+          })
+          .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+          });
+      } else if (count > quizzes.timer && indexSoal === quizzes.questions.length - 1) {
+        setIsRunning(false);
+        return livegamesRef
+          .update({
+            status: "done",
+          })
+          .then(() => {            
+            setStatusGame("done");
           })
           .catch((error) => {
             // The document probably doesn't exist.
@@ -158,22 +169,19 @@ function WaitingRoom({ db }) {
     }
   }, [count]);
 
+  if (statusGame === "done") {
+    return <h1>Game Finished</h1>;
+  }
+
   return (
     <>
       <h1>Waiting Room</h1>
       <h2>Peserta</h2>
 
       {statusGame === "live" ? <h2>{count}</h2> : null}
+
       {players.length > 0 ? (
-        <ul className="list-disc">
-          {players.map((player, i) => {
-            return (
-              <li key={2000 + i}>
-                <h3>{player.playername}</h3>{" "}
-              </li>
-            );
-          })}
-        </ul>
+        <PlayerTable players={players} />
       ) : null}
 
       {statusGame !== "test" ? (
@@ -190,17 +198,7 @@ function WaitingRoom({ db }) {
       statusGame === "live" &&
       count < quizzes.timer ? (
         <div>
-          <CountdownCircleTimer
-            isPlaying
-            duration={quizzes.timer}
-            colors={[
-              ["#004777", 0.33],
-              ["#F7B801", 0.33],
-              ["#A30000", 0.33],
-            ]}
-          >
-            {({ remainingTime }) => remainingTime}
-          </CountdownCircleTimer>
+          <CircleTimer duration={quizzes.timer} />
           <div>
             <Question
               question={quizzes.questions[indexSoal]}

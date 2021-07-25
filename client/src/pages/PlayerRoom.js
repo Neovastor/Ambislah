@@ -13,7 +13,7 @@ function PlayerRoom({ db }) {
   const [optionB, setOptionB] = useState("btn btn-primary m-3");
   const [optionC, setOptionC] = useState("btn btn-primary m-3");
   const [optionD, setOptionD] = useState("btn btn-primary m-3");
-  const [score, setScore] = useState([]);
+  const [scores, setScores] = useState([]);
 
   const location = useLocation();
 
@@ -103,24 +103,35 @@ function PlayerRoom({ db }) {
         Swal.fire({
           icon: "success",
           title: "Your answer is right",
+          timer: 1500
         });
 
-        setScore((score) => [...score, 1]);
+        setScores((scores) => [...scores, 1]);
       } else {
         Swal.fire({
           icon: "error",
           title: "wrong answer",
+          timer: 1500
         });
 
-        setScore((score) => [...score, 0]);
+        setScores((scores) => [...scores, 0]);
       }
     }
   }
 
-  console.log(score);
+  console.log(scores);
 
   if (status === "waiting") {
     return <h1>Waiting host to start the game</h1>;
+  }
+  if (status === "done") {
+    return (
+      <div>
+        <h1>Game Finished</h1>
+        <h2>Your Score</h2>
+        <h2> {scores.reduce((a, b) => a + b, 0)} </h2>
+      </div>
+    );
   }
 
   if (status === "live") {
