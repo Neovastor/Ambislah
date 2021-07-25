@@ -39,36 +39,35 @@ export default function Report() {
       timer: 2500,
     });
   }
-  const submitLogin = e => {
-    const { email, password } = e
-    login({
-      variables: {
-        input: {
-          email: email,
-          password: password
+  const submitLogin = async e => {
+    try {
+      const { email, password } = e
+      const res = await login({
+        variables: {
+          input: {
+            email: email,
+            password: password
+          }
         }
-      }
-    })
-    .then(res => {
-        console.log('>>>>>>', res.data.login)
-        localStorage.setItem('access_token', res.data.login.access_token)
-        history.push('/')
-        // alert.success('Welcome')
-        Swal.fire({
-          icon: "success",
-          title: "Welcome..!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-    })
-    .catch(_ => {
+      })
+      console.log('>>>>>>', res.data.login)
+      localStorage.setItem('access_token', res.data.login.access_token)
+      history.push('/')
+      // alert.success('Welcome')
+      Swal.fire({
+        icon: "success",
+        title: "Welcome..!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Username and Password did not match!',
         footer: '<h1>Wanna try again?</h1>'
       })
-    })
+    }
   }
     return (
         <div className="overflow-x-auto pt-14">
