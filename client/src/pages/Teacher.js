@@ -17,10 +17,15 @@ export default function Report() {
   const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
   const [type, setType] = useState('text')
   const [answer, setAnswer] = useState('')
+  const [status1, setStatus1] = useState(false)
+  const [status2, setStatus2] = useState(false)
+  const [status3, setStatus3] = useState(false)
+  const [status4, setStatus4] = useState(false)
 
   const typeSound = e => {
     setType('sound')
     const { input1, input2, input3, input4 } = e
+    console.log('ini answer>>', answer)
     console.log(input1, input2, input3, input4)
   }
   const typeText = e => {
@@ -30,21 +35,37 @@ export default function Report() {
     const { input1 } = e
     console.log('satu', input1)
     setAnswer(input1)
+    setStatus1(true)
+    setStatus2(false)
+    setStatus3(false)
+    setStatus4(false)
   }
   const submit2 = e => {
     const { input2 } = e
     console.log('dua', input2)
     setAnswer(input2)
+    setStatus2(true)
+    setStatus3(false)
+    setStatus4(false)
+    setStatus1(false)
   }
   const submit3 = e => {
     const { input3 } = e
     console.log('tiga', input3)
     setAnswer(input3)
+    setStatus3(true)
+    setStatus4(false)
+    setStatus1(false)
+    setStatus2(false)
   }
   const submit4 = e => {
     const { input4 } = e
     console.log('empat', input4)
     setAnswer(input4)
+    setStatus4(true)
+    setStatus1(false)
+    setStatus2(false)
+    setStatus3(false)
   }
 
   return (
