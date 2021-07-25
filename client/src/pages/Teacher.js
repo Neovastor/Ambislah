@@ -1,20 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useReactiveVar } from '@apollo/client';
-import React, { useEffect, useState } from 'react'
-import GoogleLogin from 'react-google-login';
-import { Link, useHistory } from 'react-router-dom';
-import { GOOGLE_LOGIN, LOGIN } from '../graphql/queiries/userQueries';
-import { useAlert } from 'react-alert';
-import Swal from 'sweetalert2'
-import { answerVar } from "../graphql/vars";
+import React, { useState } from 'react'
 
-export default function Report() {
+export default function Teacher() {
   const { register, handleSubmit } = useForm();
-  const answer = useReactiveVar(answerVar)
-  const alert = useAlert()
-  const history= useHistory()
-  const [login, { data: datalogin }] = useMutation(LOGIN)
-  const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
   const [type, setType] = useState('text')
   const [type1, setType1] = useState(false)
   const [type2, setType2] = useState(false)
