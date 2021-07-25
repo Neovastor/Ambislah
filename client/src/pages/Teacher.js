@@ -10,12 +10,13 @@ import { answerVar } from "../graphql/vars";
 
 export default function Report() {
   const { register, handleSubmit } = useForm();
-  const answer = useReactiveVar(answerVar)
+  // const answer = useReactiveVar(answerVar)
   const alert = useAlert()
   const history= useHistory()
   const [login, { data: datalogin }] = useMutation(LOGIN)
   const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
   const [type, setType] = useState('text')
+  const [answer, setAnswer] = useState('')
 
   const typeSound = e => {
     setType('sound')
@@ -24,6 +25,26 @@ export default function Report() {
   }
   const typeText = e => {
     setType('text')
+  }
+  const submit1 = e => {
+    const { input1 } = e
+    console.log('satu', input1)
+    setAnswer(input1)
+  }
+  const submit2 = e => {
+    const { input2 } = e
+    console.log('dua', input2)
+    setAnswer(input2)
+  }
+  const submit3 = e => {
+    const { input3 } = e
+    console.log('tiga', input3)
+    setAnswer(input3)
+  }
+  const submit4 = e => {
+    const { input4 } = e
+    console.log('empat', input4)
+    setAnswer(input4)
   }
 
   return (
@@ -52,12 +73,12 @@ export default function Report() {
               </div>
               <div className="flex justify-center">
                 <div className="flex flex-col mx-60 my-60">
-                <input {...register('input1')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input first answer"/>
-                <input {...register('input2')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input second answer"/>
+                <input {...register('input1')} onClick={ handleSubmit(submit1) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input first answer"/>
+                <input {...register('input2')} onClick={ handleSubmit(submit2) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input second answer"/>
                 </div>
                 <div className="flex flex-col mx-60 my-60">
-                <input {...register('input2')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input second answer"/>
-                <input {...register('input2')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input second answer"/>
+                <input {...register('input3')} onClick={ handleSubmit(submit3) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input third answer"/>
+                <input {...register('input4')} onClick={ handleSubmit(submit4) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input fourth answer"/>
                 </div>
               </div>
             </div>
