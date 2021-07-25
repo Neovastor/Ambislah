@@ -15,10 +15,18 @@ class AuthController {
   static async register(req, res, next) {
     try {
       const { email, password } = req.body
-      const name = email.split('@')[0]
-      const input = { email, password, name }
-      const output = await Kahoot.register(input)
-      res.status(201).json(output)
+      if (!email || !password || +email+'' === '0' || +password+'' === '0') {
+        res.status(500).json({ msg: 'Internal Server Error' })
+      } else {
+        const name = email.split('@')[0]
+        const input = { email, password, name }
+        const output = await Kahoot.register(input)
+        if (output) {
+          res.status(201).json(output)
+        } else {
+          res.status(500).json({ msg: 'Internal Server Error' })
+        }
+      }
     } catch (err) {
       err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
     }
