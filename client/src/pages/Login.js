@@ -18,7 +18,6 @@ export default function Report() {
     console.log(response);
   }
   const submitLogin = e => {
-    // e.preventDefault()
     const { email, password } = e
     login({
       variables: {
@@ -28,12 +27,10 @@ export default function Report() {
         }
       }
     })
-    .then(_ => {
-      // setEmail('')
-      // setPassword('')
+    .then(res => {
       history.push('/')
       alert.success('Welcome')
-      console.log('>>>>>>', datalogin)
+      console.log('>>>>>>', res.data.login)
     })
   }
     return (
