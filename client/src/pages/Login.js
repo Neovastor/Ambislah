@@ -10,8 +10,6 @@ export default function Report() {
   const { register, handleSubmit } = useForm();
   const alert = useAlert()
   const history= useHistory()
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
   const [login, { data: datalogin }] = useMutation(LOGIN)
 
   const CALLBACK = (response) => {
