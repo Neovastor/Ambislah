@@ -9,6 +9,8 @@ import Create from './pages/Create';
 import Report from './pages/Report';
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Speech from './pages/SpeechTest'
+// import {SpeechRecognition} from './components'
 
 function App() {
   return (
@@ -19,7 +21,8 @@ function App() {
         <Route exact path="/register"> <Register /> </Route>
         <Route exact path="/report"> <Report /> </Route>
         <Route exact path="/create"> <Create /> </Route>
-        <Route> <Home /> </Route>
+        <Route exact path="/playground"> <Speech /> </Route>
+        {/* <Route> <Home /> </Route> */}
       </Switch>
       <Footer></Footer>
     </>

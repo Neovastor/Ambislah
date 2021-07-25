@@ -21,10 +21,12 @@
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
     "react-google-oauth": "^1.0.0",
+    "react-hook-form": "^7.12.0",
     "react-loading": "^2.0.3",
     "react-player": "^2.9.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-speech-recognition": "^3.8.2",
     "sweetalert2": "^11.0.20",
     "web-vitals": "^1.1.2"
   },
