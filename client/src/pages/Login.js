@@ -27,7 +27,6 @@ export default function Report() {
       }
     })
     .then(res => {
-      // if (res.data.login ) {
         console.log('>>>>>>', res.data.login)
         localStorage.setItem('access_token', res.data.login.access_token)
         history.push('/')
@@ -38,14 +37,6 @@ export default function Report() {
           showConfirmButton: false,
           timer: 1500,
         });
-      // } else {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Oops...',
-      //     text: 'Username and Password did not match!',
-      //     footer: '<a href="/login">Wanna try again?</a>'
-      //   })
-      // }
     })
     .catch(_ => {
       Swal.fire({
