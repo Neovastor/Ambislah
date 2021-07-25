@@ -1,0 +1,114 @@
+{
+    "premium": [
+        {
+            "id": 1,
+            "name": "Netflix",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Netflix_vi32mjkRD.png",
+            "price": 45000,
+            "active": "1 month",
+            "version": "Premium",
+            "method": "Shared",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Akun Netflix Shared dari kami buyer hanya login saja."
+        },
+        {
+            "id": 2,
+            "name": "WeTV",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/WeTV_ayAwY_y45.png",
+            "price": 30000,
+            "active": "1 year",
+            "version": "Premium",
+            "method": "Shared",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Akun WeTv Premium dari kami buyer hanya login saja."
+        },
+        {
+            "id": 3,
+            "name": "Youtube",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Youtube_hr_1sYpZNQV_9.png",
+            "price": 15000,
+            "active": "1 month",
+            "version": "Premium",
+            "method": "Invite (Proses Melalui alamat Gmail)",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Khusus untuk Paket Invite jika sudah pernah menerima invite link sebelumnya, maka tidak bisa membeli paket tersebut, sesuai dengan kebijakan Spotify yaitu hanya bisa menerima invite selama 2x"
+        },
+        {
+            "id": 4,
+            "name": "Youtube",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Youtube_hr_1sYpZNQV_9.png",
+            "price": 25000,
+            "active": "1 month",
+            "version": "Premium",
+            "method": "Admin (Akun dari Kami)",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Khusus untuk Paket Invite jika sudah pernah menerima invite link sebelumnya, maka tidak bisa membeli paket tersebut, sesuai dengan kebijakan Spotify yaitu hanya bisa menerima invite selama 2x"
+        },
+        {
+            "id": 5,
+            "name": "Spotify",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Spotify_d4PjjT0IVWhk.png",
+            "price": 20000,
+            "active": "1 month",
+            "version": "Premium",
+            "method": "Invite (Proses Melalui Link)",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Khusus untuk Paket Invite jika sudah pernah menerima invite link sebelumnya, maka tidak bisa membeli paket tersebut, sesuai dengan kebijakan Spotify yaitu hanya bisa menerima invite selama 2x"
+        },
+        {
+            "id": 6,
+            "name": "Spotify",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Spotify_d4PjjT0IVWhk.png",
+            "price": 30000,
+            "active": "1 month",
+            "version": "Premium",
+            "method": "Perpanjangan (Proses Perpanjangan)",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Khusus untuk Paket Invite jika sudah pernah menerima invite link sebelumnya, maka tidak bisa membeli paket tersebut, sesuai dengan kebijakan Spotify yaitu hanya bisa menerima invite selama 2x"
+        },
+        {
+            "id": 7,
+            "name": "Disney+ Hotstar",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Disney__nPv_1Jpxi.png",
+            "price": 30000,
+            "active": "1 month",
+            "version": "Premium",
+            "method": "Shared",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Akun Disney+ Hotstar Shared buyer hanya login saja."
+        },
+        {
+            "id": 8,
+            "name": "Canva",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Canva_3ryvxdx8Zrbq.png",
+            "price": 25000,
+            "active": "1 month",
+            "version": "Premium",
+            "method": "Invite (Proses Melalui alamat Gmail)",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Buyer Hanya Memberi alamat E-mail saja."
+        },
+        {
+            "id": 9,
+            "name": "Apple Music",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Apple_Music_i5vYKbybO.png",
+            "price": 50000,
+            "active": "3 month",
+            "version": "Premium",
+            "method": "Shared (Proses Melalui Invitation)",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Akun Apple Music"
+        },
+        {
+            "id": 10,
+            "name": "Apple Music",
+            "imageUrl": "https://ik.imagekit.io/prbjdtauk2z/Project-premium/Apple_Music_i5vYKbybO.png",
+            "price": 45000,
+            "active": "3 month",
+            "version": "Premium",
+            "method": "Perpanjang (Proses Perpanjangan)",
+            "used": "1 Screen / 1 Perangkat",
+            "note": "Akun Apple Music"
+        }
+    ]
+}
