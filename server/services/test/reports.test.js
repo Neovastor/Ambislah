@@ -23,7 +23,6 @@ beforeAll(async () => {
 
     const reports = await db.collection("Reports");
     await reports.insertMany(dummyReports());
-    console.log(dummyReports());
 
     return connection;
   }
@@ -38,7 +37,7 @@ afterAll(async () => {
   }
 });
 
-jest.setTimeout(10000);
+jest.setTimeout(5000);
 
 describe("Reports [SUCCESS CASE]", () => {
   it("Get all reports", (done) => {
@@ -49,7 +48,7 @@ describe("Reports [SUCCESS CASE]", () => {
         if (err) done(err);
         else {
           const reportsArray = res.body;
-          console.log(reportsArray);
+          // console.log(reportsArray);
           expect(res.status).toBe(200);
 
           reportsArray.forEach((report) => {

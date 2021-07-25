@@ -83,12 +83,17 @@ class Quizzes {
         }       
 
         const quizzesCollection = getDatabase().collection('Quizzes')
+        let result = {userId, title, questions, timer, mode, updatedAt: new Date()}
 
-        let date =  await quizzesCollection.findOne({_id: ObjectId(id)})
-        let createdAt = date.createdAt
+        quizzesCollection.findOne({_id: ObjectId(id)})
+        .then(data => {
+            if (data) {
+                result.createdAt = data.createdAt
+            } else {
+                return result.matchedCount = 0
+            }
+        })
         
-        let result = {userId, title, questions, timer, mode, createdAt,
-            updatedAt: new Date()}
         let quizzes = await quizzesCollection.updateOne(
             {
                 _id: ObjectId(id)

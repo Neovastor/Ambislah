@@ -12,7 +12,7 @@ let db
 beforeAll(async () => {
   connection = await connect()
   client = connection.client
-  db = connection.db
+  db = connection.database
   return connection
 })
 afterAll(async () => {
@@ -26,7 +26,8 @@ describe('GOOGLE login', () => {
       // .send({id_token})
       .end((err, res) => {
         console.log('OK')
-        expect(res.status).toBe(200)
+        // expect(res.status).toBe(200)
+        console.log(res.body);
         expect(res.body).toEqual(
           expect.objectContaining({
             access_token: expect.any(String)
