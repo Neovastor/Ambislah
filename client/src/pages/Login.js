@@ -15,6 +15,7 @@ export default function Report() {
 
   const CALLBACK = (response) => {
     console.log(response);
+    console.log('id_token',response.tokenId)
   }
   const submitLogin = e => {
     const { email, password } = e
