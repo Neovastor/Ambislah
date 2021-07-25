@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useReactiveVar } from '@apollo/client';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GoogleLogin from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
 import { GOOGLE_LOGIN, LOGIN } from '../graphql/queiries/userQueries';
@@ -10,23 +10,19 @@ import { answerVar } from "../graphql/vars";
 
 export default function Report() {
   const { register, handleSubmit } = useForm();
-  // const answer = useReactiveVar(answerVar)
+  const answer = useReactiveVar(answerVar)
   const alert = useAlert()
   const history= useHistory()
   const [login, { data: datalogin }] = useMutation(LOGIN)
   const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
   const [type, setType] = useState('text')
-  const [answer, setAnswer] = useState('')
   const [status1, setStatus1] = useState(false)
   const [status2, setStatus2] = useState(false)
   const [status3, setStatus3] = useState(false)
   const [status4, setStatus4] = useState(false)
 
-  const typeSound = e => {
+  const typeSound = async e => {
     setType('sound')
-    const { input1, input2, input3, input4 } = e
-    console.log('ini answer>>', answer)
-    console.log(input1, input2, input3, input4)
   }
   const typeText = e => {
     setType('text')
@@ -34,7 +30,6 @@ export default function Report() {
   const submit1 = e => {
     const { input1 } = e
     console.log('satu', input1)
-    setAnswer(input1)
     setStatus1(true)
     setStatus2(false)
     setStatus3(false)
@@ -43,7 +38,6 @@ export default function Report() {
   const submit2 = e => {
     const { input2 } = e
     console.log('dua', input2)
-    setAnswer(input2)
     setStatus2(true)
     setStatus3(false)
     setStatus4(false)
@@ -52,7 +46,6 @@ export default function Report() {
   const submit3 = e => {
     const { input3 } = e
     console.log('tiga', input3)
-    setAnswer(input3)
     setStatus3(true)
     setStatus4(false)
     setStatus1(false)
@@ -61,11 +54,19 @@ export default function Report() {
   const submit4 = e => {
     const { input4 } = e
     console.log('empat', input4)
-    setAnswer(input4)
     setStatus4(true)
     setStatus1(false)
     setStatus2(false)
     setStatus3(false)
+  }
+  const submitAnswer = e => {
+    const { input1, input2, input3, input4 } = e
+    console.log(input1, input2, input3, input4)
+    console.log(status1, status2, status3, status4)
+    if (status1) console.log(input1)
+    if (status2) console.log(input2)
+    if (status3) console.log(input3)
+    if (status4) console.log(input4)
   }
 
   return (
@@ -74,7 +75,7 @@ export default function Report() {
           <div className="w-full lg:w-5/6 max-w-screen-2xl pt-5">
             <div className="bg-white shadow-md rounded-lg my-6 min-h-screen">
               <div className="flex justify-center">
-                <input type="text" className="text px-72 py-8 bg-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl" />
+                <input type="text" className="text px-72 py-8 bg-red-300 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl" placeholder="input your question"/>
               </div>
               <div className="flex justify-center">
                 <div className="flex flex-col mx-60 my-60">
@@ -92,16 +93,21 @@ export default function Report() {
                 </button>
                 </div>
               </div>
-              <div className="flex justify-center">
-                <div className="flex flex-col mx-60 my-60">
-                <input {...register('input1')} onClick={ handleSubmit(submit1) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input first answer"/>
-                <input {...register('input2')} onClick={ handleSubmit(submit2) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input second answer"/>
+              <form onSubmit={ handleSubmit(submitAnswer) }>
+                <div className="flex justify-center">
+                  <div className="flex flex-col mx-60">
+                    <input {...register('input1')} onClick={ handleSubmit(submit1) } className={ status1 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input first answer"/>
+                    <input {...register('input2')} onClick={ handleSubmit(submit2) } className={ status2 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input second answer"/>
+                  </div>
+                  <div className="flex flex-col mx-60">
+                    <input {...register('input3')} onClick={ handleSubmit(submit3) } className={ status3 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input third answer"/>
+                    <input {...register('input4')} onClick={ handleSubmit(submit4) } className={ status4 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input fourth answer"/>
+                  </div>
                 </div>
-                <div className="flex flex-col mx-60 my-60">
-                <input {...register('input3')} onClick={ handleSubmit(submit3) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input third answer"/>
-                <input {...register('input4')} onClick={ handleSubmit(submit4) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input fourth answer"/>
+                <div className="flex justify-center">
+                  <button className="px-6 py-2 bg-gray-800 rounded-xl">Submit</button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
       </div>
