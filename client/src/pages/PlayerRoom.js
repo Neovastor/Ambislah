@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
+import firebase from "firebase/app";
 
 function PlayerRoom({ db }) {
   const buttonRight = "btn btn-success m-3";
@@ -119,17 +120,25 @@ function PlayerRoom({ db }) {
     }
   }
 
-  console.log(scores);
+//   console.log(scores);
 
   if (status === "waiting") {
     return <h1>Waiting host to start the game</h1>;
   }
+
   if (status === "done") {
+    const playerTotalScore = scores.reduce((a, b) => a + b, 0);
+    livegamesRef.update({
+        leaderboard: firebase.firestore.FieldValue.arrayUnion({
+            name : location.state.playername,
+            score : playerTotalScore
+        })
+    });
     return (
       <div>
         <h1>Game Finished</h1>
         <h2>Your Score</h2>
-        <h2> {scores.reduce((a, b) => a + b, 0)} </h2>
+        <h2> {playerTotalScore} </h2>
       </div>
     );
   }

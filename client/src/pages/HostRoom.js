@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import Question from "../components/Question";
 import CircleTimer from "../components/CircleTimer";
 import PlayerTable from "../components/PlayerTable";
+import Leaderboard from "./Leaderboard";
 
 function WaitingRoom({ db }) {
   let { idroom: idparams } = useParams();
@@ -66,8 +67,10 @@ function WaitingRoom({ db }) {
   }, [db]);
 
   function onClickStartHandler(e) {
-    setIsRunning(true)
+    setIsRunning(true);
+
     let timerInterval;
+
     Swal.fire({
       title: "Start the game",
       html: "the game with start in <b></b> ",
@@ -89,8 +92,6 @@ function WaitingRoom({ db }) {
         clearInterval(timerInterval);
       },
     }).then((result) => {
-      /* Read more about handling dismissals below */
-
       if (result.dismiss === Swal.DismissReason.timer) {
         livegamesRef
           .set({
@@ -99,7 +100,6 @@ function WaitingRoom({ db }) {
             players,
           })
           .then(() => {
-            
             setStatusGame("live");
             setCount(0);
             setIndexSoal(0);
@@ -149,7 +149,7 @@ function WaitingRoom({ db }) {
             setIndexSoal(indexSoal + 1);
           })
           .catch((error) => {
-            // The document probably doesn't exist.
+
             console.error("Error updating document: ", error);
           });
       } else if (count > quizzes.timer && indexSoal === quizzes.questions.length - 1) {
@@ -158,7 +158,7 @@ function WaitingRoom({ db }) {
           .update({
             status: "done",
           })
-          .then(() => {            
+          .then(() => {
             setStatusGame("done");
           })
           .catch((error) => {
@@ -170,7 +170,12 @@ function WaitingRoom({ db }) {
   }, [count]);
 
   if (statusGame === "done") {
-    return <h1>Game Finished</h1>;
+    return (
+      <div>
+        <h1>Game Finished</h1>
+        <Leaderboard db={ db } idparams={idparams} />
+      </div>
+    );
   }
 
   return (
@@ -180,9 +185,7 @@ function WaitingRoom({ db }) {
 
       {statusGame === "live" ? <h2>{count}</h2> : null}
 
-      {players.length > 0 ? (
-        <PlayerTable players={players} />
-      ) : null}
+      {players.length > 0 ? <PlayerTable players={players} /> : null}
 
       {statusGame !== "test" ? (
         <button
@@ -214,9 +217,4 @@ function WaitingRoom({ db }) {
 
 export default WaitingRoom;
 
-{
-  /* {quizzes.questions.map((question, i) => {
-            return (
-          );
-          })} */
-}
+

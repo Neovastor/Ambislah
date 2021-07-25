@@ -3,6 +3,7 @@
     {
       "id" : 1,
       "userId": 1,
+      "title": "kuis terhebat",
       "questions": [
         {
           "type": "text",
@@ -32,6 +33,7 @@
     {
       "id" : 2,
       "userId": 1,
+      "title": "kuis menarik",
       "questions": [
         {
           "type": "text",
