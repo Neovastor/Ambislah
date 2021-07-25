@@ -61,12 +61,10 @@ export default function Report() {
   }
   const submitAnswer = e => {
     const { input1, input2, input3, input4 } = e
-    console.log(input1, input2, input3, input4)
-    console.log(status1, status2, status3, status4)
-    if (status1) console.log(input1)
-    if (status2) console.log(input2)
-    if (status3) console.log(input3)
-    if (status4) console.log(input4)
+    if (status1) console.log('ini yang di submit>>',input1)
+    if (status2) console.log('ini yang di submit>>',input2)
+    if (status3) console.log('ini yang di submit>>',input3)
+    if (status4) console.log('ini yang di submit>>',input4)
   }
 
   return (
@@ -75,7 +73,10 @@ export default function Report() {
           <div className="w-full lg:w-5/6 max-w-screen-2xl pt-5">
             <div className="bg-white shadow-md rounded-lg my-6 min-h-screen">
               <div className="flex justify-center">
-                <input type="text" className="text px-72 py-8 bg-red-300 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl" placeholder="input your question"/>
+                <div className="flex flex-col">
+                  <label>input your question</label>
+                  <input type="text" className="text px-72 py-8 bg-red-300 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl" placeholder="input your question"/>
+                </div>
               </div>
               <div className="flex justify-center">
                 <div className="flex flex-col mx-60 my-60">
@@ -96,16 +97,28 @@ export default function Report() {
               <form onSubmit={ handleSubmit(submitAnswer) }>
                 <div className="flex justify-center">
                   <div className="flex flex-col mx-60">
-                    <input {...register('input1')} onClick={ handleSubmit(submit1) } className={ status1 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input first answer"/>
-                    <input {...register('input2')} onClick={ handleSubmit(submit2) } className={ status2 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input second answer"/>
+                    <div className="flex flex-col">
+                      <label>input your First Answer</label>
+                      <input {...register('input1')} onClick={ handleSubmit(submit1) } className={ status1 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input first answer"/>
+                    </div>
+                    <div className="flex flex-col">
+                      <label>input your Second Answer</label>
+                      <input {...register('input2')} onClick={ handleSubmit(submit2) } className={ status2 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input second answer"/>
+                    </div>
                   </div>
                   <div className="flex flex-col mx-60">
-                    <input {...register('input3')} onClick={ handleSubmit(submit3) } className={ status3 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input third answer"/>
-                    <input {...register('input4')} onClick={ handleSubmit(submit4) } className={ status4 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input fourth answer"/>
+                    <div className="flex flex-col">
+                      <label>input your Third Answer</label>
+                      <input {...register('input3')} onClick={ handleSubmit(submit3) } className={ status3 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input third answer"/>
+                    </div>
+                    <div className="flex flex-col">
+                      <label>input your Fourth Answer</label>
+                      <input {...register('input4')} onClick={ handleSubmit(submit4) } className={ status4 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4' } placeholder="input fourth answer"/>
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-center">
-                  <button className="px-6 py-2 bg-gray-800 rounded-xl">Submit</button>
+                  <button className="px-6 py-2 bg-red-300 rounded-xl">Submit</button>
                 </div>
               </form>
             </div>
