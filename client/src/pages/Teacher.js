@@ -60,11 +60,12 @@ export default function Report() {
     setStatus3(false)
   }
   const submitAnswer = e => {
-    const { input1, input2, input3, input4 } = e
+    const { input1, input2, input3, input4, inputQuestion } = e
     if (status1) console.log('ini yang di submit>>',input1)
     if (status2) console.log('ini yang di submit>>',input2)
     if (status3) console.log('ini yang di submit>>',input3)
     if (status4) console.log('ini yang di submit>>',input4)
+    console.log('ini questionnya>>', inputQuestion)
   }
 
   return (
@@ -75,7 +76,7 @@ export default function Report() {
               <div className="flex justify-center">
                 <div className="flex flex-col">
                   <label>input your question</label>
-                  <input type="text" className="text px-72 py-8 bg-red-300 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl" placeholder="input your question"/>
+                  <input {...register('inputQuestion')} type="text" className="text px-72 py-8 bg-red-300 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl" placeholder="input your question"/>
                 </div>
               </div>
               <div className="flex justify-center">
