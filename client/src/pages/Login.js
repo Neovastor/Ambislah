@@ -29,6 +29,7 @@ export default function Report() {
       history.push('/')
       alert.success('Welcome')
       console.log('>>>>>>', res.data.login)
+      localStorage.setItem('access_token', res.data.login.access_token)
     })
   }
     return (
