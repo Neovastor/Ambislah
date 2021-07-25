@@ -23,6 +23,8 @@ function WaitingRoom({ db }) {
         setStatusGame(doc.data().status);
       });
 
+      
+
       const unsubcribe = db
         .collection("quizzes")
         .onSnapshot((querySnapshot) => {
@@ -46,12 +48,22 @@ function WaitingRoom({ db }) {
         const playersInSpecificRoomId = data.filter(
           ({ idroom }) => +idroom === +idparams
         );
-        console.log(playersInSpecificRoomId);
+
         //update state
         setPlayers(playersInSpecificRoomId);
       });
 
-      return unsubcribe;
+      return livegamesRef
+        .update({
+          indexSoal: 0,
+        })
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
     }
   }, [db]);
 
@@ -81,17 +93,17 @@ function WaitingRoom({ db }) {
       /* Read more about handling dismissals below */
 
       if (result.dismiss === Swal.DismissReason.timer) {
-        const livegamesRef = db.collection("livegames").doc(idparams);
-
         livegamesRef
           .set({
             status: "live",
+            indexSoal: 0,
             players,
           })
           .then(() => {
             console.log("Game Live!");
             setStatusGame("live");
             setCount(0);
+            setIndexSoal(0);
           })
           .catch((error) => {
             console.error("Error writing document: ", error);
@@ -129,7 +141,19 @@ function WaitingRoom({ db }) {
     if (statusGame === "live") {
       if (count > quizzes.timer && indexSoal < quizzes.questions.length - 1) {
         setCount(0);
-        setIndexSoal(indexSoal + 1);
+
+        return livegamesRef
+          .update({
+            indexSoal: indexSoal + 1,
+          })
+          .then(() => {
+            console.log("Document successfully updated!");
+            setIndexSoal(indexSoal + 1);
+          })
+          .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+          });
       }
     }
   }, [count]);
@@ -138,7 +162,7 @@ function WaitingRoom({ db }) {
     <>
       <h1>Waiting Room</h1>
       <h2>Peserta</h2>
-      
+
       {statusGame === "live" ? <h2>{count}</h2> : null}
       {players.length > 0 ? (
         <ul className="list-disc">
@@ -152,33 +176,31 @@ function WaitingRoom({ db }) {
         </ul>
       ) : null}
 
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={(e) => onClickStartHandler(e)}
-      >
-        Start
-      </button>
-
-      {Object.keys(quizzes).length > 0 && statusGame === "live" && count < quizzes.timer ? (
-        <CountdownCircleTimer
-          isPlaying
-          duration={quizzes.timer}
-          colors={[
-            ["#004777", 0.33],
-            ["#F7B801", 0.33],
-            ["#A30000", 0.33],
-          ]}
+      {statusGame !== "test" ? (
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={(e) => onClickStartHandler(e)}
         >
-          {({ remainingTime }) => remainingTime}
-        </CountdownCircleTimer>
+          Start
+        </button>
       ) : null}
 
-      {Object.keys(quizzes).length > 0 && statusGame === "live" ? (
+      {Object.keys(quizzes).length > 0 &&
+      statusGame === "live" &&
+      count < quizzes.timer ? (
         <div>
-          {/* {quizzes.questions.map((question, i) => {
-            return ( */}
-
+          <CountdownCircleTimer
+            isPlaying
+            duration={quizzes.timer}
+            colors={[
+              ["#004777", 0.33],
+              ["#F7B801", 0.33],
+              ["#A30000", 0.33],
+            ]}
+          >
+            {({ remainingTime }) => remainingTime}
+          </CountdownCircleTimer>
           <div>
             <Question
               question={quizzes.questions[indexSoal]}
@@ -186,9 +208,6 @@ function WaitingRoom({ db }) {
               key={100 + indexSoal}
             />
           </div>
-
-          {/* );
-          })} */}
         </div>
       ) : null}
     </>
@@ -196,3 +215,10 @@ function WaitingRoom({ db }) {
 }
 
 export default WaitingRoom;
+
+{
+  /* {quizzes.questions.map((question, i) => {
+            return (
+          );
+          })} */
+}

@@ -36,17 +36,19 @@ const Channel = ({ db = null }) => {
 
           livegamesRef
           .set({
-            status: "waiting" // live / waiting / done
+            status: "waiting", // live / waiting / done
+            indexSoal: 0
           })
           .then(() => {
             console.log("Document successfully written!");
+            history.push(`/waitingroom/${roomkey}`)
           })
           .catch((error) => {
             console.error("Error writing document: ", error);
           });
         
         
-          history.push(`/waitingroom/${roomkey}`)
+          
         }
 
 
