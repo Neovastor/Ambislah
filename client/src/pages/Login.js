@@ -14,28 +14,30 @@ export default function Report() {
   const [login, { data: datalogin }] = useMutation(LOGIN)
   const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
 
-  const CALLBACK = (response) => {
+  const CALLBACK = async (response) => {
     console.log(response);
     console.log('id_token',response.tokenId)
-    googlelogin({
+    const res = await googlelogin({
       variables: {
         input: {
           id_token: response.tokenId
         }
       }
     })
-    .then(res => {
-      console.log('>>>>>>', res.data.googlelogin)
-      localStorage.setItem('access_token', res.data.googlelogin.access_token)
-      history.push('/')
-      // alert.success('Welcome')
-      Swal.fire({
-        icon: "success",
-        title: "Welcome..GoogleUser!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-  })
+    console.log('>>>>>>', res.data.googlelogin)
+    localStorage.setItem('access_token', res.data.googlelogin.access_token)
+    history.push('/')
+    // alert.success('Welcome')
+    Swal.fire({
+      icon: "success",
+      title: `Welcome..${response.Os.Ne}!`,
+      imageUrl: `${response.profileObj.imageUrl}`,
+      imageWidth: 200,
+      imageHeight: 100,
+      imageAlt: 'Custom image',
+      showConfirmButton: false,
+      timer: 2500,
+    });
   }
   const submitLogin = e => {
     const { email, password } = e
