@@ -5,6 +5,7 @@ import GoogleLogin from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
 import { LOGIN } from '../graphql/queiries/userQueries';
 import { useAlert } from 'react-alert';
+import Swal from 'sweetalert2'
 
 export default function Report() {
   const { register, handleSubmit } = useForm();
@@ -26,10 +27,33 @@ export default function Report() {
       }
     })
     .then(res => {
-      history.push('/')
-      alert.success('Welcome')
-      console.log('>>>>>>', res.data.login)
-      localStorage.setItem('access_token', res.data.login.access_token)
+      // if (res.data.login ) {
+        console.log('>>>>>>', res.data.login)
+        localStorage.setItem('access_token', res.data.login.access_token)
+        history.push('/')
+        // alert.success('Welcome')
+        Swal.fire({
+          icon: "success",
+          title: "Welcome..!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      // } else {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Oops...',
+      //     text: 'Username and Password did not match!',
+      //     footer: '<a href="/login">Wanna try again?</a>'
+      //   })
+      // }
+    })
+    .catch(_ => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Username and Password did not match!',
+        footer: '<a href="/login">Wanna try again?</a>'
+      })
     })
   }
     return (
