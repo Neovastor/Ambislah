@@ -15,6 +15,14 @@ export default function Report() {
   const history= useHistory()
   const [login, { data: datalogin }] = useMutation(LOGIN)
   const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
+  const [type, setType] = useState('text')
+
+  const typeSound = e => {
+    setType('sound')
+  }
+  const typeText = e => {
+    setType('text')
+  }
 
   return (
     <div className="overflow-x-auto pt-14">
@@ -26,14 +34,14 @@ export default function Report() {
               </div>
               <div className="flex justify-center">
                 <div className="flex flex-col mx-60 my-60">
-                <button className="px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4">
+                <button onClick={ handleSubmit(typeSound) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
                   </svg>
                 </button>
                 </div>
                 <div className="flex flex-col mx-60 my-60">
-                <button className="px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4">
+                <button onClick={ handleSubmit(typeText) } className="px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                   </svg>
@@ -42,12 +50,12 @@ export default function Report() {
               </div>
               <div className="flex justify-center">
                 <div className="flex flex-col mx-60 my-60">
-                <button className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">aaaaa</button>
-                <button className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">bbbbb</button>
+                <button {...register('input1')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">aaaaa</button>
+                <button {...register('input2')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">bbbbb</button>
                 </div>
                 <div className="flex flex-col mx-60 my-60">
-                <button className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">ccccc</button>
-                <button className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">ddddd</button>
+                <button {...register('input3')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">ccccc</button>
+                <button {...register('input4')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">ddddd</button>
                 </div>
               </div>
             </div>
