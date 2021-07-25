@@ -19,6 +19,8 @@ export default function Report() {
 
   const typeSound = e => {
     setType('sound')
+    const { input1, input2, input3, input4 } = e
+    console.log(input1, input2, input3, input4)
   }
   const typeText = e => {
     setType('text')
@@ -50,12 +52,12 @@ export default function Report() {
               </div>
               <div className="flex justify-center">
                 <div className="flex flex-col mx-60 my-60">
-                <button {...register('input1')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">aaaaa</button>
-                <button {...register('input2')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">bbbbb</button>
+                <input {...register('input1')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input first answer"/>
+                <input {...register('input2')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input second answer"/>
                 </div>
                 <div className="flex flex-col mx-60 my-60">
-                <button {...register('input3')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">ccccc</button>
-                <button {...register('input4')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4">ddddd</button>
+                <input {...register('input2')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input second answer"/>
+                <input {...register('input2')} className="px-6 py-4 rounded-lg bg-red-500 min-w-[400px] my-4" placeholder="input second answer"/>
                 </div>
               </div>
             </div>
