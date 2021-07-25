@@ -15,3 +15,10 @@ export const LOGIN = gql`
   }
 }
 `
+export const GOOGLE_LOGIN = gql`
+  mutation Mutation($input: Token) {
+  googlelogin(idToken: $input) {
+    access_token
+  }
+}
+`

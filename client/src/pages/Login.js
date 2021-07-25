@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
-import { LOGIN } from '../graphql/queiries/userQueries';
+import { GOOGLE_LOGIN, LOGIN } from '../graphql/queiries/userQueries';
 import { useAlert } from 'react-alert';
 import Swal from 'sweetalert2'
 
@@ -12,10 +12,30 @@ export default function Report() {
   const alert = useAlert()
   const history= useHistory()
   const [login, { data: datalogin }] = useMutation(LOGIN)
+  const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
 
   const CALLBACK = (response) => {
     console.log(response);
     console.log('id_token',response.tokenId)
+    googlelogin({
+      variables: {
+        input: {
+          id_token: response.tokenId
+        }
+      }
+    })
+    .then(res => {
+      console.log('>>>>>>', res.data.googlelogin)
+      localStorage.setItem('access_token', res.data.googlelogin.access_token)
+      history.push('/')
+      // alert.success('Welcome')
+      Swal.fire({
+        icon: "success",
+        title: "Welcome..GoogleUser!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+  })
   }
   const submitLogin = e => {
     const { email, password } = e
