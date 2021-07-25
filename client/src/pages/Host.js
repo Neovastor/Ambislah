@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import firebase from "firebase/app";
-import WaitingRoom from "./WaitingRoomHost";
+
 import {useHistory} from 'react-router-dom'
 
 const Channel = ({ db = null }) => {
@@ -20,14 +20,32 @@ const Channel = ({ db = null }) => {
         console.log(myJson);
 
         if (db) {
+
           for (let i = 0; i < 6; i++) {
             roomkey = roomkey + String (Math.floor(Math.random() * 10))            
           }
-          db.collection("Quizzes").add({
+
+          const livegamesRef = db.collection("livegames").doc(roomkey);
+
+
+          db.collection("quizzes").add({
             ...myJson,
             roomkey
           });
           
+
+          livegamesRef
+          .set({
+            status: "waiting" // live / waiting / done
+          })
+          .then(() => {
+            console.log("Document successfully written!");
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+        
+        
           history.push(`/waitingroom/${roomkey}`)
         }
 
