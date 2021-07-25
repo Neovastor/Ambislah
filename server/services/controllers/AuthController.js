@@ -39,7 +39,11 @@ class AuthController {
           const token = generateJWT(userInfo)
           req.headers.access_token = token
           res.status(200).json({ access_token: token })
+        } else {
+          res.status(401).json({ msg: 'username & password invalid' })
         }
+      } else {
+        res.status(401).json({ msg: 'username & password invalid' })
       }
     } catch (err) {
       err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
