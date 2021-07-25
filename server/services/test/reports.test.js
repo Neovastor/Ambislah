@@ -1,7 +1,7 @@
 const { connect } = require("../config/mongodb");
 const app = require("../app");
 const request = require("supertest");
-const { dummyReports, isValidDate } = require("./reports.helpers");
+const { dummyReports, isValidDate } = require("./testing.helpers");
 
 // const {signJWT, verifyJWT} = require('../helpers/jwt')
 // require('dotenv').config()
@@ -10,10 +10,8 @@ let client = null;
 let connection = null;
 
 const reportData = {
-  userId: "123abcKi",
   quizId: "1021efg",
-  date: new Date(),
-  playersCount: 1,
+  quizTitle: "Quiz baru",
   players: [{ name: "ba", score: 80 }],
 };
 
@@ -25,6 +23,7 @@ beforeAll(async () => {
 
     const reports = await db.collection("Reports");
     await reports.insertMany(dummyReports());
+    console.log(dummyReports());
 
     return connection;
   }
@@ -45,15 +44,16 @@ describe("Reports [SUCCESS CASE]", () => {
   it("Get all reports", (done) => {
     request(app)
       .get("/reports")
+      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
           const reportsArray = res.body;
-          // console.log(reportsArray);
-          // expect(res.status).toBe(200);
+          console.log(reportsArray);
+          expect(res.status).toBe(200);
 
           reportsArray.forEach((report) => {
-            expect(isValidDate(report.date)).toBe(true);
+            expect(isValidDate(report.createdAt)).toBe(true);
             expect(report).toHaveProperty("_id", expect.any(String));
             expect(report).toHaveProperty("userId", expect.any(String));
             expect(report).toHaveProperty("quizId", expect.any(String));
@@ -72,12 +72,13 @@ describe("Reports [SUCCESS CASE]", () => {
   it("Get report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
     request(app)
       .get("/reports/60fad998cbd8d3ed1ba95f71")
+      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
           const report = res.body;
           expect(res.status).toBe(200);
-          expect(isValidDate(report.date)).toBe(true);
+          expect(isValidDate(report.createdAt)).toBe(true);
           expect(report._id).toBe("60fad998cbd8d3ed1ba95f71");
           expect(report).toHaveProperty("userId", expect.any(String));
           expect(report).toHaveProperty("quizId", expect.any(String));
@@ -96,6 +97,7 @@ describe("Reports [SUCCESS CASE]", () => {
       request(app)
         .post("/reports")
         .send(reportData)
+        .set({access_token: process.env.ACCESS_TOKEN})
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -103,7 +105,7 @@ describe("Reports [SUCCESS CASE]", () => {
             expect(res.status).toBe(201);
 
             // console.log(report);
-            expect(isValidDate(report.date)).toBe(true);
+            expect(isValidDate(report.createdAt)).toBe(true);
             expect(report).toHaveProperty("_id", expect.any(String));
             expect(report).toHaveProperty("userId", expect.any(String));
             expect(report).toHaveProperty("quizId", expect.any(String));
@@ -121,6 +123,7 @@ describe("Reports [SUCCESS CASE]", () => {
     it("Delete report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
       request(app)
         .delete("/reports/60fad998cbd8d3ed1ba95f71")
+        .set({access_token: process.env.ACCESS_TOKEN})
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -134,10 +137,29 @@ describe("Reports [SUCCESS CASE]", () => {
     });
 });
 
-describe("Reports [FAILURE CASE]", () => {
+describe("Reports [ERROR CASE]", () => {
+  it("User must login first", (done) => {
+    request(app)
+      .get("/reports")
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.status).toBe(401);
+          expect(res.body).toEqual(
+            expect.objectContaining({
+              code: 401,
+              message: expect.arrayContaining([expect.any(String)]),
+            })
+          );
+
+          done();
+        }
+      });
+  }),
   it("Report not found, wrong Id", (done) => {
     request(app)
       .get("/reports/AbsolutlyWrong")
+      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -153,22 +175,22 @@ describe("Reports [FAILURE CASE]", () => {
         }
       });
   }),
-    it("User Id is null", (done) => {
+    it("quizId is null", (done) => {
       request(app)
         .post("/reports")
+        .set({access_token: process.env.ACCESS_TOKEN})
         .send({
           ...reportData,
-          userId: null,
+          quizId: null,
         })
         .end((err, res) => {
           if (err) done(err);
           else {
-            const error = ["userId cannot be empty"];
-            const response = res.body;
             expect(res.status).toBe(400);
-            expect(response).toHaveProperty(
-              "message",
-              expect.arrayContaining(error)
+            expect(res.body).toEqual(
+              expect.objectContaining({
+                message: expect.arrayContaining([expect.any(String)]),
+              })
             );
             done();
           }
@@ -177,6 +199,7 @@ describe("Reports [FAILURE CASE]", () => {
   it("Cannot delete report, wrong Id", (done) => {
     request(app)
       .delete("/reports/AbsolutlyWrong")
+      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {

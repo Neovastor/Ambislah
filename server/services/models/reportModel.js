@@ -32,7 +32,7 @@ class Model {
     static async deleteReports (id) {
         try {
             const data = Model.collection()
-            const findOne = await Model.findOneReports(id)
+            const findOne = await data.findOne({_id: ObjectId(id)})
             if (findOne) {
                 await data.deleteOne(
                     {"_id": ObjectId(id)}, 

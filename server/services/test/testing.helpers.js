@@ -5,9 +5,10 @@ function dummyReports() {
     for (i = 0; i < 5; i++) {
         let input = {
             _id: ObjectId(`60fad998cbd8d3ed1ba95f7${i}`),
-            userId: '123abc',
+            userId: process.env.USER_ID,
             quizId: i % 2 === 0 ? '345cde' : '679efg',
-            date: new Date(),
+            quizTitle: "quiz title",
+            createdAt: new Date(),
             playersCount: 2,
             players: [
                 {name: 'a', score: 90},
