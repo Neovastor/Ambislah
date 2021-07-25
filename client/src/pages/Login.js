@@ -43,7 +43,7 @@ export default function Report() {
         icon: 'error',
         title: 'Oops...',
         text: 'Username and Password did not match!',
-        footer: '<a href="/login">Wanna try again?</a>'
+        footer: '<h1>Wanna try again?</h1>'
       })
     })
   }
