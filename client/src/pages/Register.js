@@ -10,18 +10,18 @@ export default function Report() {
   const history = useHistory()
   const [registration, { data: dataregister }] = useMutation(REGISTER)
 
-  const submitRegister = e => {
-    console.log('masuk')
-    const { email, password } = e
-    registration({
-      variables: {
-        input: {
-          email: email,
-          password: password
+  const submitRegister = async e => {
+    try {
+      console.log('masuk')
+      const { email, password } = e
+      const res = await registration({
+        variables: {
+          input: {
+            email: email,
+            password: password
+          }
         }
-      }
-    })
-    .then(res => {
+      })
       console.log('>>>data', res.data.register)
       history.push('/login')
       Swal.fire({
@@ -30,17 +30,14 @@ export default function Report() {
         showConfirmButton: false,
         timer: 1500,
       });
-    })
-    .catch(_ => {
+    } catch (err) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Something wrong!',
         footer: '<h1>Wanna try again?</h1>'
       })
-    })
-
-    
+    }
   }
     return (
         <div className="overflow-x-auto pt-14">

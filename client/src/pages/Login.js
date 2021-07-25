@@ -15,29 +15,38 @@ export default function Report() {
   const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
 
   const CALLBACK = async (response) => {
-    console.log(response);
-    console.log('id_token',response.tokenId)
-    const res = await googlelogin({
-      variables: {
-        input: {
-          id_token: response.tokenId
+    try {
+      console.log(response);
+      console.log('id_token',response.tokenId)
+      const res = await googlelogin({
+        variables: {
+          input: {
+            id_token: response.tokenId
+          }
         }
-      }
-    })
-    console.log('>>>>>>', res.data.googlelogin)
-    localStorage.setItem('access_token', res.data.googlelogin.access_token)
-    history.push('/')
-    // alert.success('Welcome')
-    Swal.fire({
-      icon: "success",
-      title: `Welcome..${response.Os.Ne}!`,
-      imageUrl: `${response.profileObj.imageUrl}`,
-      imageWidth: 200,
-      imageHeight: 100,
-      imageAlt: 'Custom image',
-      showConfirmButton: false,
-      timer: 2500,
-    });
+      })
+      console.log('>>>>>>', res.data.googlelogin)
+      localStorage.setItem('access_token', res.data.googlelogin.access_token)
+      history.push('/')
+      // alert.success('Welcome')
+      Swal.fire({
+        icon: "success",
+        title: `Welcome..${response.Os.Ne}!`,
+        imageUrl: `${response.profileObj.imageUrl}`,
+        imageWidth: 200,
+        imageHeight: 100,
+        imageAlt: 'Custom image',
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something wrong!',
+        footer: '<h1>Wanna try again?</h1>'
+      })
+    }
   }
   const submitLogin = async e => {
     try {
@@ -60,7 +69,7 @@ export default function Report() {
         showConfirmButton: false,
         timer: 1500,
       });
-    } catch (error) {
+    } catch (err) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
