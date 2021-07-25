@@ -9,6 +9,7 @@ import Create from './pages/Create';
 import Report from './pages/Report';
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Teacher from './pages/Teacher'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/register"> <Register /> </Route>
         <Route exact path="/report"> <Report /> </Route>
         <Route exact path="/create"> <Create /> </Route>
+        <Route exact path="/teacher"> <Teacher /> </Route>
         <Route> <Home /> </Route>
       </Switch>
       <Footer></Footer>

@@ -84,7 +84,7 @@ export default function Report() {
   }
     return (
         <div className="overflow-x-auto pt-14">
-            <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+            <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
                 <div className="w-full lg:w-5/6 max-w-[777px] pt-5">
                     <div className="bg-white shadow-md rounded-lg my-6">
 
