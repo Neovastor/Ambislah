@@ -768,6 +768,9 @@ video {
 .min-w-max {
 	min-width: max-content;
 }
+.min-w-\[40px\] {
+	min-width: 40px;
+}
 .min-w-\[400px\] {
 	min-width: 400px;
 }
