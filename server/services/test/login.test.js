@@ -20,19 +20,37 @@ const user = {
   "password": "hogake-ke-7"
 }
 jest.setTimeout(10000)
-describe('login user', () => {
-  it('login', (done) => {
+describe('login user [SUCCESS CASE]', () => {
+  it('login user success', (done) => {
     request(app)
       .post('/login')
       .send(user)
       .end((err, res) => {
-        console.log('OK')
+        // console.log(res.body)
         expect(res.status).toBe(200)
         expect(res.body).toEqual(
           expect.objectContaining({
             access_token: expect.any(String)
           })
         )
+        done()
+      })
+  })
+})
+
+describe('login user [ERROR CASE]', () => {
+  it('login user failed', (done) => {
+    request(app)
+      .post('/login')
+      .send({...user, password: null})
+      .end((err, res) => {
+        console.log(res.body)
+        expect(res.status).toBe(400)
+        // expect(res.body).toEqual(
+        //   expect.objectContaining({
+        //     access_token: expect.any(String)
+        //   })
+        // )
         done()
       })
   })

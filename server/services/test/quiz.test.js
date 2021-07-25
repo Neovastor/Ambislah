@@ -6,6 +6,7 @@ const request = require("supertest");
 // let dataQuiz = require("./quiz.json");
 let dataQuiz = {
   userId: 1,
+  title: "quiz1",
   questions: [
     {
       type: "text",
@@ -17,6 +18,7 @@ let dataQuiz = {
   ],
   timer: 20,
   mode: "live",
+  createdAt: new Date()
 };
 
 const { connect } = require("../config/mongodb");

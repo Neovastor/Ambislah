@@ -1,5 +1,5 @@
 const {verifyJWT} = require('../helpers/jwt') 
-const {User} = require('../models')
+const User = require('../models/kahoot')
 
 module.exports = (req, res, next) => {
   const token = req.headers.access_token
@@ -8,12 +8,12 @@ module.exports = (req, res, next) => {
       const payload = verifyJWT(token)
       const userInfo = {
         email: payload.email,
-        phoneNumber: payload.phoneNumber,
+        name: payload.name,
         id: payload.id
       }
-      User.findOne({
-        where: userInfo})
-        .then(user => {
+
+      User.findOne(userInfo.id)
+      .then(user => {
           if (user) {
             req.user = userInfo
             next()

@@ -26,7 +26,7 @@ class AuthController {
   static async login(req, res, next) {
     try {
       const { email, password } = req.body
-      const name = email.split('@')[0]
+      // const name = email.split('@')[0]
       const output = await Kahoot.login(email)
       // const output = await getDatabase().collection('cek').findOne({ email: email })
       if (output) {
@@ -34,7 +34,7 @@ class AuthController {
           const userInfo = {
             email: output.email,
             name: output.name,
-            id: JSON.stringify(output._id)
+            id: output._id
           }
           const token = generateJWT(userInfo)
           req.headers.access_token = token
@@ -42,7 +42,8 @@ class AuthController {
         }
       }
     } catch (err) {
-      err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
+      console.log(err);
+      err.response.json ? res.status(400).json({ msg: err.response.json }) : res.status(500).json({ error: err })
     }
   }
   static async googlelogin(req, res, next) {

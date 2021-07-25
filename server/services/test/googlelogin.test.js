@@ -6,6 +6,9 @@ let connection
 let client
 let db
 
+// let id_token = process.env.ID_TOKEN
+
+
 beforeAll(async () => {
   connection = await connect()
   client = connection.client
@@ -20,6 +23,7 @@ describe('GOOGLE login', () => {
   it('google login', (done) => {
     request(app)
       .post('/googlelogin')
+      // .send({id_token})
       .end((err, res) => {
         console.log('OK')
         expect(res.status).toBe(200)
