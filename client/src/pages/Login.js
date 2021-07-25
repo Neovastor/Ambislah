@@ -31,7 +31,7 @@ export default function Report() {
       // alert.success('Welcome')
       Swal.fire({
         icon: "success",
-        title: `Welcome..${response.Os.Ne}!`,
+        title: `Welcome..  ${response.Os.Ne}!`,
         imageUrl: `${response.profileObj.imageUrl}`,
         imageWidth: 200,
         imageHeight: 100,
