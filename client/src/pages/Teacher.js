@@ -71,7 +71,10 @@ export default function Report() {
     if (status2) console.log('ini yang di submit>>',input2)
     if (status3) console.log('ini yang di submit>>',input3)
     if (status4) console.log('ini yang di submit>>',input4)
+    if (type1) console.log(type)
+    if (type2) console.log(type)
     console.log('ini questionnya>>', inputQuestion)
+    console.log('ini tipenya>>', type)
   }
 
   return (
