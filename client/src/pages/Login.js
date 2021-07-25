@@ -1,3 +1,4 @@
+import { useForm } from "react-hook-form";
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
@@ -6,6 +7,7 @@ import { LOGIN } from '../graphql/queiries/userQueries';
 import { useAlert } from 'react-alert';
 
 export default function Report() {
+  const { register, handleSubmit } = useForm();
   const alert = useAlert()
   const history= useHistory()
   const [email, setEmail] = useState('')
@@ -22,7 +24,8 @@ export default function Report() {
     setPassword(e.target.value)
   }
   const submitLogin = e => {
-    e.preventDefault()
+    // e.preventDefault()
+    const { email, password } = e
     login({
       variables: {
         input: {
@@ -31,12 +34,14 @@ export default function Report() {
         }
       }
     })
+    .then(_ => {
+      setEmail('')
+      setPassword('')
+      history.push('/')
+      alert.success('Welcome')
+      console.log('>>>>>>', datalogin)
+    })
     
-    setEmail('')
-    setPassword('')
-    history.push('/')
-    alert.success('Welcome')
-    console.log('>>>>>>', datalogin)
     
   }
     return (
@@ -50,11 +55,11 @@ export default function Report() {
                             <form onSubmit={ submitLogin }>
                                 <div className="relative w-full mb-3 mt-5">
                                     <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
-                                    <input onChange={ changeEmail } value={ email } type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{"transition": "all 0.15s ease 0s"}} />
+                                    <input {...register('email')}  type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{"transition": "all 0.15s ease 0s"}} />
                                 </div>
                                 <div className="relative w-full mb-3">
                                     <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Password</label>
-                                    <input onChange={ changePassword } value={ password } type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{"transition": "all 0.15s ease 0s"}} />
+                                    <input {...register('password')}  type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{"transition": "all 0.15s ease 0s"}} />
                                 </div>
                                 <div>
                                     <Link to="/register" className="text text-blue-600 cursor-pointer">
