@@ -1,3 +1,3 @@
 import { makeVar } from '@apollo/client'
 
-export const favouriteVar = makeVar([])
+export const loginVar = makeVar(false)

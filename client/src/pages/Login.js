@@ -1,14 +1,16 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
 import { GOOGLE_LOGIN, LOGIN } from '../graphql/queiries/userQueries';
 import { useAlert } from 'react-alert';
 import Swal from 'sweetalert2'
+import { loginVar } from "../graphql/vars";
 
 export default function Report() {
   const { register, handleSubmit } = useForm();
+  const isLogin = useReactiveVar(loginVar)
   const alert = useAlert()
   const history= useHistory()
   const [login, { data: datalogin }] = useMutation(LOGIN)
@@ -29,6 +31,7 @@ export default function Report() {
       localStorage.setItem('access_token', res.data.googlelogin.access_token)
       history.push('/')
       // alert.success('Welcome')
+      loginVar(true)
       Swal.fire({
         icon: "success",
         title: `Welcome..  ${response.Os.Ne}!`,
@@ -63,6 +66,7 @@ export default function Report() {
       localStorage.setItem('access_token', res.data.login.access_token)
       history.push('/')
       // alert.success('Welcome')
+      loginVar(true)
       Swal.fire({
         icon: "success",
         title: "Welcome..!",

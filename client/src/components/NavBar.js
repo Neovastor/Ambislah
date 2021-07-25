@@ -1,12 +1,16 @@
+import { useReactiveVar } from '@apollo/client'
 import React from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { loginVar } from '../graphql/vars'
 
 export default function NavBar() {
+  const isLogin = useReactiveVar(loginVar)
   const history = useHistory()
   const logout = e => {
     e.preventDefault()
     localStorage.clear()
+    loginVar(false)
     history.push('/')
     Swal.fire({
       icon: "success",
@@ -31,8 +35,11 @@ export default function NavBar() {
                             <li><NavLink exact to={"/"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Home</NavLink></li>
                             <li><NavLink exact to={"/"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Library</NavLink></li>
                             <li><NavLink exact to={"/report"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Report</NavLink></li>
-                            <li><NavLink exact to={"/login"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Login</NavLink></li>
-                            <li onClick={ logout } className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Logout</li>
+                            {
+                              ! isLogin
+                              ? <li><NavLink exact to={"/login"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Login</NavLink></li>
+                              : <li onClick={ logout } className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold cursor-pointer" >Logout</li>
+                            }
                             <li><NavLink exact to={"/create"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Create</NavLink></li>
                         </ul>
                     </nav >
