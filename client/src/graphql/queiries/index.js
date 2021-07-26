@@ -12,3 +12,10 @@ export {
     LOGIN
 } from './userQueries'
 
+
+export {
+    GET_ALL_QUIZ,
+    CREATED_QUIZZES,
+    ADD_QUIZZES,
+    DELETE_QUIZZEZ
+} from './quizQueries'
