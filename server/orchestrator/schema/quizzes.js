@@ -6,7 +6,7 @@ const redis = new Redis();
 const { instanceQuizzes } = require("../axios");
 
 const typeDef = gql`
-  type questions {
+  type Questions {
     type: String
     question: String
     image: String
@@ -17,25 +17,13 @@ const typeDef = gql`
   type Quizzes {
     _id: ID
     userId: String
-<<<<<<< HEAD
     title: String
-    questions: [questions]
+    questions: [Questions]
     timer: Int
     mode: String
     createdAt: Date
-=======
-<<<<<<< HEAD
-    questions: [questions]
-    timer: Int
-    mode: String
-=======
-    title: String
-    questions: [questions]
-    timer: Int
-    mode: String
-    createdAt: Date
->>>>>>> cae54ea2367a79c79e4e332cf8ad6c75304bdbdc
->>>>>>> fadilah
+    updatedAt: Date
+
   }
 
   input InputQuestion {
@@ -47,25 +35,11 @@ const typeDef = gql`
   }
 
   input InputQuizzes {
-    _id: ID
-    userId: String
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    questions: [InputQuestion]
-    timer: Int
-    mode: String
-=======
->>>>>>> fadilah
+
     title: String
     questions: [InputQuestion]
     timer: Int
     mode: String
-    createdAt: Date
-<<<<<<< HEAD
-=======
->>>>>>> cae54ea2367a79c79e4e332cf8ad6c75304bdbdc
->>>>>>> fadilah
   }
 
   extend type Query {
@@ -73,69 +47,46 @@ const typeDef = gql`
     QuizzesById(id: ID): Quizzes
   }
 
-  extend type Mutation {
-    DeleteQuizzesById(id: ID): String
-    EditQuizzesById(
-      id: ID
-      userId: String
-<<<<<<< HEAD
-      title: String
-=======
-<<<<<<< HEAD
->>>>>>> fadilah
-      questions: [InputQuestion]
-      timer: Int
-      mode: String
-      createdAt: Date
+  extend type Mutation {    
+    DeleteQuizzes(id: ID): Message
+    
+    EditQuizzes(
+      id: ID, input: InputQuizzes
     ): Quizzes
+    
     AddQuizzes(
-      userId: String
-      title: String
-      questions: [InputQuestion]
-      timer: Int
-      mode: String
-<<<<<<< HEAD
-      createdAt: Date
-=======
-=======
-      title: String
-      questions: [InputQuestion]
-      timer: Int
-      mode: String
-      createdAt: Date
-    ): Quizzes
-    AddQuizzes(
-      userId: String
-      title: String
-      questions: [InputQuestion]
-      timer: Int
-      mode: String
-      createdAt: Date
->>>>>>> cae54ea2367a79c79e4e332cf8ad6c75304bdbdc
->>>>>>> fadilah
+      input: InputQuizzes
     ): Quizzes
   }
 `;
 
 const resolvers = {
   Query: {
-    Quizzes: async () => {
+    Quizzes: async (_, args, context) => {
       try {
-        const QuizzesRedis = await redis.get("Quizzes");
-        if (QuizzesRedis) {
-          // console.log(JSON.parse(QuizzesRedis));
-          return JSON.parse(QuizzesRedis);
+        let QuizzesRedis = await redis.get("Quizzes");
+        QuizzesRedis = JSON.parse(QuizzesRedis);
+        if (QuizzesRedis && QuizzesRedis[0].userId === context.user.id) {
+          return QuizzesRedis
         } else {
-          const Quizzes = await instanceQuizzes.get(`/`);
-          console.log(JSON.stringify(Quizzes.data));
+          const Quizzes = await instanceQuizzes({
+            url: '/',
+            method: 'get',
+            headers: {
+              access_token: context.access_token
+            }
+          })
+          // console.log(JSON.stringify(Quizzes.data));
           redis.set("Quizzes", JSON.stringify(Quizzes.data));
+          return Quizzes.data
         }
       } catch (err) {
         throw new ApolloError(err);
       }
     },
-    QuizzesById: async (_, args) => {
-      const QuizzesByIdRadis = await redis.get("QuizzesById");
+    QuizzesById: async (_, args, context) => {
+      const QuizzesByIdRadis = await redis.get("QuizzesById")
+
       if (QuizzesByIdRadis) {
         const data = JSON.parse(QuizzesByIdRadis);
         // console.log(data._id);
@@ -156,47 +107,56 @@ const resolvers = {
     },
   },
   Mutation: {
-    DeleteQuizzesById: async (_, args) => {
+    DeleteQuizzes: async (_, args, context) => {
       try {
+
         const DestroyQuiz = await instanceQuizzes.delete(`/${args.id}`);
+
+        const destroyQuiz = await instanceQuizzes({
+          url: `/${args.id}`,
+          method: 'delete',
+          headers: {
+            access_token: context.access_token
+          }
+        });
+
         redis.del("Quizzes");
-        return DestroyQuiz.data.message;
+        return destroyQuiz.data
       } catch (err) {
         // console.log(err.response.data.message);
         throw new ApolloError(err.response.data.message);
       }
     },
-    EditQuizzesById: async (_, args) => {
+    EditQuizzes: async (_, args, context) => {
       try {
-        const data = {
-          _id: args.id,
-          userId: args.userId,
-          questions: args.questions,
-          timer: args.timer,
-          mode: args.mode,
-        };
-        // console.log(data);
-        const updateQuizzes = await instanceQuizzes.put(`/${args.id}`, data);
-        // console.log(updateQuizzes.data, 'masuk');
+        const {title, questions, timer, mode } = args.input
+        const data = {title, questions, timer, mode } 
+        const updateQuizzes = await instanceQuizzes({
+          url: `/${args.id}`,
+          method: 'put',
+          data: data,
+          headers: {
+            access_token: context.access_token
+          }
+        });
         redis.del("Quizzes");
         return updateQuizzes.data;
       } catch (err) {
         throw new ApolloError(err.response.data.message);
       }
     },
-    AddQuizzes: async (_, args) => {
+    AddQuizzes: async (_, args, context) => {
       try {
-        const data = {
-          userId: args.userId,
-          title: args.title,
-          questions: args.questions,
-          timer: args.timer,
-          mode: args.mode,
-          createdAt: args.createdAt
-        };
-        // console.log(data, 'ini data');
-        const postQuizzes = await instanceQuizzes.post(`/`, data);
-        // console.log('masuk >>>>>>>>>>>>>')
+        const {title, questions, timer, mode } = args.input
+        const data = {title, questions, timer, mode } 
+        const postQuizzes = await instanceQuizzes({
+          url: '/',
+          method: 'post',
+          data: data,
+          headers: {
+            access_token: context.access_token
+          }
+        });
         // console.log(postQuizzes.data, 'masuk');
         redis.del("Quizzes");
         return postQuizzes.data;

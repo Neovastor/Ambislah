@@ -24,7 +24,7 @@ import AnswerLive from "./pages/AnswerLive";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-
+import Speech from './pages/SpeechTest'
 
 firebase.initializeApp({
   apiKey: "AIzaSyC33_F7QhSbb0pvHpWawdF9UaNgyxumQdw",
@@ -37,6 +37,8 @@ firebase.initializeApp({
 
 const db = firebase.firestore();
 
+
+// import {SpeechRecognition} from './components'
 
 function App() {
   return (

@@ -10,7 +10,7 @@ async function connect() {
     const dbName = environment === 'test' ? 'ambislah_testing' : 'ambislah'
 
     await client.connect()
-    console.log('Connected successfully to server')
+    console.log('Connected successfully to server with '+ dbName)
         
     const database = client.db(dbName)
     db = database
