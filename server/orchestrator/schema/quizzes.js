@@ -17,11 +17,25 @@ const typeDef = gql`
   type Quizzes {
     _id: ID
     userId: String
+<<<<<<< HEAD
     title: String
     questions: [questions]
     timer: Int
     mode: String
     createdAt: Date
+=======
+<<<<<<< HEAD
+    questions: [questions]
+    timer: Int
+    mode: String
+=======
+    title: String
+    questions: [questions]
+    timer: Int
+    mode: String
+    createdAt: Date
+>>>>>>> cae54ea2367a79c79e4e332cf8ad6c75304bdbdc
+>>>>>>> fadilah
   }
 
   input InputQuestion {
@@ -35,11 +49,23 @@ const typeDef = gql`
   input InputQuizzes {
     _id: ID
     userId: String
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    questions: [InputQuestion]
+    timer: Int
+    mode: String
+=======
+>>>>>>> fadilah
     title: String
     questions: [InputQuestion]
     timer: Int
     mode: String
     createdAt: Date
+<<<<<<< HEAD
+=======
+>>>>>>> cae54ea2367a79c79e4e332cf8ad6c75304bdbdc
+>>>>>>> fadilah
   }
 
   extend type Query {
@@ -52,6 +78,26 @@ const typeDef = gql`
     EditQuizzesById(
       id: ID
       userId: String
+<<<<<<< HEAD
+      title: String
+=======
+<<<<<<< HEAD
+>>>>>>> fadilah
+      questions: [InputQuestion]
+      timer: Int
+      mode: String
+      createdAt: Date
+    ): Quizzes
+    AddQuizzes(
+      userId: String
+      title: String
+      questions: [InputQuestion]
+      timer: Int
+      mode: String
+<<<<<<< HEAD
+      createdAt: Date
+=======
+=======
       title: String
       questions: [InputQuestion]
       timer: Int
@@ -65,6 +111,8 @@ const typeDef = gql`
       timer: Int
       mode: String
       createdAt: Date
+>>>>>>> cae54ea2367a79c79e4e332cf8ad6c75304bdbdc
+>>>>>>> fadilah
     ): Quizzes
   }
 `;
