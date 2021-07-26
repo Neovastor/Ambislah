@@ -14,14 +14,4 @@ export const LOGIN = gql`
     access_token
   }
 }
-<<<<<<< HEAD
-`
-export const GOOGLE_LOGIN = gql`
-  mutation Mutation($input: Token) {
-  googlelogin(idToken: $input) {
-    access_token
-  }
-}
-=======
->>>>>>> cae54ea2367a79c79e4e332cf8ad6c75304bdbdc
 `

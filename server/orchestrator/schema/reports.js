@@ -9,15 +9,14 @@ const typeDef = gql`
         _id: ID
         userId: String
         quizId: String
-        quizTitle: String
+        date: Date
         playersCount: Int
         players: [Player]
-        createdAt: Date
     }
 
     input InputReport {
+        userId: String!
         quizId: String!
-        quizTitle: String!
         players: [inputPlayer]!
     }
 
@@ -32,46 +31,51 @@ const typeDef = gql`
     } 
 
     extend type Query {
-        getReportsAll(quizId: String): [Report]
-        getReports(id: ID): Report
+        getReportsAll(userId: String, quizId: String): [Report]
+        getReports(id: ID!): Report
     }
 
     extend type Mutation {
         addReports(input: InputReport): Report
-        delReports(id: ID): Message
+        delReports(id: ID!): Message
     }  
 `
 
 const resolvers = {
 
     Query: {
-        getReportsAll: async(_, args, context) => {
+        getReportsAll: async(_, args) => {
             try {
                 let result = null
                 // const {input} = args
-                let reports = await redis.get('reports')
-                reports = JSON.parse(reports)
-                if (reports && reports[0].userId === context.user.id) {
-                    result = reports
+                const reports = await redis.get('reports')
+                if (reports) {
+                    result = JSON.parse(reports)
                 } 
                 else {
                     const {data} = await instanceReports({
-                        method: 'get',
-                        headers: {
-                            access_token: context.access_token
-                        }
+                        method: 'get'
                     })
                     redis.set('reports', JSON.stringify(data))
                     result = data
                 }
                 return result
+                
+                // if (!input) {
+                //     return result
+                // }
+                // else {
+                //     const find = new RegExp(input, 'i');
+                //     const filtered = result.filter(el => el.match(find))
+                //     return filtered
+                // }
             }
-            catch (err) {
-                throw new ApolloError(err.response.data.message);
+            catch(err) {
+                throw new ApolloError('Internal Server Error', 'INTERNAL_SERVER_ERROR')
             }
 
         },
-        getReports: async (_, args, context) => {
+        getReports: async (_, args) => {
             try {
                 const id = args.id
                 let reportById = await redis.get('reportById')
@@ -83,55 +87,56 @@ const resolvers = {
                 else {
                     const {data} = await instanceReports({
                         method: 'get',
-                        url: `/${id}`,
-                        headers: {
-                            access_token: context.access_token
-                        }
+                        url: `/${id}`
                     })
                     return data
                 }
             }
             catch (err) {
-                throw new ApolloError(err.response.data.message);
+                if (err.response.status === 404) {
+                    throw new ApolloError('Report Not Found', 'NOT_FOUND')
+                } 
+                else {
+                    throw new ApolloError('Internal Server Error', 'INTERNAL_SERVER_ERROR')
+                }
             }
-            
         }
     },
     Mutation: {
-        addReports: async(_, args, context) => {
+        addReports: async(_, args) => {
             try {
-                const {quizTitle, quizId, players} = args.input
-                const input = {quizId, quizTitle, players}
+                const {userId, quizId, players} = args.input
+                const input = {userId, quizId, players, playersCount: players.length, date: new Date()}
                 
                 const {data} = await instanceReports({
                     method: 'post',
-                    data: input,
-                    headers: {
-                        access_token: context.access_token
-                    }
+                    data: input
                 })
                 redis.del('reports')
                 return data
             }
             catch (err) {
-                throw new ApolloError(err.response.data.message);
+                throw new ApolloError('Internal Server Error', 'INTERNAL_SERVER_ERROR')
             }
         },
-        delReports: async(_, args, context) => {
+        delReports: async(_, args) => {
             try {
                 const id = args.id
                 await instanceReports({
                     method: 'delete',
-                    url: `/${id}`,
-                    headers: {
-                        access_token: context.access_token
-                    }
+                    url: `/${id}`
                 })
                 redis.del('reports')
                 return ({'message': 'Delete Item Success'})
             }
             catch (err) {
-                throw new ApolloError(err.response.data.message);
+                if (err.response.status === 404) {
+                    console.log('errrr');
+                    throw new ApolloError('Report Not Found', 'NOT_FOUND')
+                } 
+                else {
+                    throw new ApolloError('Internal Server Error', 'INTERNAL_SERVER_ERROR')
+                }
             }
         }
     }

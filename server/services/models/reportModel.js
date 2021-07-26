@@ -5,17 +5,17 @@ class Model {
         return getDatabase().collection('Reports')
     }
 
-    static async findAllReports (userId) {
+    static async findAllReports () {
         try {
-            const data = await Model.collection().find({userId}).toArray()
+            const data = await Model.collection().find().toArray()
             return data
             
         } catch (error) {}
     }
 
-    static async findOneReports (id, userId) {
+    static async findOneReports (id) {
         try {
-            const data = await Model.collection().findOne({"_id": ObjectId(id), userId})
+            const data = await Model.collection().findOne({"_id": ObjectId(id)})
             return data
         } catch (error) {}
     }
@@ -32,13 +32,16 @@ class Model {
     static async deleteReports (id) {
         try {
             const data = Model.collection()
-            await data.findOne({_id: ObjectId(id)})
+            const findOne = await Model.findOneReports(id)
+            if (findOne) {
+                await data.deleteOne(
+                    {"_id": ObjectId(id)}, 
+                )
+                return true
+            } else {
+                return false
+            }
             
-            await data.deleteOne(
-                {"_id": ObjectId(id)}, 
-            )
-            return true
-                       
         } catch (error) {}
 
     }

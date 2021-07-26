@@ -28,14 +28,7 @@
     "react-player": "^2.9.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "react-speech": "^1.0.2",
-    "react-speech-recognition": "^3.8.2",
     "sweetalert2": "^11.0.20",
-    "simple-peer": "9.6.2",
-    "socket.io-client": "^2.3.0",
-    "styled-components": "^5.1.0",
-    "uuid": "^7.0.3",
-    "text-to-speech-offline": "^1.0.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

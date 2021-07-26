@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>8/13</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">28.57% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>2/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>8/13</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,8 +88,10 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -101,54 +103,55 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">const { getDatabase, ObjectId } = require('../config/mongodb')
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span></td><td class="text"><pre class="prettyprint lang-js">const { getDatabase } = require('../config/mongodb')
+const { ObjectId } = require('mongodb')
 const { hash } = require('../helpers/bcrypt')
 &nbsp;
 class Kahoot {
 <span class="fstat-no" title="function not covered" >  st</span>atic async findAll() {
-<span class="cstat-no" title="statement not covered" >    return await getDatabase().collection('Users').find().toArray()</span>
+<span class="cstat-no" title="statement not covered" >    return await getDatabase().collection('cek').find().toArray()</span>
   }
   static async register(input) {
     input.password = hash(input.password)
     input.createdAt = new Date().toLocaleDateString() + ' and ' + new Date().toLocaleTimeString()
-    return await getDatabase().collection('Users').insertOne(input)
+    return await getDatabase().collection('cek').insertOne(input)
   }
   static async login(email) {
-    return await getDatabase().collection('Users').findOne({ email })
+    return await getDatabase().collection('cek').findOne({ email })
   }
-  static async findOne(id) {
-    return await getDatabase().collection('Users').findOne({_id: ObjectId(id)})
+<span class="fstat-no" title="function not covered" >  st</span>atic async findOne(id) {
+<span class="cstat-no" title="statement not covered" >    return await getDatabase().collection('cek').findOne({_id: ObjectId(id)})</span>
   }
-  // static async add(user) {
-  //   return await getDatabase().collection('Users').insertOne(user)
-  // }
-  // static async edit(id, user) {
-  //   return await getDatabase().collection('Users').updateOne(
-  //     {_id: ObjectId(id)},
-  //     {$set: user}
-  //   )
-  // }
-  // static async delete(id) {
-  //   return await getDatabase().collection('Users').deleteOne({_id: ObjectId(id)})
-  // }
+<span class="fstat-no" title="function not covered" >  st</span>atic async add(cek) {
+<span class="cstat-no" title="statement not covered" >    return await getDatabase().collection('cek').insertOne(cek)</span>
+  }
+<span class="fstat-no" title="function not covered" >  st</span>atic async edit(id, cek) {
+<span class="cstat-no" title="statement not covered" >    return await getDatabase().collection('cek').updateOne(</span>
+      {_id: ObjectId(id)},
+      {$set: cek}
+    )
+  }
+<span class="fstat-no" title="function not covered" >  st</span>atic async delete(id) {
+<span class="cstat-no" title="statement not covered" >    return await getDatabase().collection('cek').deleteOne({_id: ObjectId(id)})</span>
+  }
 }
 module.exports = Kahoot</pre></td></tr></table></pre>
 
@@ -157,7 +160,7 @@ module.exports = Kahoot</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 22:08:56 GMT+0700 (Western Indonesia Time)
+                at Mon Jul 26 2021 09:17:27 GMT+0700 (Indochina Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
