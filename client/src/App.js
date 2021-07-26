@@ -13,6 +13,8 @@ import Register from './pages/Register'
 import Teacher from './pages/Teacher'
 import WebRTCCreateRoom from './pages/WebRTCCreateRoom'
 import WebRTCRoom from './pages/WebRTCRoom'
+import Collections from './pages/Collections'
+import WaitingRoom from './pages/WaitingRoom'
 
 function App() {
   return (

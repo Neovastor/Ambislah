@@ -1,11 +1,19 @@
 import React from 'react'
+import CardQuiz from '../components/CardQuiz'
+import { useQuery } from '@apollo/client'
+import { GET_ALL_QUIZ } from '../graphql/queiries'
 
 export default function Home() {
+    const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ)
+    // console.log(quizzes);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
     return (
         <>
-            <div className="grid grid-cols-6 gap-2 md-max:grid-cols-3 pt-16">
-                {/* <div className="flex flex-wrap justify-center md-max:flex-col md-max:items-center "> */}
-                <div className="bg-[#F8E2CF] box-border w-full p-4 border-4 md-max:col-span-4 grid-rows-2">
+            <div className="grid md:grid-cols-6 gap-2 mmd:grid-cols-3 pt-16">
+                <div className="bg-[#F8E2CF] box-border w-full p-4 border-4 mmd:col-span-4 grid-rows-2">
                     <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">box username</div>
                     <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">Challenge
                         Overview (Offline quiz still active)</div>
@@ -14,49 +22,19 @@ export default function Home() {
                     <div>Collection Kuis</div>
                     <div>
                         <div className="flex flex-wrap">
-                            <div className="md:w-1/2 lg:w-1/3 py-4 px-4">
-                                <div className=" ">
-                                    <a href="#">
-                                        <div className="bg-white shadow p-2 rounded-lg text-gray-800 hover:shadow-lg">
-                                            <img src={"https://asset.kompas.com/crops/sn--2PkUfeAmtszsB-wnqXmwBkM=/0x0:5184x3456/750x500/data/photo/2020/12/11/5fd303549b2c9.jpg"} className="h-32 rounded-lg w-full object-cover" />
-                                            <div className="py-2 px-2">
-                                                <div className=" font-bold font-title text-center">Kucing Malas</div>
-                                                <div className="text-sm font-light text-center my-2">Portal pecinta kucing</div>
-                                            </div>
+                            {
+                                quizzes.Quizzes.map((e, i) => {
+                                    return (
+                                        <div key={i} className="md:w-1/2 lg:w-1/3 py-4 px-4">
+                                            <CardQuiz dataQuizzes={e} />
                                         </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 lg:w-1/3 py-4 px-4">
-                                <div className=" ">
-                                    <a href="#">
-                                        <div className="bg-white shadow p-2 rounded-lg text-gray-800 hover:shadow-lg">
-                                            <img src={"https://asset.kompas.com/crops/sn--2PkUfeAmtszsB-wnqXmwBkM=/0x0:5184x3456/750x500/data/photo/2020/12/11/5fd303549b2c9.jpg"} className="h-32 rounded-lg w-full object-cover" />
-                                            <div className="py-2 px-2">
-                                                <div className=" font-bold font-title text-center">Kucing Malas</div>
-                                                <div className="text-sm font-light text-center my-2">Portal pecinta kucing</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 lg:w-1/3 py-4 px-4">
-                                <div className=" ">
-                                    <a href="#">
-                                        <div className="bg-white shadow p-2 rounded-lg text-gray-800 hover:shadow-lg">
-                                            <img src={"https://asset.kompas.com/crops/sn--2PkUfeAmtszsB-wnqXmwBkM=/0x0:5184x3456/750x500/data/photo/2020/12/11/5fd303549b2c9.jpg"} className="h-32 rounded-lg w-full object-cover" />
-                                            <div className="py-2 px-2">
-                                                <div className=" font-bold font-title text-center">Kucing Malas</div>
-                                                <div className="text-sm font-light text-center my-2">Portal pecinta kucing</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                 </div>
-                <div className="bg-[#F8E2CF] box-border w-full p-4 border-4 md-max:col-span-4 grid-rows-2">
+                <div className="bg-[#F8E2CF] box-border w-full p-4 border-4 mmd:col-span-4 grid-rows-2">
                     <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">Quiz file</div>
                     <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">Report</div>
                 </div>

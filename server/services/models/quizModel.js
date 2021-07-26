@@ -1,133 +1,121 @@
-const { getDatabase } = require("../config/mongodb");
+const { getDatabase } = require('../config/mongodb')
 const { ObjectId } = require("mongodb");
 
-const cron = require("node-cron");
-
-//NANTI TAMBAH CREATE ROOM FIRE BASE DAN DELETE FIREBASE
-function cronJob(day, roomId) {
-  const hour = day * 24;
-  const expression = `* */${hour} * * * *`;  
-  const task = cron.schedule(
-    expression,
-    () => {
-      console.log(`del-ROOM-ID ${roomId}`);
-      // jika room id ada maka lakukan hapus
-    },
-    {
-      scheduled: false,
-      timezone: "Asia/Jakarta",
-    }
-  );
-  task.start();
-}
-
-// cronJob(1, 'satu detik') PKAI BUAT CREATE
-// cronJob(5, 'LIMAA')
-
 class Quizzes {
-  static async findAll() {
-    const quizzesCollection = getDatabase().collection("Quizzes");
-    const quizzes = await quizzesCollection.find().toArray();
-    return quizzes;
-  }
+    static async findAll() {
 
-  static async findOne(id) {
-    const quizzesCollection = getDatabase().collection("Quizzes");
-
-    const quizzes = await quizzesCollection
-      .find({
-        _id: ObjectId(id),
-      })
-      .toArray();
-
-    return quizzes[0];
-  }
-
-  static async postQuiz(payload) {
-    const { userId, questions, timer, mode } = payload;
-    let result = { userId, questions, timer, mode };
-    let err = {
-      message: [],
-    };
-    if (!userId) {
-      err.message.push("userId must be filled");
-    }
-    if (!questions) {
-      err.message.push("questions must be filled");
+        const quizzesCollection = getDatabase().collection('Quizzes')
+        const quizzes = await quizzesCollection.find().toArray()
+        return quizzes
     }
 
-    if (!timer) {
-      err.message.push("timer must be filled");
-    }
-    if (!mode) {
-      err.message.push("mode must be filled");
-    }
+    static async findOne(id) {
 
-    if (err.message.length > 0) {
-      return err;
-    }
+        const quizzesCollection = getDatabase().collection('Quizzes')
 
-    const quizzesCollectios = getDatabase().collection("Quizzes");
+        const quizzes = await quizzesCollection.find({
+            _id: ObjectId(id)
+        }).toArray()
 
-    let quizzes = await quizzesCollectios.insertOne(result);
-
-    result._id = quizzes.insertedId;
-
-    return result;
-  }
-
-  static async putQuiz(payload, id) {
-    const { userId, questions, timer, mode } = payload;
-
-    let err = {
-      message: [],
-    };
-    if (!userId) {
-      err.message.push("userId must be filled");
-    }
-    if (!questions) {
-      err.message.push("questions must be filled");
+        return quizzes[0]
     }
 
-    if (!timer) {
-      err.message.push("timer must be filled");
+    static async postQuiz(payload) {
+        console.log(payload, 'masuk');
+        const { userId, title, questions, timer, mode, createdAt } = payload
+        let result = { userId, title, questions, timer, mode, createdAt }
+        let err = {
+            message: []
+        }
+        if (!userId) {
+            err.message.push("userId must be filled")
+        }
+        if (!title) {
+            err.message.push("title must be filled")
+        }
+        if (!questions) {
+            err.message.push("questions must be filled")
+        }
+
+        if (!timer) {
+            err.message.push("timer must be filled")
+        }
+        if (!mode) {
+            err.message.push("mode must be filled")
+        }
+        if (!createdAt) {
+            err.message.push("createdAt must be filled")
+        }
+
+        if (err.message.length > 0) {
+            return err
+        }
+
+        const quizzesCollectios = getDatabase().collection('Quizzes')
+
+        let quizzes = await quizzesCollectios.insertOne(result)
+        result._id = quizzes.insertedId
+        return result
     }
-    if (!mode) {
-      err.message.push("mode must be filled");
+
+    static async putQuiz(payload, id) {
+        const { userId, title, questions, timer, mode, createdAt } = payload
+
+        let err = {
+            message: []
+        }
+        if (!userId) {
+            err.message.push("userId must be filled")
+        }
+        if (!title) {
+            err.message.push("title must be filled")
+        }
+        if (!questions) {
+            err.message.push("questions must be filled")
+        }
+
+        if (!timer) {
+            err.message.push("timer must be filled")
+        }
+        if (!mode) {
+            err.message.push("mode must be filled")
+        }
+        if (!createdAt) {
+            err.message.push("createdAt must be filled")
+        }
+
+        if (err.message.length > 0) {
+            return err
+        }
+
+        let result = { userId, title, questions, timer, mode, createdAt };
+
+        const quizzesCollection = getDatabase().collection('Quizzes')
+
+        let quizzes = await quizzesCollection.updateOne(
+            {
+                _id: ObjectId(id)
+            }, {
+            $set: result
+        })
+
+        result._id = id
+        result.matchedCount = quizzes.matchedCount
+
+        return result
     }
 
-    if (err.message.length > 0) {
-      return err;
+    static async deleteQuiz(id) {
+
+        const quizzesCollection = getDatabase().collection('Quizzes')
+
+        let quizzes = await quizzesCollection.deleteMany({
+            _id: ObjectId(id)
+        })
+
+        return quizzes
     }
 
-    let result = { userId, questions, timer, mode };
-
-    const quizzesCollection = getDatabase().collection("Quizzes");
-
-    let quizzes = await quizzesCollection.updateOne(
-      {
-        _id: ObjectId(id),
-      },
-      {
-        $set: result,
-      }
-    );
-
-    result._id = id;
-    result.matchedCount = quizzes.matchedCount;
-
-    return result;
-  }
-
-  static async deleteQuiz(id) {
-    const quizzesCollection = getDatabase().collection("Quizzes");
-
-    let quizzes = await quizzesCollection.deleteMany({
-      _id: ObjectId(id),
-    });
-
-    return quizzes;
-  }
 }
 
-module.exports = Quizzes;
+module.exports = Quizzes
