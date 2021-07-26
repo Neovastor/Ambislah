@@ -6,7 +6,7 @@ export default function TabelQuestions(props) {
     // console.log(props);
 
     return (
-        <div className=" ">
+        <div>
             <a href="#">
                 <div className="bg-white shadow p-2 rounded-lg text-gray-800 hover:shadow-lg">
                     <div>No. {+props.index + 1}</div>

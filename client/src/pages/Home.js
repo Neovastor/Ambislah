@@ -5,7 +5,7 @@ import { GET_ALL_QUIZ } from '../graphql/queiries'
 
 export default function Home() {
     const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ)
-    console.log(quizzes);
+    // console.log(quizzes);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;

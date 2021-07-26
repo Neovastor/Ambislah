@@ -1,16 +1,27 @@
 import React from 'react'
 import TabelQuestions from '../components/TabelQuestions'
 import { collectionVar } from '../graphql/vars'
-import { useReactiveVar } from '@apollo/client';
+import { useReactiveVar, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
+import { DELETE_QUIZZEZ } from '../graphql/queiries'
 
 export default function Collections() {
+    const [removeMovies] = useMutation(DELETE_QUIZZEZ)
     const Quiz = useReactiveVar(collectionVar)
     const history = useHistory()
-    // console.log(Quiz);
+    console.log(Quiz);
 
     const toWaitingRoom = () => {
         history.push("/waitingroom")
+    }
+
+    const destory = () => {
+        removeMovies({
+            variables: {
+                "deleteQuizzesByIdId": Quiz.dataQuizzes._id
+            }
+        })
+        history.push("/")
     }
 
     return (
@@ -25,6 +36,10 @@ export default function Collections() {
                 <div className="bg-[#FFEACA] box-border h-auto w-full p-4 border-4 col-span-4">
                     <div>Paket : {Quiz.dataQuizzes.title}</div>
                     <div>Mode : {Quiz.dataQuizzes.mode}</div>
+                    <div>
+                        <button className="bg-green-500 px-2 py-1 rounded-lg mr-2">Update</button>
+                        <button onClick={destory} className="bg-green-500 px-2 py-1 rounded-lg ml-2">Delete</button>
+                    </div>
                     <div>
                         <div className="flex flex-wrap">
                             {

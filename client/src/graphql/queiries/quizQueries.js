@@ -45,4 +45,8 @@ mutation AddQuizzesMutation($addQuizzesUserId: String, $addQuizzesTitle: String,
   }
 }
 `
-
+export const DELETE_QUIZZEZ = gql`
+mutation DeleteQuizzesByIdMutation($deleteQuizzesByIdId: ID) {
+  DeleteQuizzesById(id: $deleteQuizzesByIdId)
+}
+`

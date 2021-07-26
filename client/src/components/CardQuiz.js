@@ -1,10 +1,11 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 import { collectionVar } from '../graphql/vars'
+import { useMutation } from '@apollo/client';
+import { DELETE_QUIZZEZ } from '../graphql/queiries'
 
 export default function CardQuiz(props) {
+    const [removeMovies] = useMutation(DELETE_QUIZZEZ)
     // console.log(props);
     const history = useHistory()
 
@@ -12,6 +13,7 @@ export default function CardQuiz(props) {
         collectionVar(props)
         history.push('/collections')
     }
+
     return (
         <div className=" ">
             <button onClick={moveToCollections}>
@@ -24,6 +26,7 @@ export default function CardQuiz(props) {
                         <div className=" font-bold font-title text-center">{props.dataQuizzes.title}</div>
                         <div className="text-sm font-light text-center my-2">{props.dataQuizzes.mode}</div>
                     </div>
+
                 </div>
             </button>
         </div>
