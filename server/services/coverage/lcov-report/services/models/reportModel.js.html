@@ -25,22 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-<<<<<<< HEAD
-                <span class='fraction'>20/20</span>
-=======
                 <span class='fraction'>18/18</span>
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-<<<<<<< HEAD
-                <span class='fraction'>2/2</span>
-=======
                 <span class='fraction'>0/0</span>
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
             </div>
         
             
@@ -54,11 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-<<<<<<< HEAD
-                <span class='fraction'>20/20</span>
-=======
                 <span class='fraction'>18/18</span>
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
             </div>
         
             
@@ -115,22 +103,11 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<<<<<<< HEAD
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-=======
 <a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,15 +119,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<<<<<<< HEAD
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-=======
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,62 +138,35 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<<<<<<< HEAD
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-=======
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<<<<<<< HEAD
-<span class="cline-any cline-yes">5x</span></td><td class="text"><pre class="prettyprint lang-js">const { getDatabase, ObjectId } = require('../config/mongodb')
-=======
 <span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">const { getDatabase, ObjectId } = require('../config/mongodb')
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
 &nbsp;
 class Model {
     static collection() {
         return getDatabase().collection('Reports')
     }
 &nbsp;
-<<<<<<< HEAD
-    static async findAllReports () {
-        try {
-            const data = await Model.collection().find().toArray()
-=======
     static async findAllReports (userId) {
         try {
             const data = await Model.collection().find({userId}).toArray()
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
             return data
             
         } catch (error) {}
     }
 &nbsp;
-<<<<<<< HEAD
-    static async findOneReports (id) {
-        try {
-            const data = await Model.collection().findOne({"_id": ObjectId(id)})
-=======
     static async findOneReports (id, userId) {
         try {
             const data = await Model.collection().findOne({"_id": ObjectId(id), userId})
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
             return data
         } catch (error) {}
     }
@@ -239,18 +183,6 @@ class Model {
     static async deleteReports (id) {
         try {
             const data = Model.collection()
-<<<<<<< HEAD
-            const findOne = await Model.findOneReports(id)
-            if (findOne) {
-                await data.deleteOne(
-                    {"_id": ObjectId(id)}, 
-                )
-                return true
-            } else {
-                return false
-            }
-            
-=======
             await data.findOne({_id: ObjectId(id)})
             
             await data.deleteOne(
@@ -258,7 +190,6 @@ class Model {
             )
             return true
                        
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
         } catch (error) {}
 &nbsp;
     }
@@ -271,11 +202,7 @@ module.exports = Model</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-<<<<<<< HEAD
-                at Mon Jul 26 2021 09:17:27 GMT+0700 (Indochina Time)
-=======
-                at Mon Jul 26 2021 11:20:02 GMT+0700 (Western Indonesia Time)
->>>>>>> eda6aecc06e49feec92cc01e7a425941bfedbbd0
+                at Mon Jul 26 2021 22:08:56 GMT+0700 (Western Indonesia Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

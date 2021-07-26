@@ -17,7 +17,7 @@ import WebRTCRoom from './pages/WebRTCRoom'
 import Collections from './pages/Collections'
 import WaitingRoom from './pages/WaitingRoom'
 import Host from "./pages/Host";
-import WaitingRoom from "./pages/HostRoom";
+import HostRoom from "./pages/HostRoom";
 import Join from "./pages/Join";
 import PlayerRoom from "./pages/PlayerRoom";
 import AnswerLive from "./pages/AnswerLive";
@@ -60,7 +60,7 @@ function App() {
           </Route>
 
           <Route exact path="/waitingroom/:idroom">
-            <WaitingRoom db={db}></WaitingRoom>
+            <HostRoom db={db}></HostRoom>
           </Route>
 
           <Route exact path="/join">
