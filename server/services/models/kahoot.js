@@ -30,5 +30,7 @@ class Kahoot {
     return await getDatabase().collection('cek').deleteOne({_id: ObjectId(id)})
   }
 }
+
+
 //console.log
 module.exports = Kahoot
