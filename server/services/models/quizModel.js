@@ -1,14 +1,34 @@
 const { getDatabase } = require('../config/mongodb')
 const { ObjectId } = require("mongodb");
+
 const cron = require('node-cron')
-const expression = '*/2 * * * * *'
-const task = cron.schedule(expression, () => {
-  console.log('STOP TASK')
-}, {
-  scheduled: false,
-  timezone: 'Asia/Jakarta'
-})
-task.start()
+
+
+function cronJob (day) {
+  // const expression = '*/2 * * * * *'
+  // const expression = '* * 72 * * *'
+  // const expression = '* * * * * *'
+  // const hour = day * 24
+  // const expression = `* */${hour} * * * *`
+  const hour = day
+  const expression = `*/${hour} * * * * *`
+  const task = cron.schedule(expression, () => {
+    console.log('del-ROOM-ID')
+  }, {
+    scheduled: false,
+    timezone: 'Asia/Jakarta'
+  })
+  // task.start()
+  
+  setTimeout(() => {
+    task.start()
+  }, 1000)
+  setTimeout(() => {
+    task.stop()
+  }, 20000)
+}
+
+cronJob(1)
 
 
 class Quizzes {
