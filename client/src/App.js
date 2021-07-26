@@ -10,6 +10,8 @@ import Report from './pages/Report';
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Teacher from './pages/Teacher'
+import WebRTCCreateRoom from './pages/WebRTCCreateRoom'
+import WebRTCRoom from './pages/WebRTCRoom'
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route exact path="/report"> <Report /> </Route>
         <Route exact path="/create"> <Create /> </Route>
         <Route exact path="/teacher"> <Teacher /> </Route>
+        <Route exact path="/room"> <WebRTCCreateRoom /> </Route>
+        <Route exact path="/room/:roomID"> <WebRTCRoom /> </Route>
         <Route> <Home /> </Route>
       </Switch>
       <Footer></Footer>
