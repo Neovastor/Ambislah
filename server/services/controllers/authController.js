@@ -15,10 +15,18 @@ class AuthController {
   static async register(req, res, next) {
     try {
       const { email, password } = req.body
-      const name = email.split('@')[0]
-      const input = { email, password, name }
-      const output = await Kahoot.register(input)
-      res.status(201).json(output)
+      if (!email || !password || +email+'' === '0' || +password+'' === '0') {
+        res.status(500).json({ msg: 'Internal Server Error' })
+      } else {
+        const name = email.split('@')[0]
+        const input = { email, password, name }
+        const output = await Kahoot.register(input)
+        if (output) {
+          res.status(201).json(output)
+        } else {
+          res.status(500).json({ msg: 'Internal Server Error' })
+        }
+      }
     } catch (err) {
       err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
     }
@@ -39,7 +47,11 @@ class AuthController {
           const token = generateJWT(userInfo)
           req.headers.access_token = token
           res.status(200).json({ access_token: token })
+        } else {
+          res.status(401).json({ msg: 'username & password invalid' })
         }
+      } else {
+        res.status(401).json({ msg: 'username & password invalid' })
       }
     } catch (err) {
       err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
@@ -48,7 +60,8 @@ class AuthController {
   static async googlelogin(req, res, next) {
     try {
       let payload = null
-      const token = req.body.id_token
+      console.log('heheh', req.body)
+      const { id_token: token } = req.body
       const client = new OAuth2Client(process.env.CLIENT_ID)
       const ticket = await client.verifyIdToken({
         idToken: token,
@@ -99,6 +112,4 @@ class AuthController {
   }
 
 }
-//console
-
 module.exports = AuthController
