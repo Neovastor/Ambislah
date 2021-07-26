@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/report"> <Report /> </Route>
         <Route exact path="/create"> <Create /> </Route>
         <Route exact path="/playground"> <Speech /> </Route>
-        {/* <Route> <Home /> </Route> */}
+        <Route> <Home /> </Route>
       </Switch>
       <Footer></Footer>
     </>

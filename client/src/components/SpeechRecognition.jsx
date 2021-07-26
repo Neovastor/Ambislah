@@ -1,9 +1,10 @@
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
-import { faVolumeUp, faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function SpeechToText(params) {
+export default function SpeechToText({inputVoice}) {
+
   const {
     transcript,
     listening,
@@ -37,10 +38,14 @@ export default function SpeechToText(params) {
           </div>
           </>
 
-        }
+      }
+      <button className="rounded p-2 my-2 text-center bg-white" onClick={() => inputVoice(transcript)}>submit</button>
+        
         {/* <button onClick={SpeechRecognition.startListening}>Start</button>
         <button onClick={SpeechRecognition.stopListening}>Stop</button>
-        <button onClick={resetTranscript}>Reset</button> */}
+      <button onClick={resetTranscript}>Reset</button> */}
+      {/* <button onClick={() => voiceover()}>test</button> */}
+      
     </div>
     </>
   ) 

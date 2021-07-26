@@ -841,11 +841,11 @@ video {
 .break-words {
 	overflow-wrap: break-word;
 }
-.rounded-lg {
-	border-radius: 0.5rem;
-}
 .rounded {
 	border-radius: 0.25rem;
+}
+.rounded-lg {
+	border-radius: 0.5rem;
 }
 .rounded-full {
 	border-radius: 9999px;
@@ -981,6 +981,9 @@ video {
 }
 .object-cover {
 	object-fit: cover;
+}
+.p-1 {
+	padding: 0.25rem;
 }
 .p-5 {
 	padding: 1.25rem;
