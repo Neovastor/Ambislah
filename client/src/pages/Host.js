@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import firebase from "firebase/app";
-import WaitingRoom from "./WaitingRoomHost";
-import {useHistory} from 'react-router-dom'
+
+import { useHistory } from "react-router-dom";
 
 const Channel = ({ db = null }) => {
-
-  const [id, setId] = useState("")
-  const history = useHistory()
+  const [id, setId] = useState("");
+  const history = useHistory();
 
   function handleOnSubmit(e) {
     e.preventDefault();
@@ -21,32 +20,48 @@ const Channel = ({ db = null }) => {
 
         if (db) {
           for (let i = 0; i < 6; i++) {
-            roomkey = roomkey + String (Math.floor(Math.random() * 10))            
+            roomkey = roomkey + String(Math.floor(Math.random() * 10));
           }
-          db.collection("Quizzes").add({
+
+          const livegamesRef = db.collection("livegames").doc(roomkey);
+
+          db.collection("quizzes").add({
             ...myJson,
-            roomkey
+            roomkey,
           });
-          
-          history.push(`/waitingroom/${roomkey}`)
+
+          livegamesRef
+            .set({
+              status: "waiting", // live / waiting / done
+              indexSoal: 0,
+              leaderboard: [],
+            })
+            .then(() => {
+              history.push(`/waitingroom/${roomkey}`);
+            })
+            .catch((error) => {
+              console.error("Error writing document: ", error);
+            });
         }
-
-
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  function onChangeHandler(e){
-    setId(e.target.value)
-    
+  function onChangeHandler(e) {
+    setId(e.target.value);
   }
 
   return (
-    <>      
+    <>
+      
       <form onSubmit={(e) => handleOnSubmit(e)}>
-        <input type="text" placeholder="input id soal" onChange={(e) =>onChangeHandler(e)}/>
+        <input
+          type="text"
+          placeholder="input id soal"
+          onChange={(e) => onChangeHandler(e)}
+        />
         <button type="submit">Host</button>
       </form>
     </>

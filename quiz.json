@@ -3,6 +3,7 @@
     {
       "id" : 1,
       "userId": 1,
+      "title": "kuis terhebat",
       "questions": [
         {
           "type": "text",
@@ -26,12 +27,13 @@
           "answer": "mobil"
         }
       ],
-      "timer": 20,
+      "timer": 5,
       "mode": "live"
     },
     {
       "id" : 2,
       "userId": 1,
+      "title": "kuis menarik",
       "questions": [
         {
           "type": "text",
@@ -48,7 +50,7 @@
           "answer": "Jakarta"
         }
       ],
-      "timer": 20,
+      "timer": 5,
       "mode": "challenge"
     }
   ]

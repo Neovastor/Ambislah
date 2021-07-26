@@ -1,25 +1,50 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 function Join({ db }) {
-  const [roomkey, setRoomkey] = useState("");
+  const [idroom, setIdroom] = useState("");
   const [playername, setPlayername] = useState("");
 
   const history = useHistory();
+
   function handleOnSubmit(e) {
     e.preventDefault();
-
+    //chekck dulu ada engga room dengan room key segitu
+    let choosenQuiz;
     if (db) {
-      db.collection("livegames").add({
-        playername,
-        roomkey,
-      });
+      db.collection("quizzes")
+        .limit(100)
+        .onSnapshot((querySnapshot) => {
+          const data = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+          }));
 
-      history.push(`/player`);
+          choosenQuiz = data.find(({ roomkey }) => +roomkey === +idroom);
+
+          if (choosenQuiz === undefined) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "room key not found, please enter valid room key",
+              showConfirmButton: true,
+            });
+          } else {
+            db.collection("players").add({
+              playername,
+              idroom,
+            });
+            
+            history.push({
+              pathname: "/player",
+              state: { idroom, playername }
+            });
+          }
+        });
     }
   }
 
   function onChangeHandlerRoomkey(e) {
-    setRoomkey(e.target.value);
+    setIdroom(e.target.value);
   }
 
   function onChangeHandlerPlayername(e) {
@@ -29,7 +54,9 @@ function Join({ db }) {
   return (
     <div className="container d-flex-col justify-content-center">
       <h1>Join room</h1>
-
+      <ul>
+        <li>TEST</li>
+      </ul>
       <form onSubmit={(e) => handleOnSubmit(e)}>
         <div className="row mt-3">
           <input
