@@ -1,4 +1,5 @@
 // ==================================Hadi & Fadhil ==================================
+import React from 'react';
 import './App.css';
 import './styles/output.css'
 import { Switch, Route } from 'react-router-dom'
