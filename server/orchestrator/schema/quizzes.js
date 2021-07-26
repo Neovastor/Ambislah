@@ -17,9 +17,11 @@ const typeDef = gql`
   type Quizzes {
     _id: ID
     userId: String
+    title: String
     questions: [questions]
     timer: Int
     mode: String
+    createdAt: Date
   }
 
   input InputQuestion {
@@ -33,9 +35,11 @@ const typeDef = gql`
   input InputQuizzes {
     _id: ID
     userId: String
+    title: String
     questions: [InputQuestion]
     timer: Int
     mode: String
+    createdAt: Date
   }
 
   extend type Query {
@@ -48,15 +52,19 @@ const typeDef = gql`
     EditQuizzesById(
       id: ID
       userId: String
+      title: String
       questions: [InputQuestion]
       timer: Int
       mode: String
+      createdAt: Date
     ): Quizzes
     AddQuizzesById(
       userId: String
+      title: String
       questions: [InputQuestion]
       timer: Int
       mode: String
+      createdAt: Date
     ): Quizzes
   }
 `;

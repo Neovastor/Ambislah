@@ -3,8 +3,8 @@ import './App.css';
 import './styles/output.css'
 import { Switch, Route } from 'react-router-dom'
 import Home from './pages/Home';
-import NavBar from './pages/NavBar';
-import Footer from './pages/Footer';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import Create from './pages/Create';
 import Report from './pages/Report';
 import Login from './pages/Login'
