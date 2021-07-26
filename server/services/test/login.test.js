@@ -6,25 +6,27 @@ let connection
 let client
 let db
 
-beforeAll(async () => {
-  connection = await connect()
-  client = connection.client
-  db = connection.db
-  return connection
-})
-afterAll(async () => {
-  await client.close()
-})
-const user = {
+const userlogin = {
   "email": "israhadi@mail.com",
   "password": "hogake-ke-7"
 }
+beforeAll(async () => {
+  connection = await connect()
+  client = connection.client
+  db = connection.database
+  await db.collection("Users").insertOne(userlogin)
+  return connection
+})
+afterAll(async () => {
+  await db.collection("Users").remove({});
+  await client.close();
+});
 jest.setTimeout(10000)
 describe('login user', () => {
   it('login', (done) => {
     request(app)
       .post('/login')
-      .send(user)
+      .send(userlogin)
       .end((err, res) => {
         console.log('OK')
         expect(res.status).toBe(200)
