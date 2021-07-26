@@ -88,7 +88,7 @@ export default function Report() {
                 <div className="w-full lg:w-5/6 max-w-[777px] pt-5">
                     <div className="bg-white shadow-md rounded-lg my-6">
 
-                      <div className="relative flex flex-col break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
+                      <div className="flex flex-col break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                             <form onSubmit={handleSubmit(submitLogin)}>
                                 <div className="relative w-full mb-3 mt-5">
