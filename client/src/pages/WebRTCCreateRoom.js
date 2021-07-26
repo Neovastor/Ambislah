@@ -1,10 +1,12 @@
 import React from "react";
 import { v1 as uuid } from "uuid";
+import { useHistory } from 'react-router-dom';
 
-const CreateRoom = (props) => {
+const CreateRoom = () => {
+  const history = useHistory()
   function create() {
       const id = uuid();
-      props.history.push(`/room/${id}`);
+      history.push(`/room/${id}`);
   }
 
   return (
