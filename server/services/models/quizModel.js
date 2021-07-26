@@ -1,134 +1,133 @@
-const { getDatabase } = require('../config/mongodb')
+const { getDatabase } = require("../config/mongodb");
 const { ObjectId } = require("mongodb");
 
-const cron = require('node-cron')
+const cron = require("node-cron");
 
-
-function cronJob (day, roomId) {
-  // const expression = '*/2 * * * * *'
-  // const expression = '* * 72 * * *'
-  // const expression = '* * * * * *'
-  // const hour = day * 24
-  // const expression = `* */${hour} * * * *`
-  const hour = day
-  const expression = `*/${hour} * * * * *`
-  const task = cron.schedule(expression, () => {
-    console.log(`del-ROOM-ID ${roomId}`)
-    // jika room id ada maka lakukan hapus
-  }, {
-    scheduled: false,
-    timezone: 'Asia/Jakarta'
-  })
-  task.start()
+//NANTI TAMBAH CREATE ROOM FIRE BASE DAN DELETE FIREBASE
+function cronJob(day, roomId) {
+  const hour = day * 24;
+  const expression = `* */${hour} * * * *`;  
+  const task = cron.schedule(
+    expression,
+    () => {
+      console.log(`del-ROOM-ID ${roomId}`);
+      // jika room id ada maka lakukan hapus
+    },
+    {
+      scheduled: false,
+      timezone: "Asia/Jakarta",
+    }
+  );
+  task.start();
 }
 
-cronJob(1, 'satu detik')
-cronJob(5, 'LIMAA')
+// cronJob(1, 'satu detik') PKAI BUAT CREATE
+// cronJob(5, 'LIMAA')
 
 class Quizzes {
-    static async findAll() {
+  static async findAll() {
+    const quizzesCollection = getDatabase().collection("Quizzes");
+    const quizzes = await quizzesCollection.find().toArray();
+    return quizzes;
+  }
 
-        const quizzesCollection = getDatabase().collection('Quizzes')
-        const quizzes = await quizzesCollection.find().toArray()
-        return quizzes
+  static async findOne(id) {
+    const quizzesCollection = getDatabase().collection("Quizzes");
+
+    const quizzes = await quizzesCollection
+      .find({
+        _id: ObjectId(id),
+      })
+      .toArray();
+
+    return quizzes[0];
+  }
+
+  static async postQuiz(payload) {
+    const { userId, questions, timer, mode } = payload;
+    let result = { userId, questions, timer, mode };
+    let err = {
+      message: [],
+    };
+    if (!userId) {
+      err.message.push("userId must be filled");
+    }
+    if (!questions) {
+      err.message.push("questions must be filled");
     }
 
-    static async findOne(id) {
-
-        const quizzesCollection = getDatabase().collection('Quizzes')
-
-        const quizzes = await quizzesCollection.find({
-            _id: ObjectId(id)
-        }).toArray()
-
-        return quizzes[0]
+    if (!timer) {
+      err.message.push("timer must be filled");
+    }
+    if (!mode) {
+      err.message.push("mode must be filled");
     }
 
-    static async postQuiz(payload) {
-        const { userId, questions, timer, mode} = payload
-        let result = { userId, questions, timer, mode}
-        let err = {
-            message: []
-        }
-        if (!userId) {
-            err.message.push("userId must be filled")
-        }
-        if (!questions) {
-            err.message.push("questions must be filled")
-        }
-        
-        if (!timer) {
-            err.message.push("timer must be filled")
-        }
-        if (!mode) {
-            err.message.push("mode must be filled")
-        }
-
-        if (err.message.length > 0) {
-            return err
-        }
-
-        const quizzesCollectios = getDatabase().collection('Quizzes')
-
-        let quizzes = await quizzesCollectios.insertOne(result)
-        
-        result._id = quizzes.insertedId
-
-        return result
+    if (err.message.length > 0) {
+      return err;
     }
 
-    static async putQuiz(payload, id) {
-        const { userId, questions, timer, mode} = payload
+    const quizzesCollectios = getDatabase().collection("Quizzes");
 
-        let err = {
-            message: []
-        }
-        if (!userId) {
-            err.message.push("userId must be filled")
-        }
-        if (!questions) {
-            err.message.push("questions must be filled")
-        }
-        
-        if (!timer) {
-            err.message.push("timer must be filled")
-        }
-        if (!mode) {
-            err.message.push("mode must be filled")
-        }
+    let quizzes = await quizzesCollectios.insertOne(result);
 
-        if (err.message.length > 0) {
-            return err
-        }
+    result._id = quizzes.insertedId;
 
-        let result = { userId, questions, timer, mode};            
+    return result;
+  }
 
-        const quizzesCollection = getDatabase().collection('Quizzes')
+  static async putQuiz(payload, id) {
+    const { userId, questions, timer, mode } = payload;
 
-        let quizzes = await quizzesCollection.updateOne(
-            {
-                _id: ObjectId(id)
-            }, {
-            $set: result
-        })
-        
-        result._id = id
-        result.matchedCount = quizzes.matchedCount 
-
-        return result
+    let err = {
+      message: [],
+    };
+    if (!userId) {
+      err.message.push("userId must be filled");
+    }
+    if (!questions) {
+      err.message.push("questions must be filled");
     }
 
-    static async deleteQuiz(id) {
-
-        const quizzesCollection = getDatabase().collection('Quizzes')
-
-        let quizzes = await quizzesCollection.deleteMany({
-            _id: ObjectId(id)
-        })
-        
-        return quizzes
+    if (!timer) {
+      err.message.push("timer must be filled");
+    }
+    if (!mode) {
+      err.message.push("mode must be filled");
     }
 
+    if (err.message.length > 0) {
+      return err;
+    }
+
+    let result = { userId, questions, timer, mode };
+
+    const quizzesCollection = getDatabase().collection("Quizzes");
+
+    let quizzes = await quizzesCollection.updateOne(
+      {
+        _id: ObjectId(id),
+      },
+      {
+        $set: result,
+      }
+    );
+
+    result._id = id;
+    result.matchedCount = quizzes.matchedCount;
+
+    return result;
+  }
+
+  static async deleteQuiz(id) {
+    const quizzesCollection = getDatabase().collection("Quizzes");
+
+    let quizzes = await quizzesCollection.deleteMany({
+      _id: ObjectId(id),
+    });
+
+    return quizzes;
+  }
 }
 
-module.exports = Quizzes
+module.exports = Quizzes;
