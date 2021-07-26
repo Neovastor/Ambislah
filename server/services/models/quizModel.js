@@ -4,7 +4,7 @@ const { ObjectId } = require("mongodb");
 const cron = require('node-cron')
 
 
-function cronJob (day) {
+function cronJob (day, roomId) {
   // const expression = '*/2 * * * * *'
   // const expression = '* * 72 * * *'
   // const expression = '* * * * * *'
@@ -13,23 +13,16 @@ function cronJob (day) {
   const hour = day
   const expression = `*/${hour} * * * * *`
   const task = cron.schedule(expression, () => {
-    console.log('del-ROOM-ID')
+    console.log(`del-ROOM-ID ${roomId}`)
   }, {
     scheduled: false,
     timezone: 'Asia/Jakarta'
   })
-  // task.start()
-  
-  setTimeout(() => {
-    task.start()
-  }, 1000)
-  setTimeout(() => {
-    task.stop()
-  }, 20000)
+  task.start()
 }
 
-cronJob(1)
-
+cronJob(1, 'satu detik')
+cronJob(5, 'LIMAA')
 
 class Quizzes {
     static async findAll() {
