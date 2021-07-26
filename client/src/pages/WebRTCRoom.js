@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
+import { useParams } from 'react-router-dom'
 
 const Container = styled.div`
     padding: 20px;
@@ -37,12 +38,13 @@ const videoConstraints = {
     width: window.innerWidth / 2
 };
 
-const Room = (props) => {
+const Room = () => {
     const [peers, setPeers] = useState([]);
     const socketRef = useRef();
     const userVideo = useRef();
     const peersRef = useRef([]);
-    const roomID = props.match.params.roomID;
+    const params = useParams()
+    const roomID = params.roomID;
 
     useEffect(() => {
         socketRef.current = io.connect("/");
