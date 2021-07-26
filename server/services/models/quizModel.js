@@ -22,8 +22,8 @@ function cronJob (day, roomId) {
   task.start()
 }
 
-cronJob(1, 'satu detik')
-cronJob(5, 'LIMAA')
+// cronJob(1, 'satu detik')
+// cronJob(5, 'LIMAA')
 
 class Quizzes {
     static async findAll() {
