@@ -1,5 +1,5 @@
 const {gql, ApolloError } = require ('apollo-server')
-const axios = require ('axios')
+const {instanceUsers} = require ('../axios')
 const Redis = require('ioredis')
 const redis = new Redis()
 
@@ -40,7 +40,7 @@ const resolvers = {
           email: args.register.email,
           password: args.register.password
         }
-        const res = await axios.post('http://localhost:4001/register', data)
+        const res = await instanceUsers.post('/register', data)
         const output = await res.data
         redis.del('Register')
         return output
@@ -55,7 +55,7 @@ const resolvers = {
           email: args.login.email,
           password: args.login.password
         }
-        const res = await axios.post('http://localhost:4001/login', data)
+        const res = await instanceUsers.post('/login', data)
         const output = await res.data
         redis.del('Login')
         return output
@@ -69,7 +69,7 @@ const resolvers = {
         const data = {
           id_token: args.idToken.id_token
         }
-        const res = await axios.put(`http://localhost:4001/googlelogin`, data)
+        const res = await instanceUsers.put(`/googlelogin`, data)
         const output = await res.data
         redis.del('GoogleLogin')
         return output

@@ -2,6 +2,7 @@ const {verifyJWT} = require('../helpers/jwt')
 const User = require('../models/kahoot')
 
 module.exports = (req, res, next) => {
+  // console.log(req.headers.access_token);
   const token = req.headers.access_token
   if (token) {
     try {
