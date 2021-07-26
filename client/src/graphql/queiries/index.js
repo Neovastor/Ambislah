@@ -14,5 +14,7 @@ export {
 
 
 export {
-    GET_ALL_QUIZ
+    GET_ALL_QUIZ,
+    CREATED_QUIZZES,
+    ADD_QUIZZES
 } from './quizQueries'

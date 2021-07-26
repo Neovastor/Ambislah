@@ -25,3 +25,24 @@ export const CREATED_QUIZZES = gql`
   createdQuiz @client
  }
 `
+
+export const ADD_QUIZZES = gql`
+mutation AddQuizzesMutation($addQuizzesUserId: String, $addQuizzesTitle: String, $addQuizzesQuestions: [InputQuestion], $addQuizzesTimer: Int, $addQuizzesMode: String, $addQuizzesCreatedAt: Date) {
+  AddQuizzes(userId: $addQuizzesUserId, title: $addQuizzesTitle, questions: $addQuizzesQuestions, timer: $addQuizzesTimer, mode: $addQuizzesMode, createdAt: $addQuizzesCreatedAt) {
+    _id
+    userId
+    title
+    questions {
+      type
+      question
+      image
+      choose
+      answer
+    }
+    timer
+    mode
+    createdAt
+  }
+}
+`
+

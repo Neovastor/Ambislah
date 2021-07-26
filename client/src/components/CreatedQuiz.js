@@ -11,7 +11,7 @@ export default function CreatedQuiz() {
         const existingcreatedQuiz = createdQuizVar()
         console.log(existingcreatedQuiz);
         const dataQuizzes = {
-            useId: "0i31i21931j2kjdnwi2",
+            userId: "0i31i21931j2kjdnwi2",
             title: data.inputQuiz,
             questions: [],
             timer: 20,

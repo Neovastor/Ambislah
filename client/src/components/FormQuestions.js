@@ -3,8 +3,13 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { createdQuizVar } from '../graphql/vars'
-
+import { ADD_QUIZZES } from '../graphql/queiries'
+import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom'
 export default function FormQuestions() {
+    const history = useHistory()
+    const [addQuizzes] = useMutation(ADD_QUIZZES)
+
     const { register, handleSubmit } = useForm();
     const [type, setType] = useState('text')
     const [type1, setType1] = useState(false)
@@ -79,11 +84,24 @@ export default function FormQuestions() {
         // console.log(existingQuiz, 'ini from quis');
         const questions = [...existingQuiz.dataQuizzes.questions, newData]
         createdQuizVar({ dataQuizzes: { ...existingQuiz.dataQuizzes, questions } });
-        // console.log(createdQuizVar());
+        console.log(createdQuizVar());
     }
 
     const saveQuiz = () => {
-        console.log(createdQuizVar());
+        // console.log(createdQuizVar());
+        const data = createdQuizVar()
+        console.log(data, 'ini finish data');
+        addQuizzes({
+            variables: {
+                "addQuizzesUserId": data.dataQuizzes.userId,
+                "addQuizzesTitle": data.dataQuizzes.title,
+                "addQuizzesQuestions": data.dataQuizzes.questions,
+                "addQuizzesTimer": data.dataQuizzes.timer,
+                "addQuizzesMode": data.dataQuizzes.mode,
+                "addQuizzesCreatedAt": data.dataQuizzes.createdAt
+            }
+        })
+        history.push('/')
     }
 
     return (

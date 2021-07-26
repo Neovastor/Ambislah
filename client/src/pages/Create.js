@@ -1,6 +1,4 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVolumeUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 import QuestionOflline from './QuestionOffline';
 import AnswerLive from './AnswerLive'
 import InputPin from './InputPin'
