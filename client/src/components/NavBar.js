@@ -40,6 +40,7 @@ export default function NavBar() {
                               ? <li><NavLink exact to={"/login"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Login</NavLink></li>
                               : <li onClick={ logout } className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold cursor-pointer" >Logout</li>
                             }
+                            <li><NavLink exact to={"/room"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >webRTC</NavLink></li>
                             <li><NavLink exact to={"/create"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Create</NavLink></li>
                         </ul>
                     </nav >
