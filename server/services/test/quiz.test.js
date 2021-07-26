@@ -2,7 +2,6 @@ const app = require("../app");
 const request = require("supertest");
 const {isValidDate} = require('./testing.helpers')
 
-// const { quizzes } = require("../model/quizModel");
 
 // let dataQuiz = require("./quiz.json");
 let dataQuiz = {
@@ -39,7 +38,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await db.collection("Quizzes").remove({});
+  await db.collection("Quizzes").deleteMany({});
   await client.close();
 });
 
@@ -276,12 +275,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test post quiz, empty input", (done) => {
     request(app)
       .post(`/quizzes`)
-      .send({
-        userId: "",
-        questions: [],
-        timer: "",
-        mode: "",
-      })
+      .send({})
       .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
@@ -441,6 +435,73 @@ describe("Test Quizzes [ERROR CASE]", () => {
           );
 
           done();
+        }
+      });
+  }),
+
+  it("Please login first", (done) => {
+    request(app)
+      .get(`/quizzes`)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.status).toBe(401);
+
+          expect(res.body).toEqual(
+            expect.objectContaining({
+              code: 401,
+              message: expect.arrayContaining([expect.any(String)]),
+            })
+          );
+
+          done();
+        }
+      });
+  });
+
+  it("Invalid Access Token", (done) => {
+    request(app)
+      .get(`/quizzes`)
+      .set({access_token: 'AbsolutlyNotAccesToken'})
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.status).toBe(401);
+
+          expect(res.body).toEqual(
+            expect.objectContaining({
+              code: 401,
+              message: expect.arrayContaining([expect.any(String)]),
+            })
+          );
+          
+          client.close()
+          .then(_ => {
+            done();
+          })
+        }
+      });
+  });
+
+  it("Internal Server Error", (done) => {
+    request(app)
+      .get(`/quizzes`)
+      .set({access_token: process.env.ACCESS_TOKEN})
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.status).toBe(500);
+
+          expect(res.body).toEqual(
+            expect.objectContaining({
+              code: 500,
+              message: expect.arrayContaining([expect.any(String)]),
+            })
+          );
+          client.connect()
+          .then(_ => {
+            done();
+          })
         }
       });
   });

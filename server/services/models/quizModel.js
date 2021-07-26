@@ -25,9 +25,9 @@ class Quizzes {
         let err = {
             message: []
         }
-        if (!userId) {
-            err.message.push("userId must be filled")
-        }
+        // if (!userId) {
+        //     err.message.push("userId must be filled")
+        // }
         if (!title) {
             err.message.push("title must be filled")
         }
@@ -57,19 +57,20 @@ class Quizzes {
 
     static async putQuiz(payload, id) {
         const { userId, title, questions, timer, mode} = payload
+        let result = {userId, title, questions, timer, mode, updatedAt: new Date()}
         
         let err = {
             message: []
         }
-        if (!userId) {
-            err.message.push("userId must be filled")
-        }
+        // if (!userId) {
+        //     err.message.push("userId must be filled")
+        // }
         if (!title) {
             err.message.push("title must be filled")
         }
-        if (!questions) {
-            err.message.push("questions must be filled")
-        }
+        // if (!questions) {
+        //     err.message.push("questions must be filled")
+        // }
         
         if (!timer) {
             err.message.push("timer must be filled")
@@ -83,7 +84,6 @@ class Quizzes {
         }       
 
         const quizzesCollection = getDatabase().collection('Quizzes')
-        let result = {userId, title, questions, timer, mode, updatedAt: new Date()}
 
         quizzesCollection.findOne({_id: ObjectId(id)})
         .then(data => {

@@ -43,7 +43,7 @@ describe("Reports [SUCCESS CASE]", () => {
   it("Get all reports", (done) => {
     request(app)
       .get("/reports")
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({ access_token: process.env.ACCESS_TOKEN })
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -71,7 +71,7 @@ describe("Reports [SUCCESS CASE]", () => {
   it("Get report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
     request(app)
       .get("/reports/60fad998cbd8d3ed1ba95f71")
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({ access_token: process.env.ACCESS_TOKEN })
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -96,7 +96,7 @@ describe("Reports [SUCCESS CASE]", () => {
       request(app)
         .post("/reports")
         .send(reportData)
-        .set({access_token: process.env.ACCESS_TOKEN})
+        .set({ access_token: process.env.ACCESS_TOKEN })
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -122,7 +122,7 @@ describe("Reports [SUCCESS CASE]", () => {
     it("Delete report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
       request(app)
         .delete("/reports/60fad998cbd8d3ed1ba95f71")
-        .set({access_token: process.env.ACCESS_TOKEN})
+        .set({ access_token: process.env.ACCESS_TOKEN })
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -155,29 +155,29 @@ describe("Reports [ERROR CASE]", () => {
         }
       });
   }),
-  it("Report not found, wrong Id", (done) => {
-    request(app)
-      .get("/reports/AbsolutlyWrong")
-      .set({access_token: process.env.ACCESS_TOKEN})
-      .end((err, res) => {
-        if (err) done(err);
-        else {
-          expect(res.status).toBe(404);
-          expect(res.body).toEqual(
-            expect.objectContaining({
-              code: 404,
-              message: expect.arrayContaining([expect.any(String)]),
-            })
-          );
+    it("Report not found, wrong Id", (done) => {
+      request(app)
+        .get("/reports/AbsolutlyWrong")
+        .set({ access_token: process.env.ACCESS_TOKEN })
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).toBe(404);
+            expect(res.body).toEqual(
+              expect.objectContaining({
+                code: 404,
+                message: expect.arrayContaining([expect.any(String)]),
+              })
+            );
 
-          done();
-        }
-      });
-  }),
+            done();
+          }
+        });
+    }),
     it("quizId is null", (done) => {
       request(app)
         .post("/reports")
-        .set({access_token: process.env.ACCESS_TOKEN})
+        .set({ access_token: process.env.ACCESS_TOKEN })
         .send({
           ...reportData,
           quizId: null,
@@ -195,10 +195,47 @@ describe("Reports [ERROR CASE]", () => {
           }
         });
     });
+  it("Empty input", (done) => {
+    request(app)
+      .post("/reports")
+      .set({ access_token: process.env.ACCESS_TOKEN })
+      .send({})
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.status).toBe(400);
+          expect(res.body).toEqual(
+            expect.objectContaining({
+              message: expect.arrayContaining([expect.any(String)]),
+            })
+          );
+          done();
+        }
+      });
+  });
+  it("Invalid Access Token", (done) => {
+    request(app)
+      .get(`/reports`)
+      .set({ access_token: "AbsolutlyNotAccesToken" })
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.status).toBe(401);
+
+          expect(res.body).toEqual(
+            expect.objectContaining({
+              code: 401,
+              message: expect.arrayContaining([expect.any(String)]),
+            })
+          );
+          done();
+        }
+      });
+  }),
   it("Cannot delete report, wrong Id", (done) => {
     request(app)
       .delete("/reports/AbsolutlyWrong")
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({ access_token: process.env.ACCESS_TOKEN })
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -209,8 +246,53 @@ describe("Reports [ERROR CASE]", () => {
               message: expect.arrayContaining([expect.any(String)]),
             })
           );
-          done();
+          client.close().then((_) => {
+            done();
+          });
         }
       });
-  });
+  }),
+
+    it("Internal Server Erro (get all reports)", (done) => {
+      request(app)
+        .get(`/reports`)
+        .set({ access_token: process.env.ACCESS_TOKEN })
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).toBe(500);
+
+            expect(res.body).toEqual(
+              expect.objectContaining({
+                code: 500,
+                message: expect.arrayContaining([expect.any(String)]),
+              })
+            );
+            // client.connect().then((_) => {
+            // });
+            done();
+          }
+        });
+    }),
+    it("Internal Server Error (get report by Id)", (done) => {
+      request(app)
+        .get("/reports/60fad998cbd8d3ed1ba95f71")
+        .set({ access_token: process.env.ACCESS_TOKEN })
+        .end((err, res) => {
+          if (err) done(err);
+          else {
+            expect(res.status).toBe(500);
+
+            expect(res.body).toEqual(
+              expect.objectContaining({
+                code: 500,
+                message: expect.arrayContaining([expect.any(String)]),
+              })
+            );
+            client.connect().then((_) => {
+              done();
+            });
+          }
+        });
+    });
 });

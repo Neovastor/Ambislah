@@ -32,16 +32,13 @@ class Model {
     static async deleteReports (id) {
         try {
             const data = Model.collection()
-            const findOne = await data.findOne({_id: ObjectId(id)})
-            if (findOne) {
-                await data.deleteOne(
-                    {"_id": ObjectId(id)}, 
-                )
-                return true
-            } else {
-                return false
-            }
+            await data.findOne({_id: ObjectId(id)})
             
+            await data.deleteOne(
+                {"_id": ObjectId(id)}, 
+            )
+            return true
+                       
         } catch (error) {}
 
     }
