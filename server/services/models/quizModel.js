@@ -31,21 +31,15 @@ class Quizzes {
         if (!title) {
             err.message.push("title must be filled")
         }
-        if (!title) {
-            err.message.push("title must be filled")
-        }
         if (!questions) {
             err.message.push("questions must be filled")
         }
-
+        
         if (!timer) {
             err.message.push("timer must be filled")
         }
         if (!mode) {
             err.message.push("mode must be filled")
-        }
-        if (!createdAt) {
-            err.message.push("createdAt must be filled")
         }
 
         if (err.message.length > 0) {
@@ -55,7 +49,9 @@ class Quizzes {
         const quizzesCollectios = getDatabase().collection('Quizzes')
 
         let quizzes = await quizzesCollectios.insertOne(result)
+        
         result._id = quizzes.insertedId
+
         return result
     }
 
@@ -82,9 +78,6 @@ class Quizzes {
         if (!mode) {
             err.message.push("mode must be filled")
         }
-        if (!createdAt) {
-            err.message.push("createdAt must be filled")
-        }
 
         if (err.message.length > 0) {
             return err
@@ -107,9 +100,9 @@ class Quizzes {
             }, {
             $set: result
         })
-
+        
         result._id = id
-        result.matchedCount = quizzes.matchedCount
+        result.matchedCount = quizzes.matchedCount 
 
         return result
     }
@@ -121,7 +114,7 @@ class Quizzes {
         let quizzes = await quizzesCollection.deleteMany({
             _id: ObjectId(id)
         })
-
+        
         return quizzes
     }
 
