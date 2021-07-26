@@ -5,8 +5,8 @@ const instanceReports = axios.create({
 });
 
 const instanceQuizzes = axios.create({
-  // baseURL: `http://localhost:4001/quizzes`
-  baseURL: `http://localhost:8080/quizzes`
+  baseURL: `http://localhost:4001/quizzes`
+  // baseURL: `http://localhost:8080/quizzes` //jsonServer
 })
 
 

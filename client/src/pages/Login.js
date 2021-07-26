@@ -7,7 +7,7 @@ import { useAlert } from 'react-alert';
 
 export default function Report() {
   const alert = useAlert()
-  const history= useHistory()
+  const history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [login, { data: datalogin }] = useMutation(LOGIN)
@@ -31,54 +31,54 @@ export default function Report() {
         }
       }
     })
-    
+
     setEmail('')
     setPassword('')
     history.push('/')
     alert.success('Welcome')
     console.log('>>>>>>', datalogin)
-    
-  }
-    return (
-        <div className="overflow-x-auto pt-14">
-            <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-                <div className="w-full lg:w-5/6 max-w-[777px] pt-5">
-                    <div className="bg-white shadow-md rounded-lg my-6">
 
-                      <div className="relative flex flex-col break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
-                        <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                            <form onSubmit={ submitLogin }>
-                                <div className="relative w-full mb-3 mt-5">
-                                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
-                                    <input onChange={ changeEmail } value={ email } type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{"transition": "all 0.15s ease 0s"}} />
-                                </div>
-                                <div className="relative w-full mb-3">
-                                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Password</label>
-                                    <input onChange={ changePassword } value={ password } type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{"transition": "all 0.15s ease 0s"}} />
-                                </div>
-                                <div>
-                                    <Link to="/register" className="text text-blue-600 cursor-pointer">
-                                      don't have an account, Register here.
-                                    </Link>
-                                </div>
-                                <div className="text-center mt-6">
-                                    <button className="bg-[#FFA0A0] text-black active:bg-gray-700 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="submit" style={{"transition": "all 0.15s ease 0s"}}>Log In</button>
-                                </div>
-                            </form>
-                            </div>
-                        </div>
-                        <div className="rounded-t mb-0 px-6 py-6">
-                            <div className="text-center mb-3">
-                                <h6 className="text-gray-600 text-sm font-bold">Sign in with</h6></div>
-                            <div className="btn-wrapper text-center">
-                            <GoogleLogin
-                                clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
-                                buttonText="GOOGLE"
-                                onSuccess={CALLBACK}
-                                onFailure={CALLBACK}
-                                cookiePolicy={'single_host_origin'}
-                            />
-                            {/* <button className="bg-white text-black active:bg-gray-700 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-6/12" type="button" style={{"transition": "all 0.15s ease 0s"}}>
+  }
+  return (
+    <div className="overflow-x-auto pt-14">
+      <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+        <div className="w-full lg:w-5/6 max-w-[777px] pt-5">
+          <div className="bg-white shadow-md rounded-lg my-6">
+
+            <div className="flex flex-col break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
+              <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <form onSubmit={submitLogin}>
+                  <div className="w-full mb-3 mt-5">
+                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
+                    <input onChange={changeEmail} value={email} type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{ "transition": "all 0.15s ease 0s" }} />
+                  </div>
+                  <div className="w-full mb-3">
+                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Password</label>
+                    <input onChange={changePassword} value={password} type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{ "transition": "all 0.15s ease 0s" }} />
+                  </div>
+                  <div>
+                    <Link to="/register" className="text text-blue-600 cursor-pointer">
+                      don't have an account, Register here.
+                    </Link>
+                  </div>
+                  <div className="text-center mt-6">
+                    <button className="bg-[#FFA0A0] text-black active:bg-gray-700 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="submit" style={{ "transition": "all 0.15s ease 0s" }}>Log In</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className="rounded-t mb-0 px-6 py-6">
+              <div className="text-center mb-3">
+                <h6 className="text-gray-600 text-sm font-bold">Sign in with</h6></div>
+              <div className="btn-wrapper text-center">
+                <GoogleLogin
+                  clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
+                  buttonText="GOOGLE"
+                  onSuccess={CALLBACK}
+                  onFailure={CALLBACK}
+                  cookiePolicy={'single_host_origin'}
+                />
+                {/* <button className="bg-white text-black active:bg-gray-700 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-6/12" type="button" style={{"transition": "all 0.15s ease 0s"}}>
                                   <svg xmlns="http://www.w3.org/2000/svg" 
                                   width="250" height="25" 
                                   viewBox="0.512 0.511 748.99 256.61">
@@ -88,14 +88,14 @@ export default function Report() {
                                   
                               
                               </button> */}
-                            </div>
-                            <hr className="mt-6 border-b-1 border-gray-400" />
-                        </div>
-                      </div>
-                      
-                      
-                </div>
+              </div>
+              <hr className="mt-6 border-b-1 border-gray-400" />
             </div>
+          </div>
+
+
         </div>
-    )
+      </div>
+    </div>
+  )
 }

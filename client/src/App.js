@@ -9,12 +9,17 @@ import Create from './pages/Create';
 import Report from './pages/Report';
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Collections from './pages/Collections'
+import WaitingRoom from './pages/WaitingRoom'
 
 function App() {
   return (
     <>
       <NavBar></NavBar>
       <Switch>
+
+        <Route exact path="/waitingroom"> <WaitingRoom /> </Route>
+        <Route exact path="/collections"> <Collections /> </Route>
         <Route exact path="/login"> <Login /> </Route>
         <Route exact path="/register"> <Register /> </Route>
         <Route exact path="/report"> <Report /> </Route>

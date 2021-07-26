@@ -2,7 +2,6 @@ import React from 'react'
 import QuestionOflline from './QuestionOffline';
 import AnswerLive from './AnswerLive'
 import InputPin from './InputPin'
-import WaitingRoom from './WaitingRoom';
 import CreatedQuiz from '../components/CreatedQuiz'
 import { useReactiveVar } from '@apollo/client'
 import { showPageVar } from '../graphql/vars'
@@ -32,9 +31,6 @@ export default function Create() {
             </section>
             <section>
                 <InputPin />
-            </section>
-            <section>
-                <WaitingRoom />
             </section> */}
         </>
     )
