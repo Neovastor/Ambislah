@@ -17,21 +17,6 @@ const typeDef = gql`
   type Quizzes {
     _id: ID
     userId: String
-
-
-    title: String
-    questions: [questions]
-    timer: Int
-    mode: String
-    createdAt: Date
-
-    title: String
-    questions: [questions]
-    timer: Int
-    mode: String
-    createdAt: Date
-
-
     title: String
     questions: [Questions]
     timer: Int
@@ -51,20 +36,10 @@ const typeDef = gql`
 
   input InputQuizzes {
 
-    _id: ID
-    userId: String
-
-
-    questions: [InputQuestion]
-    timer: Int
-    mode: String
-
     title: String
     questions: [InputQuestion]
     timer: Int
     mode: String
-    createdAt: Date
-
   }
 
   extend type Query {
@@ -72,40 +47,13 @@ const typeDef = gql`
     QuizzesById(id: ID): Quizzes
   }
 
-  extend type Mutation {
-    DeleteQuizzesById(id: ID): String
-    EditQuizzesById(
-      id: ID
-      userId: String
-      title: String
-      questions: [InputQuestion]
-      timer: Int
-      mode: String
-      createdAt: Date
-    ): Quizzes
-    AddQuizzes(
-      userId: String
-      title: String
-      questions: [InputQuestion]
-      timer: Int
-      mode: String
-      title: String
-      questions: [InputQuestion]
-      timer: Int
-      mode: String
-      createdAt: Date
-    ): Quizzes
-    AddQuizzes(
-      userId: String
-      title: String
-      questions: [InputQuestion]
-      timer: Int
-      mode: String
-      createdAt: Date
+  extend type Mutation {    
     DeleteQuizzes(id: ID): Message
+    
     EditQuizzes(
       id: ID, input: InputQuizzes
     ): Quizzes
+    
     AddQuizzes(
       input: InputQuizzes
     ): Quizzes
