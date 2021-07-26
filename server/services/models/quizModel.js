@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const { getDatabase, ObjectId } = require('../config/mongodb')
 
 class Quizzes {
