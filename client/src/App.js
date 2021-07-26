@@ -1,44 +1,24 @@
 // ==================================Hadi & Fadhil ==================================
-import './App.css';
-import './styles/output.css'
-// import { Switch, Route } from 'react-router-dom'
-// import Home from './pages/Home';
-// import NavBar from './pages/NavBar';
-// import Footer from './pages/Footer';
-// import Create from './pages/Create';
-// import Report from './pages/Report';
-// import Login from './pages/Login'
-// import Register from './pages/Register'
-
-// function App() {
-//   return (
-//     <>
-//       <NavBar></NavBar>
-//       <Switch>
-//         <Route exact path="/login"> <Login /> </Route>
-//         <Route exact path="/register"> <Register /> </Route>
-//         <Route exact path="/report"> <Report /> </Route>
-//         <Route exact path="/create"> <Create /> </Route>
-//         <Route> <Home /> </Route>
-//       </Switch>
-//       <Footer></Footer>
-//     </>
-//   );
-// }
-
-
-//================================== PUNYA BRIAN ==================================
+import "./App.css";
+import "./styles/output.css";
+import { Switch, Route, Prompt } from "react-router-dom";
+import Home from "./pages/Home";
+import NavBar from "./pages/NavBar";
+import Footer from "./pages/Footer";
+import Report from "./pages/Report";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 import Host from "./pages/Host";
 import WaitingRoom from "./pages/HostRoom";
 import Join from "./pages/Join";
 import PlayerRoom from "./pages/PlayerRoom";
-
+import AnswerLive from "./pages/AnswerLive";
+import Create from "./pages/Create";
 import { useState, useEffect } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { Switch, Route } from "react-router-dom";
 
 firebase.initializeApp({
   apiKey: "AIzaSyC33_F7QhSbb0pvHpWawdF9UaNgyxumQdw",
@@ -52,33 +32,55 @@ firebase.initializeApp({
 const db = firebase.firestore();
 
 function App() {
-  useEffect(() => {}, []);
+  
+  
 
   return (
-    <div className="container m-5">
+    <>
+      {/* <NavBar></NavBar> */}
       <Switch>
-        <Route exact path="/host">
-          <p>"Welcome host, you can create a room"</p>
-          <Host db={db}></Host>
-        </Route>
+        
 
-        <Route exact path="/waitingroom/:idroom">
-          <WaitingRoom db={db}></WaitingRoom>
-        </Route>
+        <div className="container m-5">
+          <Route exact path="/login">
+            {" "}
+            <Login />{" "}
+          </Route>
+          <Route exact path="/register">
+            {" "}
+            <Register />{" "}
+          </Route>
+          <Route exact path="/report">
+            {" "}
+            <Report />{" "}
+          </Route>
+          <Route exact path="/create">
+            {" "}
+            <Create />{" "}
+          </Route>
 
-        <Route exact path="/join">
-          <Join db={db}></Join>
-        </Route>
+          <Route exact path="/host">
+            <p>"Welcome host, you can create a room"</p>
+            <Host db={db}></Host>
+          </Route>
 
-        <Route exact path="/player">
-          <PlayerRoom db={db}></PlayerRoom>
-        </Route>
+          <Route exact path="/waitingroom/:idroom">
+            <WaitingRoom db={db}></WaitingRoom>
+          </Route>
+
+          <Route exact path="/join">
+            <Join db={db}></Join>
+          </Route>
+
+          <Route exact path="/player">
+            <PlayerRoom db={db}></PlayerRoom>
+          </Route>
+          {/* <Route> <Home /> </Route> */}
+        </div>
       </Switch>
-    </div>
+      <Footer></Footer>
+    </>
   );
 }
-
-
-
 
 export default App;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Prompt } from "react-router-dom";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
 
@@ -104,7 +104,7 @@ function PlayerRoom({ db }) {
         Swal.fire({
           icon: "success",
           title: "Your answer is right",
-          timer: 1500
+          timer: 1500,
         });
 
         setScores((scores) => [...scores, 1]);
@@ -112,7 +112,7 @@ function PlayerRoom({ db }) {
         Swal.fire({
           icon: "error",
           title: "wrong answer",
-          timer: 1500
+          timer: 1500,
         });
 
         setScores((scores) => [...scores, 0]);
@@ -120,19 +120,22 @@ function PlayerRoom({ db }) {
     }
   }
 
-//   console.log(scores);
+  //   console.log(scores);
 
   if (status === "waiting") {
     return <h1>Waiting host to start the game</h1>;
+  }
+  if (status === "pause") {
+    return <h1>Pause the game</h1>;
   }
 
   if (status === "done") {
     const playerTotalScore = scores.reduce((a, b) => a + b, 0);
     livegamesRef.update({
-        leaderboard: firebase.firestore.FieldValue.arrayUnion({
-            name : location.state.playername,
-            score : playerTotalScore
-        })
+      leaderboard: firebase.firestore.FieldValue.arrayUnion({
+        name: location.state.playername,
+        score: playerTotalScore,
+      }),
     });
     return (
       <div>
@@ -146,6 +149,10 @@ function PlayerRoom({ db }) {
   if (status === "live") {
     return (
       <div>
+        <Prompt
+          when={status==="live"}
+          message="Are you sure you want to leave?"
+        />
         {Object.keys(quizzes).length > 0 ? (
           <div>
             <h1>Host start the game </h1>

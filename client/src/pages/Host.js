@@ -55,6 +55,7 @@ const Channel = ({ db = null }) => {
 
   return (
     <>
+      
       <form onSubmit={(e) => handleOnSubmit(e)}>
         <input
           type="text"

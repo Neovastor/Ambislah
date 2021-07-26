@@ -8,25 +8,23 @@ function Leaderboard({ db, idparams }) {
 
   const history = useHistory();
   useEffect(() => {
-    if (db) {
-      livegamesRef.onSnapshot((doc) => {
-        if (doc.data().leaderboard) {
-          setlivegamesData(doc.data());
-          let sortedLeaderboard = doc.data().leaderboard.sort((a, b) => {
-            if (a.score > b.score) {
-              return -1;
-            }
-            if (a.score < b.score) {
-              return 1;
-            }
-            return 0;
-          });
+    livegamesRef.onSnapshot((doc) => {
+      setlivegamesData(doc.data());
 
-          setLeaderboard(sortedLeaderboard);
-        }
-      });
-    }
-  }, [db]);
+      // sortedLeaderboard = doc.data().leaderboard.sort((a, b) => {
+      //   if (a.score > b.score) {
+      //     return -1;
+      //   }
+      //   if (a.score < b.score) {
+      //     return 1;
+      //   }
+      //   return 0;
+      // });
+      let sortedLeaderboard = doc.data().leaderboard;
+      console.log(doc.data(), "DATA");
+      setLeaderboard(sortedLeaderboard);
+    });
+  }, []);
 
   function finishHandler(e) {
     db.collection("quizzes").onSnapshot((querySnapshot) => {
@@ -35,10 +33,11 @@ function Leaderboard({ db, idparams }) {
       }));
 
       const choosenQuiz = data.find(({ roomkey }) => +roomkey === +idparams);
+
       let payload = {
         playersCount: livegamesData.players.length,
-        players: livegamesData.leaderboard,
         date: new Date(),
+        players: livegamesData.leaderboard,
         quizTitle: choosenQuiz.title,
         quizId: choosenQuiz.id,
       };
@@ -46,9 +45,10 @@ function Leaderboard({ db, idparams }) {
       //Kirim PAYLOAD
 
       //pindah halaman
-      history.push("/host");
+      history.push("/");
 
-      //Hapus dari data base
+      // Hapus dari data base
+      // setTimeout(function () {
       //   livegamesRef.delete();
 
       //   const deletePlayers = db
@@ -70,32 +70,35 @@ function Leaderboard({ db, idparams }) {
       //       doc.ref.delete();
       //     });
       //   });
+      // }, 3000);
     });
   }
 
   return (
     <div>
       <h1>Leaderboard</h1>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leaderboard.map((row, index) => {
-            return (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{row.name}</td>
-                <td>{row.score}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      {leaderboard.length > 0 ? (
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leaderboard.map((row, index) => {
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{row.name}</td>
+                  <td>{row.score}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      ) : null}
       <button className="btn btn-primary" onClick={(e) => finishHandler(e)}>
         Finish
       </button>

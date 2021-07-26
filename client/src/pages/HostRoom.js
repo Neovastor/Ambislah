@@ -12,58 +12,66 @@ function WaitingRoom({ db }) {
   const [players, setPlayers] = useState([]);
   const [statusGame, setStatusGame] = useState("waiting");
   const [count, setCount] = useState(0);
-  const [isRunning, setIsRunning] = useState(true);
+  const [isRunning, setIsRunning] = useState(false);
   const [delay, setDelay] = useState(1000);
   const [indexSoal, setIndexSoal] = useState(0);
+  
 
   const livegamesRef = db.collection("livegames").doc(idparams);
 
   useEffect(() => {
-    if (db) {
-      livegamesRef.onSnapshot((doc) => {
-        setStatusGame(doc.data().status);
+    livegamesRef
+      .get()
+      .then((doc) => {
+        if (doc.data().status) {
+          livegamesRef.onSnapshot((doc) => {
+            // if (doc.data()) {
+            setStatusGame(doc.data().status);
+            // }
+          });
+
+          db.collection("quizzes").onSnapshot((querySnapshot) => {
+            const data = querySnapshot.docs.map((doc) => ({
+              ...doc.data(),
+            }));
+
+            const choosenQuiz = data.find(
+              ({ roomkey }) => +roomkey === +idparams
+            );
+
+            //update state
+            setQuizzes(choosenQuiz);
+          });
+
+          db.collection("players").onSnapshot((querySnapshot) => {
+            const data = querySnapshot.docs.map((doc) => ({
+              ...doc.data(),
+            }));
+
+            const playersInSpecificRoomId = data.filter(
+              ({ idroom }) => +idroom === +idparams
+            );
+
+            //update state
+            setPlayers(playersInSpecificRoomId);
+          });
+
+          return livegamesRef
+            .update({
+              indexSoal: 0,
+            })
+            .then(() => {
+              // console.log("Document successfully updated!");
+            })
+            .catch((error) => {
+              // The document probably doesn't exist.
+              console.error("Error updating document: ", error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
       });
-
-      const unsubcribe = db
-        .collection("quizzes")
-        .onSnapshot((querySnapshot) => {
-          const data = querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-          }));
-
-          const choosenQuiz = data.find(
-            ({ roomkey }) => +roomkey === +idparams
-          );
-
-          //update state
-          setQuizzes(choosenQuiz);
-        });
-
-      db.collection("players").onSnapshot((querySnapshot) => {
-        const data = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-        }));
-
-        const playersInSpecificRoomId = data.filter(
-          ({ idroom }) => +idroom === +idparams
-        );
-
-        //update state
-        setPlayers(playersInSpecificRoomId);
-      });
-
-      return livegamesRef
-        .update({
-          indexSoal: 0,
-        })
-        .then(() => {
-          // console.log("Document successfully updated!");
-        })
-        .catch((error) => {
-          // The document probably doesn't exist.
-          console.error("Error updating document: ", error);
-        });
-    }
   }, [db]);
 
   function onClickStartHandler(e) {
@@ -98,10 +106,12 @@ function WaitingRoom({ db }) {
             status: "live",
             indexSoal: 0,
             players,
+            leaderboard : []
           })
           .then(() => {
             setStatusGame("live");
             setCount(0);
+            setIsRunning(true)
             setIndexSoal(0);
           })
           .catch((error) => {
@@ -139,7 +149,7 @@ function WaitingRoom({ db }) {
   useEffect(() => {
     if (statusGame === "live") {
       if (count > quizzes.timer && indexSoal < quizzes.questions.length - 1) {
-        setCount(0);
+
 
         return livegamesRef
           .update({
@@ -147,12 +157,23 @@ function WaitingRoom({ db }) {
           })
           .then(() => {
             setIndexSoal(indexSoal + 1);
+
+            return livegamesRef.update({
+              status: "pause",
+            });
+          })
+          .then(() => {
+            setStatusGame("pause");
+            setIsRunning(false)
+            setCount(0);
           })
           .catch((error) => {
-
             console.error("Error updating document: ", error);
           });
-      } else if (count > quizzes.timer && indexSoal === quizzes.questions.length - 1) {
+      } else if (
+        count > quizzes.timer &&
+        indexSoal === quizzes.questions.length - 1
+      ) {
         setIsRunning(false);
         return livegamesRef
           .update({
@@ -167,13 +188,42 @@ function WaitingRoom({ db }) {
           });
       }
     }
-  }, [count]);
+  }, [count,statusGame]);
+
+  function nextClickHandler(e) {
+    return livegamesRef
+      .update({
+        status: "live",
+      })
+      .then(() => {
+        setStatusGame("live");        
+        setCount(0);
+        setIsRunning(true)
+      })
+      .catch((err) =>{
+        console.log("error", err);
+      })
+  }
+
+  if (statusGame === "pause") {
+    return (
+      <div>
+        <h1>Pause</h1>
+        <button
+          className="btn btn-primary"
+          onClick={(e) => nextClickHandler(e)}
+        >
+          Next
+        </button>
+      </div>
+    );
+  }
 
   if (statusGame === "done") {
     return (
       <div>
         <h1>Game Finished</h1>
-        <Leaderboard db={ db } idparams={idparams} />
+        <Leaderboard db={db} idparams={idparams} />
       </div>
     );
   }
@@ -216,5 +266,3 @@ function WaitingRoom({ db }) {
 }
 
 export default WaitingRoom;
-
-
