@@ -20,13 +20,12 @@ const user = {
   "password": "hogake-ke-7"
 }
 jest.setTimeout(10000)
-describe('register user', () => {
-  it('register', (done) => {
+describe('Register [SUCCESS CASE]', () => {
+  it('Register success', (done) => {
     request(app)
       .post('/register')
       .send(user)
       .end((err, res) => {
-        console.log('OK')
         expect(res.status).toBe(201)
         expect(res.body).toEqual(
           expect.objectContaining({
@@ -34,6 +33,24 @@ describe('register user', () => {
             insertedId: expect.any(String)
           })
         )
+        done()
+      })
+  })
+})
+
+describe('Register [ERROR CASE]', () => {
+  it('Register fail, wrong input', (done) => {
+    request(app)
+      .post('/register')
+      .send({})
+      .end((err, res) => {
+        expect(res.status).toBe(400)
+        expect(res.body).toEqual(
+          expect.objectContaining({
+            code: 400,
+            message: expect.arrayContaining([expect.any(String)]),
+          })
+        );
         done()
       })
   })
