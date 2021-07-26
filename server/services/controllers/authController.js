@@ -99,4 +99,5 @@ class AuthController {
   }
 
 }
+//console
 module.exports = AuthController
