@@ -19,3 +19,9 @@ query Query {
   }
 }
 `
+
+export const CREATED_QUIZZES = gql`
+ query createdQuiz{
+  createdQuiz @client
+ }
+`

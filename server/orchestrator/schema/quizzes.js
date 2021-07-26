@@ -58,7 +58,7 @@ const typeDef = gql`
       mode: String
       createdAt: Date
     ): Quizzes
-    AddQuizzesById(
+    AddQuizzes(
       userId: String
       title: String
       questions: [InputQuestion]
@@ -136,7 +136,7 @@ const resolvers = {
         throw new ApolloError(err.response.data.message);
       }
     },
-    AddQuizzesById: async (_, args) => {
+    AddQuizzes: async (_, args) => {
       try {
         const data = {
           userId: args.userId,
