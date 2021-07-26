@@ -14,6 +14,7 @@ function cronJob (day, roomId) {
   const expression = `*/${hour} * * * * *`
   const task = cron.schedule(expression, () => {
     console.log(`del-ROOM-ID ${roomId}`)
+    // jika room id ada maka lakukan hapus
   }, {
     scheduled: false,
     timezone: 'Asia/Jakarta'
