@@ -1,5 +1,15 @@
 const { getDatabase } = require('../config/mongodb')
 const { ObjectId } = require("mongodb");
+const cron = require('node-cron')
+const expression = '*/2 * * * * *'
+const task = cron.schedule(expression, () => {
+  console.log('STOP TASK')
+}, {
+  scheduled: false,
+  timezone: 'Asia/Jakarta'
+})
+task.start()
+
 
 class Quizzes {
     static async findAll() {
