@@ -1,9 +1,35 @@
-const { getDatabase, ObjectId } = require('../config/mongodb')
+const { getDatabase } = require('../config/mongodb')
+const { ObjectId } = require("mongodb");
+
+const cron = require('node-cron')
+
+
+function cronJob (day, roomId) {
+  // const expression = '*/2 * * * * *'
+  // const expression = '* * 72 * * *'
+  // const expression = '* * * * * *'
+  // const hour = day * 24
+  // const expression = `* */${hour} * * * *`
+  const hour = day
+  const expression = `*/${hour} * * * * *`
+  const task = cron.schedule(expression, () => {
+    console.log(`del-ROOM-ID ${roomId}`)
+    // jika room id ada maka lakukan hapus
+  }, {
+    scheduled: false,
+    timezone: 'Asia/Jakarta'
+  })
+  task.start()
+}
+
+// cronJob(1, 'satu detik')
+// cronJob(5, 'LIMAA')
 
 class Quizzes {
-    static async findAll(userId) {
+    static async findAll() {
+
         const quizzesCollection = getDatabase().collection('Quizzes')
-        const quizzes = await quizzesCollection.find({userId: userId}).toArray()
+        const quizzes = await quizzesCollection.find().toArray()
         return quizzes
     }
 
@@ -19,17 +45,13 @@ class Quizzes {
     }
 
     static async postQuiz(payload) {
-        const { userId, title, questions, timer, mode} = payload
-        let result = {userId, title, questions, timer, mode, createdAt: new Date(),
-            updatedAt: new Date()}
+        const { userId, questions, timer, mode} = payload
+        let result = { userId, questions, timer, mode}
         let err = {
             message: []
         }
-        // if (!userId) {
-        //     err.message.push("userId must be filled")
-        // }
-        if (!title) {
-            err.message.push("title must be filled")
+        if (!userId) {
+            err.message.push("userId must be filled")
         }
         if (!questions) {
             err.message.push("questions must be filled")
@@ -56,21 +78,17 @@ class Quizzes {
     }
 
     static async putQuiz(payload, id) {
-        const { userId, title, questions, timer, mode} = payload
-        let result = {userId, title, questions, timer, mode, updatedAt: new Date()}
-        
+        const { userId, questions, timer, mode} = payload
+
         let err = {
             message: []
         }
-        // if (!userId) {
-        //     err.message.push("userId must be filled")
-        // }
-        if (!title) {
-            err.message.push("title must be filled")
+        if (!userId) {
+            err.message.push("userId must be filled")
         }
-        // if (!questions) {
-        //     err.message.push("questions must be filled")
-        // }
+        if (!questions) {
+            err.message.push("questions must be filled")
+        }
         
         if (!timer) {
             err.message.push("timer must be filled")
@@ -81,19 +99,12 @@ class Quizzes {
 
         if (err.message.length > 0) {
             return err
-        }       
+        }
+
+        let result = { userId, questions, timer, mode};            
 
         const quizzesCollection = getDatabase().collection('Quizzes')
 
-        quizzesCollection.findOne({_id: ObjectId(id)})
-        .then(data => {
-            if (data) {
-                result.createdAt = data.createdAt
-            } else {
-                return result.matchedCount = 0
-            }
-        })
-        
         let quizzes = await quizzesCollection.updateOne(
             {
                 _id: ObjectId(id)
