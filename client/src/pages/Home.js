@@ -17,6 +17,16 @@ export default function Home() {
 
     return (
         <>
+            <div className="bg-[#ecb744] h-screen flex flex-col ">
+                <div className="flex justify-center">
+                    <div className="py-60 font-black text-5xl proportional-nums uppercase">
+                        Sahoot GO!
+                    </div>
+                    <div>
+                        <button>Login</button>
+                    </div>
+                </div>
+            </div>
             <div className="grid md:grid-cols-6 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
                 <div className=" box-border rounded-xl w-full p-4 mmd:col-span-4 grid-rows-2">
                     <div className="rounded-full h-34 w-34 mt-14 mmd:mt-1 p-8 font-semibold bg-white  ">

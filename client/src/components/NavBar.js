@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 export default function NavBar() {
     return (
         <header className="fixed w-full">
-            <div className="lg:px-16 px-6 bg-[#344FA1] flex flex-wrap items-center lg:py-0 py-2">
+            <div className="lg:px-16 px-6 bg-[#000000] flex flex-wrap items-center lg:py-0 py-2 bg-opacity-70">
                 <div className="flex-1 flex justify-between items-center">
                     <NavLink exact to={"/"}>
                         <h1 className="text-2xl font-semibold text-[#ffffff]">Sahoot!</h1>
