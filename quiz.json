@@ -7,7 +7,7 @@
       "questions": [
         {
           "type": "text",
-          "question": "inventor of light bulb ?",
+          "question": "Who is the inventor of light bulb ?",
           "image": "null",
           "choose": ["alexander graham bell", "Brian", "Susan", "Nathan"],
           "answer": "alexander graham bell"
@@ -21,7 +21,7 @@
         },
         {
           "type": "text",
-          "question": "kendaraan beroda 4 ?",
+          "question": "From option below, which one is the vehicle that has four wheels ?",
           "image": "null",
           "choose": ["mobil", "sepeda motor", "sepeda", "pesawat"],
           "answer": "mobil"

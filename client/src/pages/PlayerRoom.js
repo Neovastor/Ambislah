@@ -154,7 +154,10 @@ function PlayerRoom({ db }) {
           title: "Your answer is right",
           timer: 1500,
         });
-
+        setOptionA(buttonRight)
+        setOptionB(buttonRight)
+        setOptionC(buttonRight)
+        setOptionD(buttonRight)
         setScores((scores) => [...scores, 1]);
       } else {
         Swal.fire({
@@ -162,7 +165,10 @@ function PlayerRoom({ db }) {
           title: "wrong answer",
           timer: 1500,
         });
-
+        setOptionA(buttonWrong)
+        setOptionB(buttonWrong)
+        setOptionC(buttonWrong)
+        setOptionD(buttonWrong)
         setScores((scores) => [...scores, 0]);
       }
     }
@@ -199,8 +205,7 @@ function PlayerRoom({ db }) {
           <div className="pt-12 md-max:flex md-max:flex-col-reverse">
             <div className="bg-gray-200 my-2 p-2 col-span-7 h-auto">
               <div className="flex justify-between">
-                <div className=" p-3 rounded-lg"></div>
-                <div>{quizzes.questions[indexSoal].question}</div>
+                <div className=" p-3 rounded-lg"></div>                
                 <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
                   <TextToSpeech text={quizzes.questions[indexSoal].question} />
                 </button>

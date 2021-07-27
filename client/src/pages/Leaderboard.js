@@ -75,33 +75,58 @@ function Leaderboard({ db, idparams }) {
   }
 
   return (
-    <div>
+    <div className="overflow-x-auto pt-14">
       <h1>Leaderboard</h1>
-      {leaderboard.length > 0 ? (
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaderboard.map((row, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{row.name}</td>
-                  <td>{row.score}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      ) : null}
-      <button className="btn btn-primary" onClick={(e) => finishHandler(e)}>
-        Finish
-      </button>
+      <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+        {leaderboard.length > 0 ? (
+          <div className="w-full lg:w-5/6 pt-5">
+            <div className="bg-white shadow-md rounded my-6">
+              <table className="min-w-max w-full table-auto">
+                <thead>
+                  <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th className="py-3 px-6 text-left">Number</th>
+                    <th className="py-3 px-6 text-left">Name</th>
+                    <th className="py-3 px-6 text-center">Score</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-600 text-sm font-light">
+                  {leaderboard.map((row, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        className="border-b border-gray-200 hover:bg-gray-100"
+                      >
+                        <td className="py-3 px-6 text-left whitespace-nowrap">
+                          <div className="flex items-center">
+                            <span className="font-medium">{index + 1}</span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-6 text-left bg-yellow-300">
+                          <div className="flex items-center">
+
+                            <span>{row.name}</span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className=" py-1 px-3 rounded-full text-xs">
+                            {row.score}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : null}
+        <div className="grid" grid-row>
+          <button className="btn btn-primary" onClick={(e) => finishHandler(e)}>
+            Finish
+          </button>
+        </div>
+      </div>
+
     </div>
   );
 }
