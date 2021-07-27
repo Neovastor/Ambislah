@@ -20,12 +20,11 @@ function errorHandler(err, req, res, next) {
     });
   
   
-  // } else if (err.code === 403) {
-  //   code = 403;
-  //   err.message.forEach((element) => {
-  //     message.push(element);
-  //   });
-  // 
+  } else if (err.code === 403) {
+    code = 403;
+    err.message.forEach((element) => {
+      message.push(element);
+    });
   } 
   else {
     code = 500;

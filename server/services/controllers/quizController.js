@@ -2,7 +2,7 @@ const Quizzes = require("../models/quizModel");
 
 class QuizController {
   static getQuizHandler(req, res, next) {
-    Quizzes.findAll(req.user.id)
+    Quizzes.findAll()
       .then((result) => {
         res.status(200).send(result);
       })
@@ -31,10 +31,9 @@ class QuizController {
   }
 
   static postQuizHandler(req, res, next) {
-    let payload = {
-      ...req.body,
-      userId: req.user.id
-    }
+    let payload = req.body;
+    //di uncomment kalau sudah di merge dengan middleware login
+    // payload.userId = req.user.id
 
     Quizzes.postQuiz(payload)
       .then((result) => {
@@ -50,12 +49,7 @@ class QuizController {
   }
 
   static putQuizHandler(req, res, next) {
-    let payload = {
-      ...req.body,
-      userId: req.user.id
-    }
-    //di uncomment kalau sudah di merge dengan middleware login
-    // payload.userId = req.user.id
+    let payload = req.body;
 
     const { id } = req.params;
 

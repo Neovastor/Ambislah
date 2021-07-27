@@ -6,13 +6,12 @@ import { createdQuizVar } from '../graphql/vars'
 import { ADD_QUIZZES } from '../graphql/queiries'
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom'
-import Swal from 'sweetalert2'
 export default function FormQuestions() {
     const history = useHistory()
-    const [addQuizzes, {error: addError, loading: addLoading, data:addData}] = useMutation(ADD_QUIZZES)
+    const [addQuizzes] = useMutation(ADD_QUIZZES)
 
     const { register, handleSubmit } = useForm();
-    const [type, setType] = useState('text')
+    const [type, setType] = useState('touch')
     const [type1, setType1] = useState(false)
     const [type2, setType2] = useState(false)
     const [status1, setStatus1] = useState(false)
@@ -26,37 +25,29 @@ export default function FormQuestions() {
         setType2(false)
     }
     const typeTouch = e => {
-        setType('Touch')
+        setType('touch')
         setType2(true)
         setType1(false)
     }
     const submit1 = e => {
-        // const { input1 } = e
-        // console.log('satu', input1)
         setStatus1(true)
         setStatus2(false)
         setStatus3(false)
         setStatus4(false)
     }
     const submit2 = e => {
-        // const { input2 } = e
-        // console.log('dua', input2)
         setStatus2(true)
         setStatus3(false)
         setStatus4(false)
         setStatus1(false)
     }
     const submit3 = e => {
-        // const { input3 } = e
-        // console.log('tiga', input3)
         setStatus3(true)
         setStatus4(false)
         setStatus1(false)
         setStatus2(false)
     }
     const submit4 = e => {
-        // const { input4 } = e
-        // console.log('empat', input4)
         setStatus4(true)
         setStatus1(false)
         setStatus2(false)
@@ -85,39 +76,25 @@ export default function FormQuestions() {
         // console.log(existingQuiz, 'ini from quis');
         const questions = [...existingQuiz.dataQuizzes.questions, newData]
         createdQuizVar({ dataQuizzes: { ...existingQuiz.dataQuizzes, questions } });
-        console.log(createdQuizVar());
+        // console.log(createdQuizVar());
     }
 
-    const saveQuiz = async () => {
-        try {
-            // e.preventDefault()
-            // console.log(createdQuizVar());
-            const {dataQuizzes} = createdQuizVar()
-            // console.log(data, 'ini finish data');
-            // console.log(dataQuizzes);
-            await addQuizzes({
-                variables: {
-                    input: dataQuizzes
-                }
-            })
-    
-            history.push('/')
-            Swal.fire({
-                title: 'Success Create Quiz',
-                icon: 'success',
-                timer: 2000
-            })
-
-        } catch (err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Cannot Create Quiz',
-                text: 'Please login first',
-                timer: 2000
-            })
-        }
+    const saveQuiz = () => {
+        // console.log(createdQuizVar());
+        const data = createdQuizVar()
+        // console.log(data, 'ini finish data');
+        addQuizzes({
+            variables: {
+                "addQuizzesUserId": data.dataQuizzes.userId,
+                "addQuizzesTitle": data.dataQuizzes.title,
+                "addQuizzesQuestions": data.dataQuizzes.questions,
+                "addQuizzesTimer": data.dataQuizzes.timer,
+                "addQuizzesMode": data.dataQuizzes.mode,
+                "addQuizzesCreatedAt": data.dataQuizzes.createdAt
+            }
+        })
+        history.push('/')
     }
-    
 
     return (
         <>
@@ -141,15 +118,15 @@ export default function FormQuestions() {
                             </div>
                         </div>
 
-                        <div className="flex justify-center">
-                            <div className="flex flex-col mx-60 my-60">
+                        <div className="flex justify-center mx-4">
+                            <div className="flex flex-col">
                                 <button onClick={handleSubmit(typeSound)} className={type1 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[40px] my-4' : 'px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4'} >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
                                     </svg>
                                 </button>
                             </div>
-                            <div className="flex flex-col mx-60 my-60">
+                            <div className="flex flex-col">
                                 <button onClick={handleSubmit(typeTouch)} className={type2 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[40px] my-4' : 'px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4'}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />

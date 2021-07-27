@@ -3,25 +3,30 @@ import './App.css';
 import './styles/output.css'
 import { Switch, Route } from 'react-router-dom'
 import Home from './pages/Home';
-import NavBar from './pages/NavBar';
-import Footer from './pages/Footer';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import Create from './pages/Create';
 import Report from './pages/Report';
 import Login from './pages/Login'
 import Register from './pages/Register'
-import Speech from './pages/SpeechTest'
-// import {SpeechRecognition} from './components'
-
+import Collections from './pages/Collections'
+import WaitingRoom from './pages/WaitingRoom'
+import UpdateQuiz from './pages/UpdateQuiz'
+import UpdateQuestions from './pages/UpdateQuestions'
 function App() {
   return (
     <>
       <NavBar></NavBar>
       <Switch>
+
+        <Route exact path="/collections/updatequestion"> <UpdateQuestions /> </Route>
+        <Route exact path="/collections/update"> <UpdateQuiz /> </Route>
+        <Route exact path="/waitingroom"> <WaitingRoom /> </Route>
+        <Route exact path="/collections"> <Collections /> </Route>
         <Route exact path="/login"> <Login /> </Route>
         <Route exact path="/register"> <Register /> </Route>
         <Route exact path="/report"> <Report /> </Route>
         <Route exact path="/create"> <Create /> </Route>
-        <Route exact path="/playground"> <Speech /> </Route>
         <Route> <Home /> </Route>
       </Switch>
       <Footer></Footer>

@@ -1,12 +1,11 @@
 const app = require("../app");
 const request = require("supertest");
-const {isValidDate} = require('./testing.helpers')
 
+// const { quizzes } = require("../model/quizModel");
 
 // let dataQuiz = require("./quiz.json");
 let dataQuiz = {
-  userId: process.env.USER_ID,
-  title: "quiz1",
+  userId: 1,
   questions: [
     {
       type: "text",
@@ -18,8 +17,6 @@ let dataQuiz = {
   ],
   timer: 20,
   mode: "live",
-  createdAt: new Date(),
-  updatedAt: new Date()
 };
 
 const { connect } = require("../config/mongodb");
@@ -38,7 +35,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await db.collection("Quizzes").deleteMany({});
+  await db.collection("Quizzes").remove({});
   await client.close();
 });
 
@@ -47,7 +44,6 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
   it("test get all Quizzes", (done) => {
     request(app)
       .get("/quizzes")
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -57,8 +53,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
             expect.arrayContaining([
               expect.objectContaining({
                 _id: expect.any(String),
-                userId: expect.any(String),
-                title: expect.any(String),
+                userId: expect.any(Number),
                 timer: expect.any(Number),
                 mode: expect.any(String),
                 questions: expect.arrayContaining([
@@ -70,11 +65,10 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
                     choose: expect.arrayContaining([expect.any(String)]),
                   }),
                 ]),
-                createdAt: expect.any(String),
-                updatedAt: expect.any(String),
               }),
             ])
           );
+
           done();
         }
       });
@@ -83,7 +77,6 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
   it("Test get by id Quiz ", (done) => {
     request(app)
       .get(`/quizzes/${id}`)
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -91,8 +84,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
           expect(res.body).toEqual(
             expect.objectContaining({
               _id: expect.any(String),
-              userId: expect.any(String),
-              title: expect.any(String),
+              userId: expect.any(Number),
               timer: expect.any(Number),
               mode: expect.any(String),
               questions: expect.arrayContaining([
@@ -104,9 +96,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
                   choose: expect.arrayContaining([expect.any(String)]),
                 }),
               ]),
-              createdAt: expect.any(String),
-              updatedAt: expect.any(String),
-            }),
+            })
           );
 
           done();
@@ -118,10 +108,10 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
     request(app)
       .post(`/quizzes`)
       .send({
-        title: "quiz ku",
+        userId: 1,
         questions: [
           {
-            type: "live",
+            type: "text",
             question: "siap presiden pertama indonesia ?",
             image: "null",
             choose: ["Soekarno", "Soeharto", "SBY", "Jokowi"],
@@ -131,16 +121,15 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
         timer: 20,
         mode: "challenge",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
           expect(res.status).toBe(201);
+
           expect(res.body).toEqual(
             expect.objectContaining({
               _id: expect.any(String),
-              userId: expect.any(String),
-              title: expect.any(String),
+              userId: expect.any(Number),
               timer: expect.any(Number),
               mode: expect.any(String),
               questions: expect.arrayContaining([
@@ -152,9 +141,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
                   choose: expect.arrayContaining([expect.any(String)]),
                 }),
               ]),
-              createdAt: expect.any(String),
-              updatedAt: expect.any(String),
-            }),
+            })
           );
 
           done();
@@ -166,10 +153,10 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
     request(app)
       .put(`/quizzes/${id}`)
       .send({
-        title: "quiz ku update",
+        userId: 1,
         questions: [
           {
-            type: "live",
+            type: "text",
             question: "siap presiden pertama indonesia ?",
             image: "null",
             choose: ["Soekarno", "Soeharto", "SBY", "Jokowi"],
@@ -179,18 +166,18 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
         timer: 20,
         mode: "challenge",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
           expect(res.status).toBe(200);
+
           expect(res.body).toEqual(
             expect.objectContaining({
               _id: expect.any(String),
-              userId: expect.any(String),
-              title: expect.any(String),
+              userId: expect.any(Number),
               timer: expect.any(Number),
               mode: expect.any(String),
+              matchedCount: expect.any(Number),
               questions: expect.arrayContaining([
                 expect.objectContaining({
                   type: expect.any(String),
@@ -200,9 +187,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
                   choose: expect.arrayContaining([expect.any(String)]),
                 }),
               ]),
-              createdAt: expect.any(String),
-              updatedAt: expect.any(String),
-            }),
+            })
           );
 
           done();
@@ -213,7 +198,6 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
   it("Test delete Quiz by id  ", (done) => {
     request(app)
       .delete(`/quizzes/${id}`)
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -235,7 +219,6 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test get quiz by id, id should be 24 hex characters", (done) => {
     request(app)
       .get(`/quizzes/123123`)
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -255,7 +238,6 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test get quiz by id, id not found", (done) => {
     request(app)
       .get(`/quizzes/123123123123123123123123`)
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -275,8 +257,12 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test post quiz, empty input", (done) => {
     request(app)
       .post(`/quizzes`)
-      .send({})
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .send({
+        userId: "",
+        questions: [],
+        timer: "",
+        mode: "",
+      })
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -297,6 +283,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
     request(app)
       .put(`/quizzes/123`)
       .send({
+        userId: 1,
         questions: [
           {
             type: "text",
@@ -309,7 +296,6 @@ describe("Test Quizzes [ERROR CASE]", () => {
         timer: 20,
         mode: "challenge",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -332,7 +318,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
     request(app)
       .put(`/quizzes/123123123123123123123123`)
       .send({
-        title: "quiz update",
+        userId: 1,
         questions: [
           {
             type: "text",
@@ -345,11 +331,11 @@ describe("Test Quizzes [ERROR CASE]", () => {
         timer: 20,
         mode: "challenge",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
           expect(res.status).toBe(404);
+
           expect(res.body).toEqual(
             expect.objectContaining({
               code: 404,
@@ -379,7 +365,6 @@ describe("Test Quizzes [ERROR CASE]", () => {
         timer: "",
         mode: "",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -400,7 +385,6 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test delete quiz, id should be 24 hex characters", (done) => {
     request(app)
       .delete(`/quizzes/123`)
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -421,7 +405,6 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test delete quiz, quiz not found", (done) => {
     request(app)
       .delete(`/quizzes/123123123123123123123123`)
-      .set({access_token: process.env.ACCESS_TOKEN})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -435,73 +418,6 @@ describe("Test Quizzes [ERROR CASE]", () => {
           );
 
           done();
-        }
-      });
-  }),
-
-  it("Please login first", (done) => {
-    request(app)
-      .get(`/quizzes`)
-      .end((err, res) => {
-        if (err) done(err);
-        else {
-          expect(res.status).toBe(401);
-
-          expect(res.body).toEqual(
-            expect.objectContaining({
-              code: 401,
-              message: expect.arrayContaining([expect.any(String)]),
-            })
-          );
-
-          done();
-        }
-      });
-  });
-
-  it("Invalid Access Token", (done) => {
-    request(app)
-      .get(`/quizzes`)
-      .set({access_token: 'AbsolutlyNotAccesToken'})
-      .end((err, res) => {
-        if (err) done(err);
-        else {
-          expect(res.status).toBe(401);
-
-          expect(res.body).toEqual(
-            expect.objectContaining({
-              code: 401,
-              message: expect.arrayContaining([expect.any(String)]),
-            })
-          );
-          
-          client.close()
-          .then(_ => {
-            done();
-          })
-        }
-      });
-  });
-
-  it("Internal Server Error", (done) => {
-    request(app)
-      .get(`/quizzes`)
-      .set({access_token: process.env.ACCESS_TOKEN})
-      .end((err, res) => {
-        if (err) done(err);
-        else {
-          expect(res.status).toBe(500);
-
-          expect(res.body).toEqual(
-            expect.objectContaining({
-              code: 500,
-              message: expect.arrayContaining([expect.any(String)]),
-            })
-          );
-          client.connect()
-          .then(_ => {
-            done();
-          })
         }
       });
   });
