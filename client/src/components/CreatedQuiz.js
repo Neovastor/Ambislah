@@ -23,19 +23,19 @@ export default function CreatedQuiz() {
 
 
     return (
-        <div className=" flex flex-col justify-center items-center h-screen bg-[#f8f8f8]">
+        <div className=" flex flex-col justify-center items-center h-screen bg-[#dbdbdb]">
             <form onSubmit={handleSubmit(onSubmit)} className="m-4 flex flex-col justify-center ">
 
-                <input {...register("inputQuiz")} className="block w-full bg-white text-[#28527A] border border-blue-300 rounded-lg h-10 px-4 md:w-full focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent" placeholder="input name quiz" />
+                <input {...register("inputQuiz")} className="block w-full bg-white text-[#000000] border border-[#147536] rounded-lg h-10 px-4 md:w-full focus:outline-none focus:ring-2 focus:ring-[#147536] focus:border-transparent" placeholder="input name quiz" />
                 <div className="w-full flex flex-col mb-3">
                     <label className="font-semibold text-gray-600 py-2">Mode Class<abbr title="required">*</abbr></label>
-                    <select {...register("inputMode")} className="block w-full bg-white text-[#28527A] border border-blue-300 rounded-lg h-10 px-4 md:w-full focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent" required="required" name="integration[city_id]" id="integration_city_id">
+                    <select {...register("inputMode")} className="block w-full bg-white text-[#000000] border border-[#147536] rounded-lg h-10 px-4 md:w-full focus:outline-none focus:ring-2 focus:ring-[#147536] focus:border-transparent" required="required" name="integration[city_id]" id="integration_city_id">
                         <option disabled>Seleted location</option>
                         <option value="Live">Live</option>
                         <option value="Challenge">Challenge</option>
                     </select>
                 </div>
-                <button type="submit" className="px-8 rounded-lg bg-[#28527A] font-bold p-4 uppercase hover:border-[#28527A] hover:border-white hover:bg-white hover:text-[#28527A] text-white border-t border-b border-r">Next</button>
+                <button type="submit" className="px-8 rounded-lg bg-[#15883E] font-bold p-4 uppercase hover:border-[#15883E] hover:bg-[#147536] text-white border-2">Next</button>
             </form>
         </div>
     )

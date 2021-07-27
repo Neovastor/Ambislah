@@ -17,7 +17,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Arial', ...fontFamily.sans]
+        sans: ['Arial', ...fontFamily.sans],
+        bebasNue: ['Bebas Neue']
       },
     },
   },

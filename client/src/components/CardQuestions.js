@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 import { questionVar } from '../graphql/vars'
 
-export default function TabelQuestions(props) {
+export default function CardQuestions(props) {
     console.log(props);
     const history = useHistory()
     const updated = () => {

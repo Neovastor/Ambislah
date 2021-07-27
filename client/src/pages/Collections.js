@@ -1,5 +1,5 @@
 import React from 'react'
-import TabelQuestions from '../components/TabelQuestions'
+import CardQuestions from '../components/CardQuestions'
 import { collectionVar } from '../graphql/vars'
 import { useReactiveVar, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
@@ -34,6 +34,20 @@ export default function Collections() {
 
     return (
         <>
+            <div className="grid grid-cols-6 mmd:grid-cols-1 justify-center pt-14 bg-gradient-to-t from-green-400 to-[#1496c9] h-full">
+                <div className="md:col-span-2 flex justify-center w md:mt-28 mb-4">
+                    <div>
+                        <img className="w-72 " src={"https://www.physicsacademy.com.sg/wp-content/uploads/2018/08/download.jpg"} alt="" />
+                    </div>
+                </div>
+                <div className="pt-56">
+                    <div className="md:col-span-4 uppercase font-extrabold text-white text-[50px] mmd:text-[25px] pl-4">{Quiz.dataQuizzes.title}</div>
+                    <div className="md:col-span-4 uppercase font-extrabold text-white text-xl pl-4">mode : {Quiz.dataQuizzes.mode}</div>
+                </div>
+            </div>
+            <div className="h-20 bg-gradient-to-t from-black to-green-400 ">
+
+            </div>
             <div className="grid md:grid-cols-6 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
                 <div className=" box-border rounded-xl w-full p-4 mmd:col-span-4 grid-rows-2">
                     <div className="rounded-full h-34 w-34 mt-14 mmd:mt-1 p-8 font-semibold bg-white  ">
@@ -58,7 +72,7 @@ export default function Collections() {
                                 Quiz.dataQuizzes.questions.map((e, i) => {
                                     return (
                                         <div key={i} className="md:w-1/2 lg:w-1/3 py-4 px-4">
-                                            <TabelQuestions dataQuizzes={e} index={i} />
+                                            <CardQuestions dataQuizzes={e} index={i} />
                                         </div>
                                     )
                                 })
