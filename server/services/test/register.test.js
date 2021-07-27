@@ -9,7 +9,7 @@ let db
 beforeAll(async () => {
   connection = await connect()
   client = connection.client
-  db = connection.database
+  db = connection.db
   return connection
 })
 afterAll(async () => {

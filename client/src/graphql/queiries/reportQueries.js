@@ -1,25 +1,24 @@
 import {gql} from '@apollo/client'
 
 export const ADD_REPORT = gql `
-mutation Mutation($input: InputReport) {
-  addReports(input: $input) {
-      getReportsAll {
-      _id
-      userId
-      quizId
-      date
-      playersCount
-      players {
-        name
-        score
-      }
+mutation Mutation($inputReport: InputReport) {
+  addReports(input: $inputReport) {
+    _id
+    userId
+    quizId
+    quizTitle
+    playersCount
+    players {
+      name
+      score
     }
+    createdAt
   }
 }
 `
 export const DELETE_REPORT = gql `
-mutation Mutation($idReport: ID!) {
-  delReports(id: $idReport) {
+mutation Mutation($reportId: ID!) {
+  delReports(id: $reportId) {
     message
   }
 }
@@ -27,49 +26,35 @@ mutation Mutation($idReport: ID!) {
 `
 
 export const GET_ALL_REPORTS = gql `
-query Query {
-  getReportsAll {
+query Query($quizId: String) {
+  getReportsAll(quizId: $quizId) {
     _id
     userId
     quizId
-    date
+    quizTitle
     playersCount
     players {
       name
       score
     }
-  }
-}`
-
-export const SEARCH_REPORT = gql `
-query Query($inputUserId: String, $inputQuizId: String) {
-  getReportsAll(userId: $inputUserId, quizId: $inputQuizId) {
-    _id
-    userId
-    quizId
-    date
-    playersCount
-    players {
-      name
-      score
-    }
+    createdAt
   }
 }
 `
 
-
 export const GET_REPORT = gql `
-query Query($idReport: ID!) {
-  getReports(id: $idReport) {
+query Query($reportId: ID) {
+  getReports(id: $reportId) {
     _id
     userId
     quizId
-    date
+    quizTitle
     playersCount
     players {
       name
       score
     }
+    createdAt
   }
 }
 `

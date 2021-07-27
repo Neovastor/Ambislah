@@ -1,11 +1,8 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
 import { collectionVar } from '../graphql/vars'
-import { useMutation } from '@apollo/client';
-import { DELETE_QUIZZEZ } from '../graphql/queiries'
 
 export default function CardQuiz(props) {
-    const [removeMovies] = useMutation(DELETE_QUIZZEZ)
     // console.log(props);
     const history = useHistory()
 

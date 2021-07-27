@@ -8,8 +8,8 @@ const server = new ApolloServer({
   schema, 
   cors: true,
   context: ({req, res}) => {
-    const access_token = req.headers.authorization || ''
-    const user = verifyJWT(access_token)
+    let access_token = req.headers.authorization || ''
+    let user = access_token  && verifyJWT(access_token) ? verifyJWT(access_token)  : ''
     return {
       access_token,
       user

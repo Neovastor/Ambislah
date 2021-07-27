@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.32% </span>
+                <span class="strong">92.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/38</span>
+                <span class='fraction'>35/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.32% </span>
+                <span class="strong">92.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/38</span>
+                <span class='fraction'>35/38</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -201,14 +201,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,16 +228,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -304,15 +304,15 @@ class QuizController {
     }
 &nbsp;
     Quizzes.postQuiz(payload)
-      .then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (result.message === undefined) {</span>
-<span class="cstat-no" title="statement not covered" >          res.status(201).send(result);</span>
+      .then((result) =&gt; {
+        if (result.message === undefined) {
+          res.status(201).send(result);
         } else {
-<span class="cstat-no" title="statement not covered" >          next({ code: 400, message: result.message });</span>
+          next({ code: 400, message: result.message });
         }
       })
-      .catch((err) =&gt; {
-        next(err);
+      .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >        next(err);</span>
       });
   }
 &nbsp;
@@ -331,17 +331,17 @@ class QuizController {
     }
 &nbsp;
     Quizzes.putQuiz(payload, id)
-      .then(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (result.matchedCount === 1) {</span>
-<span class="cstat-no" title="statement not covered" >          res.status(200).send(result);</span>
-        } else <span class="cstat-no" title="statement not covered" >if (result.matchedCount == 0) {</span>
-<span class="cstat-no" title="statement not covered" >          next({ code: 404, message: ["Quiz not found"] });</span>
+      .then((result) =&gt; {
+        if (result.matchedCount === 1) {
+          res.status(200).send(result);
+        } else if (result.matchedCount == 0) {
+          next({ code: 404, message: ["Quiz not found"] });
         } else {
-<span class="cstat-no" title="statement not covered" >          next({ code: 400, message: result.message });</span>
+          next({ code: 400, message: result.message });
         }
       })
-      .catch((err) =&gt; {
-        next(err);
+      .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >        next(err);</span>
       });
   }
 &nbsp;
@@ -376,7 +376,11 @@ module.exports = QuizController;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
+<<<<<<< HEAD
                 at Tue Jul 27 2021 18:54:59 GMT+0700 (Western Indonesia Time)
+=======
+                at Mon Jul 26 2021 23:32:41 GMT+0700 (Western Indonesia Time)
+>>>>>>> edb51a19b03efd46efffb886e3f01f2a33ace429
             </div>
         </div>
         <script src="../../prettify.js"></script>

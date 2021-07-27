@@ -23,7 +23,6 @@ const typeDef = gql`
     mode: String
     createdAt: Date
     updatedAt: Date
-
   }
 
   input InputQuestion {
@@ -35,7 +34,6 @@ const typeDef = gql`
   }
 
   input InputQuizzes {
-
     title: String
     questions: [InputQuestion]
     timer: Int
@@ -47,13 +45,11 @@ const typeDef = gql`
     QuizzesById(id: ID): Quizzes
   }
 
-  extend type Mutation {    
+  extend type Mutation {
     DeleteQuizzes(id: ID): Message
-    
     EditQuizzes(
       id: ID, input: InputQuizzes
     ): Quizzes
-    
     AddQuizzes(
       input: InputQuizzes
     ): Quizzes
@@ -109,9 +105,6 @@ const resolvers = {
   Mutation: {
     DeleteQuizzes: async (_, args, context) => {
       try {
-
-        const DestroyQuiz = await instanceQuizzes.delete(`/${args.id}`);
-
         const destroyQuiz = await instanceQuizzes({
           url: `/${args.id}`,
           method: 'delete',
@@ -119,7 +112,6 @@ const resolvers = {
             access_token: context.access_token
           }
         });
-
         redis.del("Quizzes");
         return destroyQuiz.data
       } catch (err) {
@@ -157,17 +149,15 @@ const resolvers = {
             access_token: context.access_token
           }
         });
-        // console.log(postQuizzes.data, 'masuk');
+
+        // console.log(postQuizzes.data, 'masuk<<<<<<<');
         redis.del("Quizzes");
         return postQuizzes.data;
       } catch (err) {
-        // console.log('masuk');
         throw new ApolloError(err.response.data.message);
       }
     },
   },
 };
-
-
 
 module.exports = { typeDef, resolvers };
