@@ -59,8 +59,7 @@ function App() {
             <Create />{" "}
           </Route>
 
-          <Route exact path="/host">
-            <p>"Welcome host, you can create a room"</p>
+          <Route exact path="/host">            
             <Host db={db}></Host>
           </Route>
 

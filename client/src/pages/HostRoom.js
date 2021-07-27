@@ -2,9 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import Question from "../components/Question";
-import CircleTimer from "../components/CircleTimer";
-import PlayerTable from "../components/PlayerTable";
+
 import Leaderboard from "./Leaderboard";
+import WaitingRoomHost from '../components/WaitingRoomHost'
+import PausePhaseHost from "../components/PausePhaseHost";
 
 function WaitingRoom({ db }) {
   let { idroom: idparams } = useParams();
@@ -15,7 +16,6 @@ function WaitingRoom({ db }) {
   const [isRunning, setIsRunning] = useState(false);
   const [delay, setDelay] = useState(1000);
   const [indexSoal, setIndexSoal] = useState(0);
-  
 
   const livegamesRef = db.collection("livegames").doc(idparams);
 
@@ -75,7 +75,6 @@ function WaitingRoom({ db }) {
   }, [db]);
 
   function onClickStartHandler(e) {
-    setIsRunning(true);
 
     let timerInterval;
 
@@ -106,12 +105,12 @@ function WaitingRoom({ db }) {
             status: "live",
             indexSoal: 0,
             players,
-            leaderboard : []
+            leaderboard: [],
           })
           .then(() => {
             setStatusGame("live");
             setCount(0);
-            setIsRunning(true)
+            setIsRunning(true);
             setIndexSoal(0);
           })
           .catch((error) => {
@@ -149,8 +148,6 @@ function WaitingRoom({ db }) {
   useEffect(() => {
     if (statusGame === "live") {
       if (count > quizzes.timer && indexSoal < quizzes.questions.length - 1) {
-
-
         return livegamesRef
           .update({
             indexSoal: indexSoal + 1,
@@ -164,7 +161,7 @@ function WaitingRoom({ db }) {
           })
           .then(() => {
             setStatusGame("pause");
-            setIsRunning(false)
+            setIsRunning(false);
             setCount(0);
           })
           .catch((error) => {
@@ -188,7 +185,7 @@ function WaitingRoom({ db }) {
           });
       }
     }
-  }, [count,statusGame]);
+  }, [count, statusGame]);
 
   function nextClickHandler(e) {
     return livegamesRef
@@ -196,25 +193,19 @@ function WaitingRoom({ db }) {
         status: "live",
       })
       .then(() => {
-        setStatusGame("live");        
+        setStatusGame("live");
         setCount(0);
-        setIsRunning(true)
+        setIsRunning(true);
       })
-      .catch((err) =>{
+      .catch((err) => {
         console.log("error", err);
-      })
+      });
   }
 
   if (statusGame === "pause") {
     return (
-      <div>
-        <h1>Pause</h1>
-        <button
-          className="btn btn-primary"
-          onClick={(e) => nextClickHandler(e)}
-        >
-          Next
-        </button>
+      <div>        
+        <PausePhaseHost nextClickHandler={nextClickHandler} />
       </div>
     );
   }
@@ -228,41 +219,36 @@ function WaitingRoom({ db }) {
     );
   }
 
+  if (statusGame === "waiting") {
+    return (
+      <WaitingRoomHost
+        players={players}
+        onClickStartHandler={onClickStartHandler}
+      />
+    );
+  }
   return (
     <>
-      <h1>Waiting Room</h1>
-      <h2>Peserta</h2>
-
-      {statusGame === "live" ? <h2>{count}</h2> : null}
-
-      {players.length > 0 ? <PlayerTable players={players} /> : null}
-
-      {statusGame !== "test" ? (
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={(e) => onClickStartHandler(e)}
-        >
-          Start
-        </button>
-      ) : null}
+      {/* {statusGame === "live" ? <h2>{count}</h2> : null} */}
 
       {Object.keys(quizzes).length > 0 &&
       statusGame === "live" &&
       count < quizzes.timer ? (
-        <div>
-          <CircleTimer duration={quizzes.timer} />
+        <section>
+          
           <div>
             <Question
               question={quizzes.questions[indexSoal]}
+              duration={quizzes.timer}
               i={indexSoal}
               key={100 + indexSoal}
             />
           </div>
-        </div>
+        </section>
       ) : null}
     </>
   );
 }
 
 export default WaitingRoom;
+

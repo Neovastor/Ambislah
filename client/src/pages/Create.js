@@ -4,7 +4,7 @@ import { faVolumeUp, faCheck } from "@fortawesome/free-solid-svg-icons";
 import QuestionOflline from "./QuestionOffline";
 import AnswerLive from "./AnswerLive";
 import InputPin from "./InputPin";
-import WaitingRoom from "./WaitingRoom";
+import WaitingRoom from "../components/WaitingRoomHost";
 
 export default function Create() {
   return (

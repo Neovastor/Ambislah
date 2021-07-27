@@ -2,6 +2,15 @@ import { useState, useEffect } from "react";
 import { useLocation, Prompt } from "react-router-dom";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
+import WaitingRoomPlayer from '../components/WaitingRoomPlayer'
+import PausePhasePlayer from "../components/PausePhasePlayer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faVolumeUp,
+  faMicrophone,
+  faChevronCircleLeft,
+  faChevronCircleRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 function PlayerRoom({ db }) {
   const buttonRight = "btn btn-success m-3";
@@ -120,13 +129,12 @@ function PlayerRoom({ db }) {
     }
   }
 
-  //   console.log(scores);
-
   if (status === "waiting") {
-    return <h1>Waiting host to start the game</h1>;
+    return <WaitingRoomPlayer /> 
+    
   }
   if (status === "pause") {
-    return <h1>Pause the game</h1>;
+    return <PausePhasePlayer />
   }
 
   if (status === "done") {
@@ -148,35 +156,119 @@ function PlayerRoom({ db }) {
 
   if (status === "live") {
     return (
-      <div>
-        <Prompt
-          when={status==="live"}
-          message="Are you sure you want to leave?"
-        />
+      <section>
         {Object.keys(quizzes).length > 0 ? (
-          <div>
-            <h1>Host start the game </h1>
-            <h1>Soal ke - {indexSoal + 1} </h1>
+          <div className="pt-12 md-max:flex md-max:flex-col-reverse">
+            <div className="bg-gray-200 my-2 p-2 col-span-7 h-auto">
+              <div className="flex justify-between">
+                <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
+                  <FontAwesomeIcon
+                    size="2x"
+                    icon={faChevronCircleLeft}
+                  ></FontAwesomeIcon>
+                </button>
+                <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
+                  <FontAwesomeIcon
+                    size="2x"
+                    icon={faVolumeUp}
+                  ></FontAwesomeIcon>
+                </button>
+                <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
+                  <FontAwesomeIcon
+                    size="2x"
+                    icon={faChevronCircleRight}
+                  ></FontAwesomeIcon>
+                </button>
+              </div>
+              <div className="flex flex-col gap-y-4 items-center p-5">
+                {/* <div className="w-full px-4 py-2 border border-gray-300 bg-white rounded  text-center" >Question</div> */}
+                <div className="box-border w-64 border-4">
+                  <img
+                    src={
+                      "https://asset.kompas.com/crops/sn--2PkUfeAmtszsB-wnqXmwBkM=/0x0:5184x3456/750x500/data/photo/2020/12/11/5fd303549b2c9.jpg"
+                    }
+                    className="h-32 rounded-lg w-full object-cover"
+                  />
+                </div>
 
-            <button onClick={(e) => onClickHandler("a")} className={optionA}>
-              A. {quizzes.questions[indexSoal].choose[0]}{" "}
-            </button>
-            <button onClick={(e) => onClickHandler("b")} className={optionB}>
-              B. {quizzes.questions[indexSoal].choose[1]}{" "}
-            </button>
-
-            <button onClick={(e) => onClickHandler("c")} className={optionC}>
-              C. {quizzes.questions[indexSoal].choose[2]}{" "}
-            </button>
-
-            <button onClick={(e) => onClickHandler("d")} className={optionD}>
-              D. {quizzes.questions[indexSoal].choose[3]}{" "}
-            </button>
+                <div className="grid grid-cols-2 gap-1">
+                  <div className="flex">
+                    <button
+                      onClick={(e) => onClickHandler("a")}
+                      className={optionA}
+                      className="h-20 rounded-lg p-2 bg-blue-500 hover:bg-red-600 w-screen text-gray-200"
+                    >
+                      A. {quizzes.questions[indexSoal].choose[0]}
+                    </button>
+                  </div>
+                  <div className="flex">
+                    <button
+                      onClick={(e) => onClickHandler("b")}
+                      className={optionB}
+                      className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200"
+                    >
+                      B. {quizzes.questions[indexSoal].choose[1]}
+                    </button>
+                  </div>
+                  <div className="flex">
+                    <button
+                      onClick={(e) => onClickHandler("c")}
+                      className={optionC}
+                      className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200"
+                    >
+                      C. {quizzes.questions[indexSoal].choose[2]}
+                    </button>
+                  </div>
+                  <div className="flex">
+                    <button
+                      onClick={(e) => onClickHandler("d")}
+                      className={optionD}
+                      className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200"
+                    >
+                      D. {quizzes.questions[indexSoal].choose[3]}
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <button className="rounded-lg p-5 bg-red-500 hover:bg-red-600 text-white">
+                    <FontAwesomeIcon size="2x" icon={faMicrophone} />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         ) : null}
-      </div>
+      </section>
     );
   }
 }
 
 export default PlayerRoom;
+
+// <div>
+// <Prompt
+//   when={status==="live"}
+//   message="Are you sure you want to leave?"
+// />
+// {Object.keys(quizzes).length > 0 ? (
+//   <div>
+//     <h1>Host start the game </h1>
+//     <h1>Soal ke - {indexSoal + 1} </h1>
+
+//     <button onClick={(e) => onClickHandler("a")} className={optionA}>
+//       A. {quizzes.questions[indexSoal].choose[0]}{" "}
+//     </button>
+//     <button onClick={(e) => onClickHandler("b")} className={optionB}>
+//       B. {quizzes.questions[indexSoal].choose[1]}{" "}
+//     </button>
+
+//     <button onClick={(e) => onClickHandler("c")} className={optionC}>
+//       C. {quizzes.questions[indexSoal].choose[2]}{" "}
+//     </button>
+
+//     <button onClick={(e) => onClickHandler("d")} className={optionD}>
+//       D. {quizzes.questions[indexSoal].choose[3]}{" "}
+//     </button>
+//   </div>
+// ) : null}
+// </div>
