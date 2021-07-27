@@ -40,15 +40,48 @@ export default function Collections() {
                         <img className="w-72 " src={"https://www.physicsacademy.com.sg/wp-content/uploads/2018/08/download.jpg"} alt="" />
                     </div>
                 </div>
-                <div className="pt-56">
+                <div className="pt-36 mmd:pt-2 mmd:ml-5">
                     <div className="md:col-span-4 uppercase font-extrabold text-white text-[50px] mmd:text-[25px] pl-4">{Quiz.dataQuizzes.title}</div>
-                    <div className="md:col-span-4 uppercase font-extrabold text-white text-xl pl-4">mode : {Quiz.dataQuizzes.mode}</div>
+                    <div className="md:col-span-4 uppercase font-extrabold text-white mmd:text-sm pl-4 text-lg">{Quiz.dataQuizzes.mode}</div>
+                    <div className="ml-4 mt-2">
+                        <button onClick={updated} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg mr-2">Update</button>
+                        <button onClick={destory} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg ml-2">Delete</button>
+                    </div>
                 </div>
             </div>
-            <div className="h-20 bg-gradient-to-t from-black to-green-400 ">
+            <div className="h-20 bg-gradient-to-t from-[#e0e0e0] to-green-400 ">
 
             </div>
-            <div className="grid md:grid-cols-6 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 bg-[#e9e9e9]">
+                {
+                    Quiz.dataQuizzes.questions.map((e, i) => {
+                        return (
+                            <div key={i} className="flex flex-col items-center justify-start bg-[#c0c0c0]  p-4 shadow rounded-lg m-2">
+                                <CardQuestions dataQuizzes={e} index={i} />
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            {/* <div className="h-screen bg-[#121212]">
+                <div className="flex flex-wrap">
+                    {
+                        Quiz.dataQuizzes.questions.map((e, i) => {
+                            return (
+                                <div key={i} className="md:w-1/2 lg:w-1/3 py-4 px-4">
+                                    <CardQuestions dataQuizzes={e} index={i} />
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div> */}
+
+        </>
+    )
+}
+
+{/* <div className="grid md:grid-cols-6 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
                 <div className=" box-border rounded-xl w-full p-4 mmd:col-span-4 grid-rows-2">
                     <div className="rounded-full h-34 w-34 mt-14 mmd:mt-1 p-8 font-semibold bg-white  ">
                         <div className="text-center">
@@ -83,7 +116,4 @@ export default function Collections() {
                 <div className="box-border rounded-xl w-full p-4 mmd:col-span-4 grid-rows-2 mt-14">
                     <button onClick={toWaitingRoom} className="bg-[#FF8303] hover:border-2 hover:bg-white hover:border-[#FF8303] hover:text-[#FF8303] px-2 py-1 rounded-lg text-white">Create Room</button>
                 </div>
-            </div>
-        </>
-    )
-}
+            </div> */}

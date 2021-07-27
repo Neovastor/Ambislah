@@ -13,25 +13,22 @@ export default function CardQuestions(props) {
     }
 
     return (
-        <div>
-
-            <div className="bg-[#3D84B8] shadow p-2 rounded-lg text-white hover:shadow-2xl">
-                <div>No. {+props.index + 1}</div>
-                <img src={props.dataQuizzes.image} />
-                {/* <div>
-                        <FontAwesomeIcon size="2x" icon={faBookOpen} />
-                    </div> */}
-                < div className="py-2 px-2">
-                    <div className=" font-bold font-title text-center">{props.dataQuizzes.question}</div>
-                    <div className="text-sm font-light text-left my-2">a. {props.dataQuizzes.choose[0]}</div>
-                    <div className="text-sm font-light text-left my-2">b. {props.dataQuizzes.choose[1]}</div>
-                    <div className="text-sm font-light text-left my-2">c. {props.dataQuizzes.choose[2]}</div>
-                    <div className="text-sm font-light text-left my-2">d. {props.dataQuizzes.choose[3]}</div>
-                </div>
-                <div className="flex justify-end">
-                    <button onClick={updated} className="bg-[#28527A] border-white text-white border-2 hover:bg-white hover:text-[#007580] px-2 py-1 rounded-lg">update</button>
-                </div>
+        <>
+            <div className="inline-flex shadow-lg border border-gray-200 rounded-full overflow-hidden h-40 w-40">
+                <img src="https://asset.kompas.com/crops/mTnVdoYXCoN9ElxrsEDbdoY7y0s=/65x65:865x599/750x500/data/photo/2017/06/28/1265845835.jpg" alt="" className="h-full w-full" />
             </div>
-        </div>
+            <h2 className="mt-4 font-bold text-xl text-white">{props.dataQuizzes.question}</h2>
+            <h6 className="mt-2 text-lg text-left text-white font-medium">A. {props.dataQuizzes.choose[0]}</h6>
+            <h6 className="mt-2 text-lg text-left text-white font-medium">B. {props.dataQuizzes.choose[1]}</h6>
+            <h6 className="mt-2 text-lg text-left text-white font-medium">C. {props.dataQuizzes.choose[2]}</h6>
+            <h6 className="mt-2 text-lg text-left text-white font-medium">D. {props.dataQuizzes.choose[3]}</h6>
+            <ul className="flex flex-row mt-4 space-x-2">
+                <li>
+                    <button onClick={updated} className="flex items-center justify-center h-8 w-8 border rounded-full text-white border-white hover:text-black hover:bg-white">
+                        <i className="fas fa-pencil-alt" />
+                    </button>
+                </li>
+            </ul>
+        </>
     )
 }

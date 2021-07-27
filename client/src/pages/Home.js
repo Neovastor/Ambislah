@@ -108,7 +108,7 @@ export default function Home() {
                                 quizzes.Quizzes.map((e, i) => {
                                     return (
                                         <div key={i} className="md:w-1/2 lg:w-1/3 py-2 px-2">
-                                            <CardQuiz dataQuizzes={e} />
+                                            <CardQuiz dataQuizzes={e} index={i} />
                                         </div>
                                     )
                                 })
