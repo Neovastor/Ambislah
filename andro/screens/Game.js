@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TextInput, Button, Alert } from 'react-native'
+import { useForm } from "react-hook-form";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TextInput, Image, TouchableHighlight, Button, Alert } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
+import tailwind from 'tailwind-rn';
 
 const Separator = () => (
   <View style={styles.separator} />
@@ -8,40 +10,98 @@ const Separator = () => (
 
 export default function Game({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.tulisanatas}>
-        KAHOOT GAME
-      </Text>
-    <Separator />
-      <View style={styles.layouting}>
-        <Text style={styles.tulisan}>
-          Welcome to Ambislah
-        </Text>
-        <TextInput style={styles.welcome}
-        // onChangeText={(val) => setPlayer(val)}
-        // value={player}
-        placeholderTextColor="lightgrey"
-        placeholder='Input Your Name'
-        editable
-        >
-      </TextInput>
-      <Picker style={styles.select}
-        // onValueChange={(val) => setLevel(val)}
-        mode={'dropdown'}
-        // selectedValue={ level }
-        >
-        <Picker.Item value="" label="Level"  enabled={false}/>
-        <Picker.Item  value="hard" label="Hard" />
-        <Picker.Item value="medium" label="Medium"  />
-        <Picker.Item value="easy" label="Easy"  />
-      </Picker>
+    <SafeAreaView style={tailwind('h-full')}>
+		<View style={tailwind('pt-12 items-center bg-red-600 min-h-full')}>
+			<View style={tailwind('bg-red-600 px-3 py-1 rounded-full max-w-full')}>
+				<Text style={tailwind('text-blue-800 font-semibold max-w-full')}>
+					Android Tailwind
+				</Text>
 
-      </View>
-          <Button
-            title="Go to Game"
-            // onPress={ goToGame }
-          />
-    </View>
+          <View style={tailwind('max-w-screen')}>
+            <View
+              style={tailwind('mb-4 flex flex-row justify-center max-w-full')}
+              // className="m-4 flex justify-center "
+              // onSubmit={(e) => handleOnSubmit(e)}
+              >
+              <Image
+                style={tailwind('px-4 py-4 rounded-full  text-gray-800 border-gray-200 bg-white')}
+                source={{
+                  uri: 'https://yt3.ggpht.com/ytc/AKedOLSilrN3bx_7mqy_RRmdRFiMLPgc8e537GbYW5Sq=s900-c-k-c0x00ffffff-no-rj',
+                }}
+              />  
+
+            </View>
+            <View
+              style={tailwind('mb-4 flex flex-row justify-center max-w-full')}
+              // className="m-4 flex justify-center "
+              // onSubmit={(e) => handleOnSubmit(e)}
+              >
+              <Image
+                style={tailwind('px-16 py-16 rounded-lg  text-gray-800 border-gray-200 bg-white')}
+                source={{
+                  uri: 'https://asset.kompas.com/crops/sn--2PkUfeAmtszsB-wnqXmwBkM=/0x0:5184x3456/750x500/data/photo/2020/12/11/5fd303549b2c9.jpg',
+                }}
+              />  
+
+            </View>
+            
+            <View style={tailwind('flex flex-row items-center max-w-full')}>
+              <TouchableHighlight 
+                // onPress={onPress}
+                >
+                <View style={tailwind('px-8 py-2 mx-1 min-w-1/4 rounded-full bg-blue-400 text-center text-gray-800 font-bold uppercase border-blue-500')}>
+                  <Text>Answer A</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight 
+                // onPress={onPress}
+                >
+                <View style={tailwind('px-8 py-2 mx-1 min-w-1/4 rounded-full bg-blue-400 text-center text-gray-800 font-bold uppercase border-blue-500')}>
+                  <Text>Answer B</Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+            <View style={tailwind('flex flex-row items-center max-w-full mt-4 mb-4')}>
+              <TouchableHighlight 
+                // onPress={onPress}
+                >
+                <View style={tailwind('px-8 py-2 mx-1 min-w-1/4 rounded-full bg-blue-400 text-center text-gray-800 font-bold uppercase border-blue-500')}>
+                  <Text>Answer C</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight 
+                // onPress={onPress}
+                >
+                <View style={tailwind('px-8 py-2 mx-1 min-w-1/4 rounded-full bg-blue-400 text-center text-gray-800 font-bold uppercase border-blue-500')}>
+                  <Text>Answer D</Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+          </View>
+                
+          <View
+            style={tailwind('mb-4 flex flex-row justify-center max-w-full')}
+            // className="m-4 flex justify-center "
+            // onSubmit={(e) => handleOnSubmit(e)}
+            >
+            <Image
+              style={tailwind('px-4 py-4 rounded-full  text-gray-800 border-gray-200 bg-white')}
+              source={{
+                uri: 'https://img.freepik.com/free-vector/isolated-retro-vintage-microphone_1284-38772.jpg?size=338&ext=jpg',
+              }}
+            />  
+
+          </View>
+          <TouchableHighlight 
+            // onPress={onPress}
+            >
+            <View style={tailwind('mt-4 px-4 py-2 rounded-full bg-red-300 text-center text-gray-800 font-bold uppercase border-yellow-500 ')}>
+              <Text>Submit</Text>
+            </View>
+          </TouchableHighlight>
+			</View>
+		</View>
+	</SafeAreaView>
   )
 }
 
@@ -58,6 +118,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: 8,
   },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
   score: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -71,69 +135,6 @@ const styles = StyleSheet.create({
   separator: {
     marginVertical: 8,
     borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  layouting: {
-    backgroundColor: 'purple',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 75,
-    marginBottom: 40,
-    paddingLeft: 35,
-    paddingRight: 35,
-    marginTop: 10,
-    padding: 5,
-    borderWidth: 1,
-    color: 'white',
-    width: '80%',
-  },  
-  select: {
-    marginBottom: 11,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingLeft: 4,
-    paddingRight: 4,
-    color: 'white',
-    width: '55%',
-  },
-  tulisanatas: {
-    textAlign:'center',
-    backgroundColor: 'red', 
-    borderRadius: 99,
-    paddingRight: 25,
-    paddingLeft: 25,
-    paddingBottom: 25,
-    paddingTop: 25,
-    color: 'white', 
-    borderBottomColor: 'lightgrey', 
-    fontWeight: 'bold',
-    padding: 15, 
-    marginBottom: 7, 
-    borderBottomWidth: StyleSheet.hairlineWidth, 
-  },
-  tulisan: {
-    textAlign:'center',
-    backgroundColor: 'blue', 
-    borderRadius: 99,
-    marginLeft: 21,
-    marginRight: 21,
-    color: 'white', 
-    borderBottomColor: 'lightgrey', 
-    fontWeight: 'bold',
-    padding: 11, 
-    marginBottom: 7, 
-    borderBottomWidth: StyleSheet.hairlineWidth, 
-  },
-  welcome: {
-    marginTop: 7,
-    marginBottom: 25,
-    marginLeft: 7,
-    height: 35,
-    color: 'white',
-    borderBottomColor: 'lightgrey',
-    width: '95%',
-    alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });
