@@ -149,11 +149,11 @@ const resolvers = {
             access_token: context.access_token
           }
         });
-        // console.log(postQuizzes.data, 'masuk');
+
+        // console.log(postQuizzes.data, 'masuk<<<<<<<');
         redis.del("Quizzes");
         return postQuizzes.data;
       } catch (err) {
-        // console.log('masuk');
         throw new ApolloError(err.response.data.message);
       }
     },

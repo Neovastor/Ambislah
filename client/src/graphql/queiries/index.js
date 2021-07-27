@@ -4,11 +4,18 @@ export {
     DELETE_REPORT, 
     GET_ALL_REPORTS, 
     GET_REPORT,
-    SEARCH_REPORT,
 } from './reportQueries'
 
 export {
     REGISTER,
-    LOGIN
+    LOGIN,
+    GOOGLE_LOGIN
 } from './userQueries'
 
+export {
+    ADD_QUIZZES,
+    DELETE_QUIZ,
+    EDIT_QUIZ,
+    GET_ALL_QUIZZES,
+    GET_QUIZ
+} from './quizQuerries'
