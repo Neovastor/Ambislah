@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TextInput, Button, Alert } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
+import tailwind from 'tailwind-rn';
 
 const Separator = () => (
   <View style={styles.separator} />
@@ -8,40 +9,76 @@ const Separator = () => (
 
 export default function Home({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.tulisanatas}>
-        SUDOKU GAME
-      </Text>
-    <Separator />
-      <View style={styles.layouting}>
-        <Text style={styles.tulisan}>
-          Welcome to Sudoku
-        </Text>
-        <TextInput style={styles.welcome}
-        // onChangeText={(val) => setPlayer(val)}
-        // value={player}
-        placeholderTextColor="lightgrey"
-        placeholder='Input Your Name'
-        editable
-        >
-      </TextInput>
-      <Picker style={styles.select}
-        // onValueChange={(val) => setLevel(val)}
-        mode={'dropdown'}
-        // selectedValue={ level }
-        >
-        <Picker.Item value="" label="Level"  enabled={false}/>
-        <Picker.Item  value="hard" label="Hard" />
-        <Picker.Item value="medium" label="Medium"  />
-        <Picker.Item value="easy" label="Easy"  />
-      </Picker>
+    <SafeAreaView style={tailwind('h-full')}>
+		<View style={tailwind('pt-12 items-center')}>
+			<View style={tailwind('bg-blue-200 px-3 py-1 rounded-full')}>
+				<Text style={tailwind('text-blue-800 font-semibold')}>
+					Hello Tailwind
+				</Text>
 
-      </View>
-          <Button
-            title="Go to Game"
-            // onPress={ goToGame }
-          />
-    </View>
+        <div className=" flex flex-col justify-center h-screen bg-red-500 ">
+          <div>
+            <form
+              className="m-4 flex justify-center "
+              onSubmit={(e) => handleOnSubmit(e)}
+            >
+              
+              <input
+                className="md-max:w-40 rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+                placeholder="input pin"
+                onChange={(e) => onChangeHandlerRoomkey(e)}
+              />
+
+              <input
+                className="md-max:w-40 rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+                placeholder="nickname"
+                onChange={(e) => onChangeHandlerPlayername(e)}
+              />
+
+              <button className="px-8 rounded-r-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r">
+                Join
+              </button>
+            </form>
+          </div>
+        </div>
+
+			</View>
+		</View>
+	</SafeAreaView>
+    // <View style={styles.container}>
+    //   <Text style={styles.tulisanatas}>
+    //     KAHOOT GAME
+    //   </Text>
+    // <Separator />
+    //   <View style={styles.layouting}>
+    //     <Text style={styles.tulisan}>
+    //       Welcome to Ambislah
+    //     </Text>
+    //     <TextInput style={styles.welcome}
+    //     // onChangeText={(val) => setPlayer(val)}
+    //     // value={player}
+    //     placeholderTextColor="lightgrey"
+    //     placeholder='Input Your Name'
+    //     editable
+    //     >
+    //   </TextInput>
+    //   <Picker style={styles.select}
+    //     // onValueChange={(val) => setLevel(val)}
+    //     mode={'dropdown'}
+    //     // selectedValue={ level }
+    //     >
+    //     <Picker.Item value="" label="Level"  enabled={false}/>
+    //     <Picker.Item  value="hard" label="Hard" />
+    //     <Picker.Item value="medium" label="Medium"  />
+    //     <Picker.Item value="easy" label="Easy"  />
+    //   </Picker>
+
+    //   </View>
+    //       <Button
+    //         title="Go to Game"
+    //         // onPress={ goToGame }
+    //       />
+    // </View>
   )
 }
 

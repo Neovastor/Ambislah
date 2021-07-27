@@ -10,12 +10,12 @@ export default function Finish({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.tulisanatas}>
-        SUDOKU GAME
+        KAHOOT GAME
       </Text>
     <Separator />
       <View style={styles.layouting}>
         <Text style={styles.tulisan}>
-          Welcome to Sudoku
+          Welcome to Ambislah
         </Text>
         <TextInput style={styles.welcome}
         // onChangeText={(val) => setPlayer(val)}
