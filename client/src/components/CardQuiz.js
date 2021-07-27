@@ -14,7 +14,7 @@ export default function CardQuiz(props) {
     return (
         <div className=" ">
             <button onClick={moveToCollections}>
-                <div className="bg-white shadow p-2 rounded-lg text-gray-800 hover:shadow-lg">
+                <div className="bg-[#3D84B8] shadow p-2 rounded-lg text-white hover:shadow-2xl">
                     <img src={"https://cdn.dribbble.com/users/201599/screenshots/1545461/book.jpg?compress=1&resize=400x300"} className="h-32 rounded-lg w-full object-cover" />
                     {/* <div>
                         <FontAwesomeIcon size="2x" icon={faBookOpen} />
