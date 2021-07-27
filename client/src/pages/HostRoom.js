@@ -148,21 +148,16 @@ function WaitingRoom({ db }) {
   useEffect(() => {
     if (statusGame === "live") {
       if (count > quizzes.timer && indexSoal < quizzes.questions.length - 1) {
+        setStatusGame("pause");
         return livegamesRef
           .update({
             indexSoal: indexSoal + 1,
+            status: "pause",
           })
-          .then(() => {
-            setIndexSoal(indexSoal + 1);
-
-            return livegamesRef.update({
-              status: "pause",
-            });
-          })
-          .then(() => {
-            setStatusGame("pause");
+          .then(() => {            
             setIsRunning(false);
             setCount(0);
+            setIndexSoal(indexSoal + 1);
           })
           .catch((error) => {
             console.error("Error updating document: ", error);
@@ -172,6 +167,7 @@ function WaitingRoom({ db }) {
         indexSoal === quizzes.questions.length - 1
       ) {
         setIsRunning(false);
+        setCount(0);
         return livegamesRef
           .update({
             status: "done",
@@ -212,8 +208,7 @@ function WaitingRoom({ db }) {
 
   if (statusGame === "done") {
     return (
-      <div>
-        <h1>Game Finished</h1>
+      <div>        
         <Leaderboard db={db} idparams={idparams} />
       </div>
     );

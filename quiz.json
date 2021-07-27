@@ -7,17 +7,17 @@
       "questions": [
         {
           "type": "text",
-          "question": "penemu bola lampu ?",
+          "question": "inventor of light bulb ?",
           "image": "null",
-          "choose": ["aku", "kamu", "dia", "mereka"],
-          "answer": "aku"
+          "choose": ["alexander graham bell", "Brian", "Susan", "Nathan"],
+          "answer": "alexander graham bell"
         },
         {
           "type": "text",
-          "question": "makanan terenak ?",
+          "question": "What is the best food ?",
           "image": "null",
-          "choose": ["nasi", "jagung", "mie", "sagu"],
-          "answer": "nasi"
+          "choose": ["rice", "corn", "noodle", "pizza"],
+          "answer": "rice"
         },
         {
           "type": "text",
@@ -27,7 +27,7 @@
           "answer": "mobil"
         }
       ],
-      "timer": 5,
+      "timer": 15,
       "mode": "live"
     },
     {

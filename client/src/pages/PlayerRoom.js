@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, Prompt } from "react-router-dom";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
-import WaitingRoomPlayer from '../components/WaitingRoomPlayer'
+import WaitingRoomPlayer from "../components/WaitingRoomPlayer";
 import PausePhasePlayer from "../components/PausePhasePlayer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,18 +11,23 @@ import {
   faChevronCircleLeft,
   faChevronCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
+import TextToSpeech from "../components/TextToSpeech";
+import SpeechRecognition from "../components/SpeechRecognition";
 
 function PlayerRoom({ db }) {
-  const buttonRight = "btn btn-success m-3";
-  const buttonWrong = "btn btn-danger m-3";
-  const buttonNormal = "btn btn-primary m-3";
+  const buttonRight =
+    "h-20 rounded-lg p-2 bg-green-500 hover:bg-green-600 w-screen text-gray-200";
+  const buttonWrong =
+    "h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200";
+  const buttonNormal =
+    "h-20 rounded-lg p-2 bg-blue-500 hover:bg-blue-600 w-screen text-gray-200";
   const [status, setStatus] = useState("waiting");
   const [indexSoal, setIndexSoal] = useState(0);
   const [quizzes, setQuizzes] = useState({});
-  const [optionA, setOptionA] = useState("btn btn-primary m-3");
-  const [optionB, setOptionB] = useState("btn btn-primary m-3");
-  const [optionC, setOptionC] = useState("btn btn-primary m-3");
-  const [optionD, setOptionD] = useState("btn btn-primary m-3");
+  const [optionA, setOptionA] = useState(buttonNormal);
+  const [optionB, setOptionB] = useState(buttonNormal);
+  const [optionC, setOptionC] = useState(buttonNormal);
+  const [optionD, setOptionD] = useState(buttonNormal);
   const [scores, setScores] = useState([]);
 
   const location = useLocation();
@@ -129,12 +134,45 @@ function PlayerRoom({ db }) {
     }
   }
 
+  function inputVoice(payload) {
+    if (
+      !(
+        optionA === buttonNormal &&
+        optionB === buttonNormal &&
+        optionC === buttonNormal &&
+        optionD === buttonNormal
+      )
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "You already choose an answer",
+      });
+    } else {
+      if (payload.toLowerCase() === quizzes.questions[indexSoal].answer.toLowerCase()) {
+        Swal.fire({
+          icon: "success",
+          title: "Your answer is right",
+          timer: 1500,
+        });
+
+        setScores((scores) => [...scores, 1]);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "wrong answer",
+          timer: 1500,
+        });
+
+        setScores((scores) => [...scores, 0]);
+      }
+    }
+  }
+
   if (status === "waiting") {
-    return <WaitingRoomPlayer /> 
-    
+    return <WaitingRoomPlayer />;
   }
   if (status === "pause") {
-    return <PausePhasePlayer />
+    return <PausePhasePlayer />;
   }
 
   if (status === "done") {
@@ -161,24 +199,12 @@ function PlayerRoom({ db }) {
           <div className="pt-12 md-max:flex md-max:flex-col-reverse">
             <div className="bg-gray-200 my-2 p-2 col-span-7 h-auto">
               <div className="flex justify-between">
+                <div className=" p-3 rounded-lg"></div>
+                <div>{quizzes.questions[indexSoal].question}</div>
                 <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
-                  <FontAwesomeIcon
-                    size="2x"
-                    icon={faChevronCircleLeft}
-                  ></FontAwesomeIcon>
+                  <TextToSpeech text={quizzes.questions[indexSoal].question} />
                 </button>
-                <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
-                  <FontAwesomeIcon
-                    size="2x"
-                    icon={faVolumeUp}
-                  ></FontAwesomeIcon>
-                </button>
-                <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
-                  <FontAwesomeIcon
-                    size="2x"
-                    icon={faChevronCircleRight}
-                  ></FontAwesomeIcon>
-                </button>
+                <div className=" p-3 rounded-lg"></div>
               </div>
               <div className="flex flex-col gap-y-4 items-center p-5">
                 {/* <div className="w-full px-4 py-2 border border-gray-300 bg-white rounded  text-center" >Question</div> */}
@@ -196,7 +222,6 @@ function PlayerRoom({ db }) {
                     <button
                       onClick={(e) => onClickHandler("a")}
                       className={optionA}
-                      className="h-20 rounded-lg p-2 bg-blue-500 hover:bg-red-600 w-screen text-gray-200"
                     >
                       A. {quizzes.questions[indexSoal].choose[0]}
                     </button>
@@ -205,7 +230,6 @@ function PlayerRoom({ db }) {
                     <button
                       onClick={(e) => onClickHandler("b")}
                       className={optionB}
-                      className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200"
                     >
                       B. {quizzes.questions[indexSoal].choose[1]}
                     </button>
@@ -214,7 +238,6 @@ function PlayerRoom({ db }) {
                     <button
                       onClick={(e) => onClickHandler("c")}
                       className={optionC}
-                      className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200"
                     >
                       C. {quizzes.questions[indexSoal].choose[2]}
                     </button>
@@ -223,16 +246,16 @@ function PlayerRoom({ db }) {
                     <button
                       onClick={(e) => onClickHandler("d")}
                       className={optionD}
-                      className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200"
                     >
                       D. {quizzes.questions[indexSoal].choose[3]}
                     </button>
                   </div>
                 </div>
                 <div>
-                  <button className="rounded-lg p-5 bg-red-500 hover:bg-red-600 text-white">
+                  {/* <button className="rounded-lg p-5 bg-red-500 hover:bg-red-600 text-white">
                     <FontAwesomeIcon size="2x" icon={faMicrophone} />
-                  </button>
+                  </button> */}
+                  <SpeechRecognition inputVoice={inputVoice} />
                 </div>
               </div>
             </div>

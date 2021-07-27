@@ -66,7 +66,7 @@ function Join({ db }) {
           />
 
           <input
-            className="md-max:w-40 rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+            className="md-max:w-40 p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
             placeholder="nickname"
             onChange={(e) => onChangeHandlerPlayername(e)}
           />

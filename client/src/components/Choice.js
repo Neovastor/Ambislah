@@ -10,6 +10,3 @@ function Choice({ choice }) {
 
 export default Choice;
 
-{
-  /* <button className="btn btn-primary mx-3" >{choice}</button>; */
-}

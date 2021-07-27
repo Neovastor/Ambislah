@@ -18,15 +18,12 @@ function Question({ question, i,duration }) {
           <CircleTimer duration={duration} />
             
           </button>
-          <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
-            <FontAwesomeIcon size="2x" icon={faVolumeUp}></FontAwesomeIcon>
-          </button>
-          <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
-            <FontAwesomeIcon
-              size="2x"
-              icon={faChevronCircleRight}
-            ></FontAwesomeIcon>
-          </button>
+          <div className=" p-3 rounded-lg">
+            
+          </div>
+          <div className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
+
+          </div>
         </div>
         <div className="flex flex-col gap-y-4 items-center p-5">
           <div className="w-full px-4 py-2 border border-gray-300 bg-white rounded  text-center">
