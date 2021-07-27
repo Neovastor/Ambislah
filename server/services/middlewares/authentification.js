@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
       const payload = verifyJWT(token)
       const userInfo = {
         email: payload.email,
-        name: payload.name,
+        phoneNumber: payload.phoneNumber,
         id: payload.id
       }
       User.findOne({

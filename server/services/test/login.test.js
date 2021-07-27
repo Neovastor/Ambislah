@@ -6,15 +6,10 @@ let connection
 let client
 let db
 
-const userlogin = {
-  "email": "israhadi@mail.com",
-  "password": "hogake-ke-7"
-}
 beforeAll(async () => {
   connection = await connect()
   client = connection.client
-  db = connection.database
-  await db.collection("Users").insertOne(userlogin)
+  db = connection.db
   return connection
 })
 afterAll(async () => {
@@ -26,7 +21,7 @@ describe('login user', () => {
   it('login', (done) => {
     request(app)
       .post('/login')
-      .send(userlogin)
+      .send(user)
       .end((err, res) => {
         console.log('OK')
         expect(res.status).toBe(200)

@@ -60,8 +60,7 @@ class AuthController {
   static async googlelogin(req, res, next) {
     try {
       let payload = null
-      console.log('heheh', req.body)
-      const { id_token: token } = req.body
+      const token = req.body.id_token
       const client = new OAuth2Client(process.env.CLIENT_ID)
       const ticket = await client.verifyIdToken({
         idToken: token,

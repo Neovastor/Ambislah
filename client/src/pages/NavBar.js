@@ -1,24 +1,7 @@
-import { useReactiveVar } from '@apollo/client'
 import React from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
-import Swal from 'sweetalert2'
-import { loginVar } from '../graphql/vars'
+import { NavLink } from 'react-router-dom'
 
 export default function NavBar() {
-  const isLogin = useReactiveVar(loginVar)
-  const history = useHistory()
-  const logout = e => {
-    e.preventDefault()
-    localStorage.clear()
-    loginVar(false)
-    history.push('/')
-    Swal.fire({
-      icon: "success",
-      title: "Logout successfully",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  }
     return (
         <header className="fixed w-full">
             <div className="lg:px-16 px-6 bg-[#FCD8D4] flex flex-wrap items-center lg:py-0 py-2">

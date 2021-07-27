@@ -44,7 +44,8 @@ const Channel = ({ db = null }) => {
   }
 
   return (
-    <>      
+    <>
+     
       <form onSubmit={(e) => handleOnSubmit(e)}>
         <input type="text" placeholder="input id soal" onChange={(e) =>onChangeHandler(e)}/>
         <button type="submit">Host</button>
