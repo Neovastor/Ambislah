@@ -1,21 +1,8 @@
-import { InMemoryCache, ApolloClient } from '@apollo/client'
-import { createdQuizVar } from './vars'
+import {InMemoryCache, ApolloClient} from '@apollo/client'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000',
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          createdQuiz: {
-            read() {
-              return createdQuizVar()
-            }
-          },
-        }
-      }
-    }
-  })
+  cache: new InMemoryCache()
 })
 
 export default client

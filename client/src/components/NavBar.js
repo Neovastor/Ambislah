@@ -24,7 +24,7 @@ export default function NavBar() {
             <div className="lg:px-16 px-6 bg-[#FCD8D4] flex flex-wrap items-center lg:py-0 py-2">
                 <div className="flex-1 flex justify-between items-center">
                     <NavLink exact to={"/"}>
-                        <h1 className="text-2xl font-semibold text-[#835151]">Ambislah</h1>
+                        <h1 className="text-2xl font-semibold text-[#835151]">Ambaslah</h1>
                     </NavLink>
                 </div>
                 <label htmlFor="menu-toggle" className="cursor-pointer sm:hidden block"><svg className="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 20 20"><title>menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg></label>
@@ -40,6 +40,7 @@ export default function NavBar() {
                               ? <li><NavLink exact to={"/login"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Login</NavLink></li>
                               : <li onClick={ logout } className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold cursor-pointer" >Logout</li>
                             }
+                            <li><NavLink exact to={"/room"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >webRTC</NavLink></li>
                             <li><NavLink exact to={"/create"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#835151]  font-bold" >Create</NavLink></li>
                         </ul>
                     </nav >

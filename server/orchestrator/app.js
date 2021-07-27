@@ -1,20 +1,10 @@
 const { ApolloServer} = require('apollo-server')
 const schema = require('./schema')
 const PORT = process.env.PORT || 4000
-require('dotenv').config()
-const {verifyJWT} = require('./helpers')
 
 const server = new ApolloServer({
   schema, 
-  cors: true,
-  context: ({req, res}) => {
-    const access_token = req.headers.authorization || ''
-    const user = verifyJWT(access_token)
-    return {
-      access_token,
-      user
-    }
-  }
+  cors: true
 });
 
 

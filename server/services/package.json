@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "nodemon ./bin/http",
-    "test": "jest --detectOpenHandles --forceExit --runInBand --coverage"
+    "test": "jest --detectOpenHandles --forceExit --runInBand"
   },
   "keywords": [],
   "author": "",
