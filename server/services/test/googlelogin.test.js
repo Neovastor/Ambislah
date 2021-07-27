@@ -1,25 +1,30 @@
 const app = require('../app')
 const request = require('supertest')
 const { connect } = require('../config/mongodb')
+const axios = ('axios')
 
 let connection
 let client
 let db
 
-// let id_token = process.env.ID_TOKEN
 
+beforeEach(() => {
+  jest.clearAllMocks()
+})
 
-beforeAll(async () => {
-  connection = await connect()
-  client = connection.client
-  db = connection.database
-  return connection
-})
-afterAll(async () => {
-  await client.close()
-})
+jest.mock()
+
+// beforeAll(async () => {
+//   connection = await connect()
+//   client = connection.client
+//   db = connection.database
+//   return connection
+// })
+// afterAll(async () => {
+//   await client.close()
+// })
 jest.setTimeout(10000)
-describe('GOOGLE login', () => {
+describe('Oauth by google login', () => {
   it('google login', (done) => {
     request(app)
       .post('/googlelogin')

@@ -1,11 +1,10 @@
 const app = require("../app");
 const request = require("supertest");
-const {isValidDate} = require('./testing.helpers')
+const {generateJWT}= require('../helpers/jwt')
+const { connect } = require("../config/mongodb");
 
 
-// let dataQuiz = require("./quiz.json");
 let dataQuiz = {
-  userId: process.env.USER_ID,
   title: "quiz1",
   questions: [
     {
@@ -22,24 +21,47 @@ let dataQuiz = {
   updatedAt: new Date()
 };
 
-const { connect } = require("../config/mongodb");
+const user_data = {
+  "email": "email@mail.com",
+  "password": "password"
+}
 
-let connection;
-let client;
-let db;
-let id;
+let connection = null
+let client = null
+let db = null
+let id = null
+let access_token = null
+
 beforeAll(async () => {
-  connection = await connect();
-  client = connection.client;
-  db = connection.database;
-  const quiz = await db.collection("Quizzes").insertOne(dataQuiz);
-  id = quiz.insertedId;
-  return connection;
+  if (process.env.NODE_ENV == "test") {
+    connection = await connect();
+    client = connection.client;
+    db = connection.database;
+
+    const users = await db.collection("Users");
+    let {insertedId} = await users.insertOne(user_data)
+
+    access_token =  generateJWT({
+        email: user_data.email,
+        name: "email",
+        id: insertedId
+    })
+
+    const quiz = await db.collection("Quizzes").insertOne({...dataQuiz, userId: insertedId.toHexString()});
+    id = quiz.insertedId.toHexString()
+
+    // console.log(quiz);
+    return connection;
+  }
 });
 
 afterAll(async () => {
-  await db.collection("Quizzes").deleteMany({});
-  await client.close();
+  if (process.env.NODE_ENV == "test") {
+    await db.collection("Quizzes").deleteMany({});
+    await db.collection("Users").deleteMany({});
+
+    await client.close();
+  }
 });
 
 jest.setTimeout(5000);
@@ -47,7 +69,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
   it("test get all Quizzes", (done) => {
     request(app)
       .get("/quizzes")
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -83,7 +105,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
   it("Test get by id Quiz ", (done) => {
     request(app)
       .get(`/quizzes/${id}`)
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -131,7 +153,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
         timer: 20,
         mode: "challenge",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -179,7 +201,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
         timer: 20,
         mode: "challenge",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -213,7 +235,7 @@ describe("Test Quizzes [SUCCESS CASE]", () => {
   it("Test delete Quiz by id  ", (done) => {
     request(app)
       .delete(`/quizzes/${id}`)
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -235,7 +257,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test get quiz by id, id should be 24 hex characters", (done) => {
     request(app)
       .get(`/quizzes/123123`)
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -255,7 +277,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test get quiz by id, id not found", (done) => {
     request(app)
       .get(`/quizzes/123123123123123123123123`)
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -276,7 +298,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
     request(app)
       .post(`/quizzes`)
       .send({})
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -309,7 +331,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
         timer: 20,
         mode: "challenge",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -345,7 +367,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
         timer: 20,
         mode: "challenge",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -379,7 +401,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
         timer: "",
         mode: "",
       })
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -400,7 +422,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test delete quiz, id should be 24 hex characters", (done) => {
     request(app)
       .delete(`/quizzes/123`)
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -421,7 +443,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("test delete quiz, quiz not found", (done) => {
     request(app)
       .delete(`/quizzes/123123123123123123123123`)
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -486,7 +508,7 @@ describe("Test Quizzes [ERROR CASE]", () => {
   it("Internal Server Error", (done) => {
     request(app)
       .get(`/quizzes`)
-      .set({access_token: process.env.ACCESS_TOKEN})
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {

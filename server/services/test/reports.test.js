@@ -2,9 +2,8 @@ const { connect } = require("../config/mongodb");
 const app = require("../app");
 const request = require("supertest");
 const { dummyReports, isValidDate } = require("./testing.helpers");
+const {generateJWT, verifyJWT}= require('../helpers/jwt')
 
-// const {signJWT, verifyJWT} = require('../helpers/jwt')
-// require('dotenv').config()
 let db = null;
 let client = null;
 let connection = null;
@@ -15,14 +14,39 @@ const reportData = {
   players: [{ name: "ba", score: 80 }],
 };
 
+const user_data = {
+  "email": "email@mail.com",
+  "password": "password"
+}
+
+let access_token = null
+let id = null
+
 beforeAll(async () => {
   if (process.env.NODE_ENV == "test") {
     connection = await connect();
     client = connection.client;
     db = connection.database;
 
+    const users = await db.collection("Users");
+    let {insertedId} = await users.insertOne(user_data)
+
+    access_token =  generateJWT({
+        email: user_data.email,
+        name: "email",
+        id: insertedId
+    })
+
+    let inputReports = dummyReports()
+    inputReports.forEach(el => el.userId = insertedId.toHexString())
+
     const reports = await db.collection("Reports");
-    await reports.insertMany(dummyReports());
+    const {insertedIds} = await reports.insertMany(inputReports);
+
+    id = insertedIds[0].toHexString()
+
+    // let dbReport =  await db.collection("Reports").find().toArray()
+    // console.log(dbReport);
 
     return connection;
   }
@@ -30,8 +54,8 @@ beforeAll(async () => {
 
 afterAll(async () => {
   if (process.env.NODE_ENV == "test") {
-    const reports = await db.collection("Reports");
-    await reports.deleteMany({});
+    await db.collection("Reports").deleteMany({});
+    await db.collection("Users").deleteMany({});
 
     await client.close();
   }
@@ -43,12 +67,11 @@ describe("Reports [SUCCESS CASE]", () => {
   it("Get all reports", (done) => {
     request(app)
       .get("/reports")
-      .set({ access_token: process.env.ACCESS_TOKEN })
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
           const reportsArray = res.body;
-          // console.log(reportsArray);
           expect(res.status).toBe(200);
 
           reportsArray.forEach((report) => {
@@ -68,17 +91,18 @@ describe("Reports [SUCCESS CASE]", () => {
         }
       });
   });
-  it("Get report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
+  it("Get report by Id", (done) => {
     request(app)
-      .get("/reports/60fad998cbd8d3ed1ba95f71")
-      .set({ access_token: process.env.ACCESS_TOKEN })
+      .get(`/reports/${id}`)
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
           const report = res.body;
+          // console.log(report);
           expect(res.status).toBe(200);
+          // expect(report._id).toBe(id);
           expect(isValidDate(report.createdAt)).toBe(true);
-          expect(report._id).toBe("60fad998cbd8d3ed1ba95f71");
           expect(report).toHaveProperty("userId", expect.any(String));
           expect(report).toHaveProperty("quizId", expect.any(String));
           expect(report).toHaveProperty("playersCount", expect.any(Number));
@@ -96,7 +120,7 @@ describe("Reports [SUCCESS CASE]", () => {
       request(app)
         .post("/reports")
         .send(reportData)
-        .set({ access_token: process.env.ACCESS_TOKEN })
+        .set({access_token})
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -119,10 +143,10 @@ describe("Reports [SUCCESS CASE]", () => {
           }
         });
     }),
-    it("Delete report by Id (60fad998cbd8d3ed1ba95f71)", (done) => {
+    it("Delete report by Id", (done) => {
       request(app)
-        .delete("/reports/60fad998cbd8d3ed1ba95f71")
-        .set({ access_token: process.env.ACCESS_TOKEN })
+        .delete(`/reports/${id}`)
+        .set({access_token})
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -158,7 +182,7 @@ describe("Reports [ERROR CASE]", () => {
     it("Report not found, wrong Id", (done) => {
       request(app)
         .get("/reports/AbsolutlyWrong")
-        .set({ access_token: process.env.ACCESS_TOKEN })
+        .set({access_token})
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -177,7 +201,7 @@ describe("Reports [ERROR CASE]", () => {
     it("quizId is null", (done) => {
       request(app)
         .post("/reports")
-        .set({ access_token: process.env.ACCESS_TOKEN })
+        .set({access_token})
         .send({
           ...reportData,
           quizId: null,
@@ -198,7 +222,7 @@ describe("Reports [ERROR CASE]", () => {
   it("Empty input", (done) => {
     request(app)
       .post("/reports")
-      .set({ access_token: process.env.ACCESS_TOKEN })
+      .set({access_token})
       .send({})
       .end((err, res) => {
         if (err) done(err);
@@ -235,7 +259,7 @@ describe("Reports [ERROR CASE]", () => {
   it("Cannot delete report, wrong Id", (done) => {
     request(app)
       .delete("/reports/AbsolutlyWrong")
-      .set({ access_token: process.env.ACCESS_TOKEN })
+      .set({access_token})
       .end((err, res) => {
         if (err) done(err);
         else {
@@ -253,10 +277,10 @@ describe("Reports [ERROR CASE]", () => {
       });
   }),
 
-    it("Internal Server Erro (get all reports)", (done) => {
+    it("Internal Server Error (get all reports)", (done) => {
       request(app)
         .get(`/reports`)
-        .set({ access_token: process.env.ACCESS_TOKEN })
+        .set({access_token})
         .end((err, res) => {
           if (err) done(err);
           else {
@@ -277,7 +301,7 @@ describe("Reports [ERROR CASE]", () => {
     it("Internal Server Error (get report by Id)", (done) => {
       request(app)
         .get("/reports/60fad998cbd8d3ed1ba95f71")
-        .set({ access_token: process.env.ACCESS_TOKEN })
+        .set({access_token})
         .end((err, res) => {
           if (err) done(err);
           else {

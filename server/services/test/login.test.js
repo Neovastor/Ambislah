@@ -1,31 +1,43 @@
 const app = require('../app')
 const request = require('supertest')
 const { connect } = require('../config/mongodb')
+const {hash} = require('../helpers/bcrypt')
 
-let connection
-let client
-let db
+let connection = null
+let client = null
+let db = null
 
-beforeAll(async () => {
-  connection = await connect()
-  client = connection.client
-  db = connection.database
-  return connection
-})
-afterAll(async () => {
-  await client.close()
-})
-const user = {
-  "email": "israhadi@mail.com",
-  "password": "hogake-ke-7"
+let user_data = {
+  "email": "email@mail.com",
+  "password": "password"
 }
 
-jest.setTimeout(10000)
+beforeAll(async () => {
+  if (process.env.NODE_ENV == "test") {
+    connection = await connect()
+    client = connection.client
+    db = connection.database
+
+    await db.collection("Users").insertOne({...user_data, password: hash(user_data.password)})
+
+    return connection
+  }
+})
+afterAll(async () => {
+  if (process.env.NODE_ENV == "test") {
+    await db.collection("Users").deleteMany({});
+
+    await client.close();
+  }
+})
+
+
+jest.setTimeout(5000)
 describe('Login [SUCCESS CASE]', () => {
   it('login user success', (done) => {
     request(app)
       .post('/login')
-      .send(user)
+      .send(user_data)
       .end((err, res) => {
         // console.log(res.body)
         expect(res.status).toBe(200)
@@ -43,7 +55,7 @@ describe('login [ERROR CASE]', () => {
   it('login user failed, wrong password', (done) => {
     request(app)
       .post('/login')
-      .send({...user, password: null})
+      .send({...user_data, password: null})
       .end((err, res) => {
         // console.log(res.body)
         expect(res.status).toBe(400)
@@ -59,7 +71,7 @@ describe('login [ERROR CASE]', () => {
   it('login user failed, wrong email', (done) => {
     request(app)
       .post('/login')
-      .send({...user, email: null})
+      .send({...user_data, email: null})
       .end((err, res) => {
         // console.log(res.body)
         expect(res.status).toBe(400)

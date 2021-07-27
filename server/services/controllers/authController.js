@@ -34,9 +34,6 @@ class AuthController {
   static async login(req, res, next) {
     try {
       const { email, password } = req.body
-      // const name = email.split('@')[0]
-
-      // const output = await Kahoot.login(email)
 
       Kahoot.login(email)
       .then (output => {
