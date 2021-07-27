@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TextInput, Button, Alert } from 'react-native'
+import { useForm } from "react-hook-form";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TextInput, TouchableHighlight, Button, Alert } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import tailwind from 'tailwind-rn';
 
@@ -8,39 +9,43 @@ const Separator = () => (
 );
 
 export default function Home({ navigation }) {
+  const { register, handleSubmit } = useForm();
   return (
     <SafeAreaView style={tailwind('h-full')}>
-		<View style={tailwind('pt-12 items-center')}>
-			<View style={tailwind('bg-blue-200 px-3 py-1 rounded-full')}>
-				<Text style={tailwind('text-blue-800 font-semibold')}>
-					Hello Tailwind
+		<View style={tailwind('pt-12 items-center bg-red-600 min-h-full')}>
+			<View style={tailwind('bg-red-600 px-3 py-1 rounded-full max-w-full')}>
+				<Text style={tailwind('text-blue-800 font-semibold max-w-full')}>
+					Android Tailwind
 				</Text>
 
-        <div className=" flex flex-col justify-center h-screen bg-red-500 ">
-          <div>
-            <form
-              className="m-4 flex justify-center "
-              onSubmit={(e) => handleOnSubmit(e)}
-            >
+          <View >
+            <View
+              style={tailwind('m-4 flex flex-row justify-center max-w-full')}
+              // className="m-4 flex justify-center "
+              // onSubmit={(e) => handleOnSubmit(e)}
+              >
               
-              <input
-                className="md-max:w-40 rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+              <TextInput
+                style={tailwind('px-4 py-2 rounded-full border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white')}
                 placeholder="input pin"
                 onChange={(e) => onChangeHandlerRoomkey(e)}
-              />
+                />
 
-              <input
-                className="md-max:w-40 rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+              <TextInput
+                style={tailwind('px-4 py-2 rounded-full border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white')}
                 placeholder="nickname"
                 onChange={(e) => onChangeHandlerPlayername(e)}
               />
 
-              <button className="px-8 rounded-r-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r">
-                Join
-              </button>
-            </form>
-          </div>
-        </div>
+            </View>
+            <TouchableHighlight 
+              // onPress={onPress}
+              >
+              <View style={tailwind('px-4 py-2 rounded-full bg-yellow-400 text-center text-gray-800 font-bold uppercase border-yellow-500 ')}>
+                <Text>Join</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
 
 			</View>
 		</View>
