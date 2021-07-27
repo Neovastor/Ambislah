@@ -22,5 +22,5 @@ module.exports = (req, res, next) => {
         .catch(err => next({code:500}))
     }
     catch(err) {next({code:401, message: [`token JWT not valid`]})}
-  } else next({code:401, message: [`please Register...., and login >>`]})
+  } else next({code:401, message: [`please Register...., and login`]})
 }

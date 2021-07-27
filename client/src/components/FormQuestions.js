@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
 export default function FormQuestions() {
     const history = useHistory()
-    const [addQuizzes] = useMutation(ADD_QUIZZES)
+    const [addQuizzes, {error: addError, loading: addLoading, data:addData}] = useMutation(ADD_QUIZZES)
 
     const { register, handleSubmit } = useForm();
     const [type, setType] = useState('text')
@@ -89,22 +89,35 @@ export default function FormQuestions() {
     }
 
     const saveQuiz = async () => {
-        // console.log(createdQuizVar());
-        const {dataQuizzes} = createdQuizVar()
-        // console.log(data, 'ini finish data');
-        // console.log(dataQuizzes);
-        await addQuizzes({
-            variables: {
-                input: dataQuizzes
-            }
-        })
-        history.push('/')
-        Swal.fire({
-            title: 'Success Created Quiz',
-            // text: '',
-            timer: 2000
-        })
+        try {
+            // e.preventDefault()
+            // console.log(createdQuizVar());
+            const {dataQuizzes} = createdQuizVar()
+            // console.log(data, 'ini finish data');
+            // console.log(dataQuizzes);
+            await addQuizzes({
+                variables: {
+                    input: dataQuizzes
+                }
+            })
+    
+            history.push('/')
+            Swal.fire({
+                title: 'Success Create Quiz',
+                icon: 'success',
+                timer: 2000
+            })
+
+        } catch (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Cannot Create Quiz',
+                text: 'Please login first',
+                timer: 2000
+            })
+        }
     }
+    
 
     return (
         <>
