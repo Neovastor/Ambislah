@@ -24,6 +24,11 @@ export default function Collections() {
         history.push("/")
     }
 
+    const updated = () => {
+        // console.log();
+        history.push('/collections/update')
+    }
+
     return (
         <>
             {/* <h1>Masuk</h1> */}
@@ -37,7 +42,7 @@ export default function Collections() {
                     <div>Paket : {Quiz.dataQuizzes.title}</div>
                     <div>Mode : {Quiz.dataQuizzes.mode}</div>
                     <div>
-                        <button className="bg-green-500 px-2 py-1 rounded-lg mr-2">Update</button>
+                        <button onClick={updated} className="bg-green-500 px-2 py-1 rounded-lg mr-2">Update</button>
                         <button onClick={destory} className="bg-green-500 px-2 py-1 rounded-lg ml-2">Delete</button>
                     </div>
                     <div>

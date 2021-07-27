@@ -11,7 +11,7 @@ export default function FormQuestions() {
     const [addQuizzes] = useMutation(ADD_QUIZZES)
 
     const { register, handleSubmit } = useForm();
-    const [type, setType] = useState('text')
+    const [type, setType] = useState('touch')
     const [type1, setType1] = useState(false)
     const [type2, setType2] = useState(false)
     const [status1, setStatus1] = useState(false)
@@ -25,37 +25,29 @@ export default function FormQuestions() {
         setType2(false)
     }
     const typeTouch = e => {
-        setType('Touch')
+        setType('touch')
         setType2(true)
         setType1(false)
     }
     const submit1 = e => {
-        const { input1 } = e
-        // console.log('satu', input1)
         setStatus1(true)
         setStatus2(false)
         setStatus3(false)
         setStatus4(false)
     }
     const submit2 = e => {
-        const { input2 } = e
-        // console.log('dua', input2)
         setStatus2(true)
         setStatus3(false)
         setStatus4(false)
         setStatus1(false)
     }
     const submit3 = e => {
-        const { input3 } = e
-        // console.log('tiga', input3)
         setStatus3(true)
         setStatus4(false)
         setStatus1(false)
         setStatus2(false)
     }
     const submit4 = e => {
-        const { input4 } = e
-        // console.log('empat', input4)
         setStatus4(true)
         setStatus1(false)
         setStatus2(false)
@@ -84,13 +76,13 @@ export default function FormQuestions() {
         // console.log(existingQuiz, 'ini from quis');
         const questions = [...existingQuiz.dataQuizzes.questions, newData]
         createdQuizVar({ dataQuizzes: { ...existingQuiz.dataQuizzes, questions } });
-        console.log(createdQuizVar());
+        // console.log(createdQuizVar());
     }
 
     const saveQuiz = () => {
         // console.log(createdQuizVar());
         const data = createdQuizVar()
-        console.log(data, 'ini finish data');
+        // console.log(data, 'ini finish data');
         addQuizzes({
             variables: {
                 "addQuizzesUserId": data.dataQuizzes.userId,

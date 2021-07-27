@@ -11,13 +11,16 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Collections from './pages/Collections'
 import WaitingRoom from './pages/WaitingRoom'
-
+import UpdateQuiz from './pages/UpdateQuiz'
+import UpdateQuestions from './pages/UpdateQuestions'
 function App() {
   return (
     <>
       <NavBar></NavBar>
       <Switch>
 
+        <Route exact path="/collections/updatequestion"> <UpdateQuestions /> </Route>
+        <Route exact path="/collections/update"> <UpdateQuiz /> </Route>
         <Route exact path="/waitingroom"> <WaitingRoom /> </Route>
         <Route exact path="/collections"> <Collections /> </Route>
         <Route exact path="/login"> <Login /> </Route>

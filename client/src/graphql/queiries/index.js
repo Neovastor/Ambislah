@@ -17,5 +17,6 @@ export {
     GET_ALL_QUIZ,
     CREATED_QUIZZES,
     ADD_QUIZZES,
-    DELETE_QUIZZEZ
+    DELETE_QUIZZEZ,
+    UPDATE_QUIZZES
 } from './quizQueries'

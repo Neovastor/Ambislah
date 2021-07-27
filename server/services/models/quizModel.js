@@ -59,6 +59,7 @@ class Quizzes {
     }
 
     static async putQuiz(payload, id) {
+        // console.log(payload, 'ini model')
         const { userId, title, questions, timer, mode, createdAt } = payload
 
         let err = {

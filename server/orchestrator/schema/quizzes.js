@@ -79,7 +79,7 @@ const resolvers = {
           return JSON.parse(QuizzesRedis);
         } else {
           const Quizzes = await instanceQuizzes.get(`/`);
-          console.log(JSON.stringify(Quizzes.data));
+          // console.log(JSON.stringify(Quizzes.data));
           redis.set("Quizzes", JSON.stringify(Quizzes.data));
         }
       } catch (err) {
@@ -123,16 +123,19 @@ const resolvers = {
         const data = {
           _id: args.id,
           userId: args.userId,
+          title: args.title,
           questions: args.questions,
           timer: args.timer,
           mode: args.mode,
+          createdAt: args.createdAt
         };
-        // console.log(data);
+        // console.log(data, 'ini edit');
         const updateQuizzes = await instanceQuizzes.put(`/${args.id}`, data);
-        // console.log(updateQuizzes.data, 'masuk');
+        // console.log(updateQuizzes, 'masuk');
         redis.del("Quizzes");
         return updateQuizzes.data;
       } catch (err) {
+        // console.log('masuk error');
         throw new ApolloError(err.response.data.message);
       }
     },

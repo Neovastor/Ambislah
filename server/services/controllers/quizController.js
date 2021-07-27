@@ -32,7 +32,6 @@ class QuizController {
 
   static postQuizHandler(req, res, next) {
     let payload = req.body;
-
     //di uncomment kalau sudah di merge dengan middleware login
     // payload.userId = req.user.id
 
@@ -51,8 +50,6 @@ class QuizController {
 
   static putQuizHandler(req, res, next) {
     let payload = req.body;
-    //di uncomment kalau sudah di merge dengan middleware login
-    // payload.userId = req.user.id
 
     const { id } = req.params;
 

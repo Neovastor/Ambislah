@@ -50,3 +50,23 @@ mutation DeleteQuizzesByIdMutation($deleteQuizzesByIdId: ID) {
   DeleteQuizzesById(id: $deleteQuizzesByIdId)
 }
 `
+
+export const UPDATE_QUIZZES = gql`
+mutation Mutation($editQuizzesByIdId: ID, $editQuizzesByIdUserId: String, $editQuizzesByIdTitle: String, $editQuizzesByIdQuestions: [InputQuestion], $editQuizzesByIdTimer: Int, $editQuizzesByIdMode: String, $editQuizzesByIdCreatedAt: Date) {
+  EditQuizzesById(id: $editQuizzesByIdId, userId: $editQuizzesByIdUserId, title: $editQuizzesByIdTitle, questions: $editQuizzesByIdQuestions, timer: $editQuizzesByIdTimer, mode: $editQuizzesByIdMode, createdAt: $editQuizzesByIdCreatedAt) {
+    _id
+    userId
+    title
+    questions {
+      type
+      question
+      image
+      choose
+      answer
+    }
+    timer
+    mode
+    createdAt
+  }
+}
+`

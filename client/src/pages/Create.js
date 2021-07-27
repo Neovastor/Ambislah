@@ -1,7 +1,7 @@
 import React from 'react'
-import QuestionOflline from './QuestionOffline';
-import AnswerLive from './AnswerLive'
-import InputPin from './InputPin'
+// import QuestionOflline from './QuestionOffline';
+// import AnswerLive from './AnswerLive'
+// import InputPin from './InputPin'
 import CreatedQuiz from '../components/CreatedQuiz'
 import { useReactiveVar } from '@apollo/client'
 import { showPageVar } from '../graphql/vars'
