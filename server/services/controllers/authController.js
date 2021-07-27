@@ -98,18 +98,9 @@ class AuthController {
       }
       
     } catch (err) {
-      err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
+      next(err)
     }
   }
-  // static async findOne(req, res) {
-  //   const id = req.params.id
-  //   try {
-  //     const kahoot = await Kahoot.findOne(id)
-  //     res.json(kahoot)
-  //   } catch (err) {
-  //     err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
-  //   }
-  // }
 
 }
 module.exports = AuthController
