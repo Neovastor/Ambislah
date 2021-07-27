@@ -68,11 +68,9 @@ export default function UpdateQuiz() {
             <form onSubmit={handleSubmit(onSubmit)} className="m-4 flex flex-col justify-center ">
 
                 <input {...register("inputQuiz")} defaultValue={Quiz.dataQuizzes.title} className="md-max:w-40 rounded-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white focus:ring-2 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent" placeholder="input name quiz" />
-                {/* <button className="px-8 rounded-r-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r">Submit</button> */}
-                {/* <button className="text-gray-800">{JSON.stringify(question)}</button> */}
                 <div className="w-full flex flex-col mb-3">
                     <label className="font-semibold text-gray-600 py-2">Mode Class<abbr title="required">*</abbr></label>
-                    <select onChange={option} defaultValue={Quiz.dataQuizzes.mode} className="block w-full bg-white text-[#28527A] border border-blue-300 rounded-lg h-10 px-4 md:w-full focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent " required="required" name="integration[city_id]" id="integration_city_id">
+                    <select onChange={option} defaultValue={Quiz.dataQuizzes.mode} className="block w-full bg-white text-[#28527A] border border-blue-300 rounded-lg h-10 px-4 md:w-full focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent" required="required" name="integration[city_id]" id="integration_city_id">
                         <option disabled>Seleted location</option>
                         <option value="Live">Live</option>
                         <option value="Challenge">Challenge</option>
