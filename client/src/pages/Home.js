@@ -7,7 +7,9 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Home() {
-    const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ)
+    const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ, {
+        fetchPolicy: "cache-and-network"
+    })
     // console.log(quizzes);
 
     if (loading) return <p>Loading...</p>;
@@ -15,9 +17,9 @@ export default function Home() {
 
     return (
         <>
-            <div className="grid md:grid-cols-6 gap-4 mmd:grid-cols-3 pt-16 bg-[#F0EBCC]">
+            <div className="grid md:grid-cols-6 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
                 <div className=" box-border rounded-xl w-full p-4 mmd:col-span-4 grid-rows-2">
-                    <div className="rounded-full h-34 w-34 mt-14 p-8 font-semibold bg-white  ">
+                    <div className="rounded-full h-34 w-34 mt-14 mmd:mt-1 p-8 font-semibold bg-white  ">
                         <div className="text-center">
                             <FontAwesomeIcon size="3x" icon={faUser}></FontAwesomeIcon>
                         </div>
@@ -43,7 +45,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className=" box-border rounded-xl w-full p-4 mmd:col-span-4 grid-rows-2">
-                    <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">Report</div>
+                    <div className="mt-14 mmd:mt-1 p-8 font-semibold bg-white ">Report</div>
                 </div>
             </div>
         </>

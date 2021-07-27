@@ -15,7 +15,7 @@ export default function TabelQuestions(props) {
     return (
         <div>
 
-            <div className="bg-white shadow p-2 rounded-lg text-gray-800 hover:shadow-lg">
+            <div className="bg-[#3D84B8] shadow p-2 rounded-lg text-white hover:shadow-2xl">
                 <div>No. {+props.index + 1}</div>
                 <img src={props.dataQuizzes.image} />
                 {/* <div>
@@ -23,13 +23,13 @@ export default function TabelQuestions(props) {
                     </div> */}
                 < div className="py-2 px-2">
                     <div className=" font-bold font-title text-center">{props.dataQuizzes.question}</div>
-                    <div className="text-sm font-light text-center my-2">a. {props.dataQuizzes.choose[0]}</div>
-                    <div className="text-sm font-light text-center my-2">b. {props.dataQuizzes.choose[1]}</div>
-                    <div className="text-sm font-light text-center my-2">c. {props.dataQuizzes.choose[2]}</div>
-                    <div className="text-sm font-light text-center my-2">d. {props.dataQuizzes.choose[3]}</div>
+                    <div className="text-sm font-light text-left my-2">a. {props.dataQuizzes.choose[0]}</div>
+                    <div className="text-sm font-light text-left my-2">b. {props.dataQuizzes.choose[1]}</div>
+                    <div className="text-sm font-light text-left my-2">c. {props.dataQuizzes.choose[2]}</div>
+                    <div className="text-sm font-light text-left my-2">d. {props.dataQuizzes.choose[3]}</div>
                 </div>
-                <div>
-                    <button onClick={updated} className="bg-green-500 px-2 py-1 rounded-lg">update</button>
+                <div className="flex justify-end">
+                    <button onClick={updated} className="bg-[#28527A] border-white text-white border-2 hover:bg-white hover:text-[#007580] px-2 py-1 rounded-lg">update</button>
                 </div>
             </div>
         </div>

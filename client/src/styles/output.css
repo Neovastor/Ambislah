@@ -691,14 +691,14 @@ video {
 .mt-8 {
 	margin-top: 2rem;
 }
+.mt-14 {
+	margin-top: 3.5rem;
+}
 .mr-2 {
 	margin-right: 0.5rem;
 }
 .ml-2 {
 	margin-left: 0.5rem;
-}
-.mt-14 {
-	margin-top: 3.5rem;
 }
 .mt-3 {
 	margin-top: 0.75rem;
@@ -865,9 +865,6 @@ video {
 .gap-1 {
 	gap: 0.25rem;
 }
-.gap-2 {
-	gap: 0.5rem;
-}
 .gap-y-4 {
 	row-gap: 1rem;
 }
@@ -931,6 +928,9 @@ video {
 .border-4 {
 	border-width: 4px;
 }
+.border-2 {
+	border-width: 2px;
+}
 .border-0 {
 	border-width: 0px;
 }
@@ -971,9 +971,17 @@ video {
 .border-transparent {
 	border-color: transparent;
 }
+.border-white {
+	--tw-border-opacity: 1;
+	border-color: rgba(255, 255, 255, var(--tw-border-opacity));
+}
 .border-gray-400 {
 	--tw-border-opacity: 1;
 	border-color: rgba(156, 163, 175, var(--tw-border-opacity));
+}
+.border-blue-300 {
+	--tw-border-opacity: 1;
+	border-color: rgba(147, 197, 253, var(--tw-border-opacity));
 }
 .bg-gray-200 {
 	--tw-bg-opacity: 1;
@@ -1019,17 +1027,17 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(52, 79, 161, var(--tw-bg-opacity));
 }
-.bg-\[\#F8E2CF\] {
+.bg-\[\#28527A\] {
 	--tw-bg-opacity: 1;
-	background-color: rgba(248, 226, 207, var(--tw-bg-opacity));
+	background-color: rgba(40, 82, 122, var(--tw-bg-opacity));
 }
-.bg-\[\#FFEACA\] {
+.bg-\[\#f8f8f8\] {
 	--tw-bg-opacity: 1;
-	background-color: rgba(255, 234, 202, var(--tw-bg-opacity));
+	background-color: rgba(248, 248, 248, var(--tw-bg-opacity));
 }
-.bg-\[\#F0EBCC\] {
+.bg-\[\#FF8303\] {
 	--tw-bg-opacity: 1;
-	background-color: rgba(240, 235, 204, var(--tw-bg-opacity));
+	background-color: rgba(255, 131, 3, var(--tw-bg-opacity));
 }
 .bg-yellow-300 {
 	--tw-bg-opacity: 1;
@@ -1069,14 +1077,14 @@ video {
 .p-4 {
 	padding: 1rem;
 }
+.p-8 {
+	padding: 2rem;
+}
 .p-56 {
 	padding: 14rem;
 }
 .p-1 {
 	padding: 0.25rem;
-}
-.p-8 {
-	padding: 2rem;
 }
 .px-4 {
 	padding-left: 1rem;
@@ -1276,6 +1284,10 @@ video {
 	--tw-text-opacity: 1;
 	color: rgba(124, 58, 237, var(--tw-text-opacity));
 }
+.text-\[\#28527A\] {
+	--tw-text-opacity: 1;
+	color: rgba(40, 82, 122, var(--tw-text-opacity));
+}
 .placeholder-gray-400::placeholder {
 	--tw-placeholder-opacity: 1;
 	color: rgba(156, 163, 175, var(--tw-placeholder-opacity));
@@ -1311,9 +1323,20 @@ video {
 	--tw-scale-y: 1.1;
 	transform: var(--tw-transform);
 }
+.hover\:border-2:hover {
+	border-width: 2px;
+}
 .hover\:border-white:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(255, 255, 255, var(--tw-border-opacity));
+}
+.hover\:border-\[\#28527A\]:hover {
+	--tw-border-opacity: 1;
+	border-color: rgba(40, 82, 122, var(--tw-border-opacity));
+}
+.hover\:border-\[\#FF8303\]:hover {
+	--tw-border-opacity: 1;
+	border-color: rgba(255, 131, 3, var(--tw-border-opacity));
 }
 .hover\:bg-red-600:hover {
 	--tw-bg-opacity: 1;
@@ -1327,6 +1350,10 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
 }
+.hover\:bg-white:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
 .hover\:text-white:hover {
 	--tw-text-opacity: 1;
 	color: rgba(255, 255, 255, var(--tw-text-opacity));
@@ -1338,6 +1365,18 @@ video {
 .hover\:text-black:hover {
 	--tw-text-opacity: 1;
 	color: rgba(0, 0, 0, var(--tw-text-opacity));
+}
+.hover\:text-\[\#007580\]:hover {
+	--tw-text-opacity: 1;
+	color: rgba(0, 117, 128, var(--tw-text-opacity));
+}
+.hover\:text-\[\#28527A\]:hover {
+	--tw-text-opacity: 1;
+	color: rgba(40, 82, 122, var(--tw-text-opacity));
+}
+.hover\:text-\[\#FF8303\]:hover {
+	--tw-text-opacity: 1;
+	color: rgba(255, 131, 3, var(--tw-text-opacity));
 }
 .hover\:text-green-500:hover {
 	--tw-text-opacity: 1;
@@ -1379,6 +1418,10 @@ video {
 .focus\:ring-blue-500:focus {
 	--tw-ring-opacity: 1;
 	--tw-ring-color: rgba(59, 130, 246, var(--tw-ring-opacity));
+}
+.focus\:ring-blue-300:focus {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgba(147, 197, 253, var(--tw-ring-opacity));
 }
 .active\:bg-gray-700:active {
 	--tw-bg-opacity: 1;
@@ -1467,6 +1510,10 @@ video {
 
 	.mmd\:col-span-4 {
 		grid-column: span 4 / span 4;
+	}
+
+	.mmd\:mt-1 {
+		margin-top: 0.25rem;
 	}
 
 	.mmd\:grid-cols-3 {

@@ -69,7 +69,7 @@ export default function Footer() {
                     </a>
                 </div>
                 <p className="mt-8 text-base leading-6 text-center text-gray-100">
-                    © 2021 Sahoot!.
+                    © 2021 Sahoot!
                 </p>
             </div>
         </section>
