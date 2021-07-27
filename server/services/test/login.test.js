@@ -6,23 +6,12 @@ let connection
 let client
 let db
 
-const userlogin = {
-  "email": "israhadi@mail.com",
-  "password": "hogake-ke-7"
-}
 beforeAll(async () => {
   connection = await connect()
   client = connection.client
   db = connection.database
-  await db.collection("Users").insertOne(userlogin)
   return connection
 })
-// afterAll(async () => {
-//   await db.collection("Users").remove({});
-//   await client.close();
-// });
-//   return connection
-// })
 afterAll(async () => {
   await client.close()
 })
@@ -36,7 +25,7 @@ describe('Login [SUCCESS CASE]', () => {
   it('login user success', (done) => {
     request(app)
       .post('/login')
-      .send(userlogin)
+      .send(user)
       .end((err, res) => {
         // console.log(res.body)
         expect(res.status).toBe(200)

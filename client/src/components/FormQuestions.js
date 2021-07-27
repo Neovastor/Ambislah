@@ -6,9 +6,10 @@ import { createdQuizVar } from '../graphql/vars'
 import { ADD_QUIZZES } from '../graphql/queiries'
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom'
+import Swal from 'sweetalert2'
 export default function FormQuestions() {
     const history = useHistory()
-    const [addQuizzes] = useMutation(ADD_QUIZZES)
+    const [addQuizzes, {error: addError, loading: addLoading, data:addData}] = useMutation(ADD_QUIZZES)
 
     const { register, handleSubmit } = useForm();
     const [type, setType] = useState('text')
@@ -30,7 +31,7 @@ export default function FormQuestions() {
         setType1(false)
     }
     const submit1 = e => {
-        const { input1 } = e
+        // const { input1 } = e
         // console.log('satu', input1)
         setStatus1(true)
         setStatus2(false)
@@ -38,7 +39,7 @@ export default function FormQuestions() {
         setStatus4(false)
     }
     const submit2 = e => {
-        const { input2 } = e
+        // const { input2 } = e
         // console.log('dua', input2)
         setStatus2(true)
         setStatus3(false)
@@ -46,7 +47,7 @@ export default function FormQuestions() {
         setStatus1(false)
     }
     const submit3 = e => {
-        const { input3 } = e
+        // const { input3 } = e
         // console.log('tiga', input3)
         setStatus3(true)
         setStatus4(false)
@@ -54,7 +55,7 @@ export default function FormQuestions() {
         setStatus2(false)
     }
     const submit4 = e => {
-        const { input4 } = e
+        // const { input4 } = e
         // console.log('empat', input4)
         setStatus4(true)
         setStatus1(false)
@@ -87,22 +88,36 @@ export default function FormQuestions() {
         console.log(createdQuizVar());
     }
 
-    const saveQuiz = () => {
-        // console.log(createdQuizVar());
-        const data = createdQuizVar()
-        console.log(data, 'ini finish data');
-        addQuizzes({
-            variables: {
-                "addQuizzesUserId": data.dataQuizzes.userId,
-                "addQuizzesTitle": data.dataQuizzes.title,
-                "addQuizzesQuestions": data.dataQuizzes.questions,
-                "addQuizzesTimer": data.dataQuizzes.timer,
-                "addQuizzesMode": data.dataQuizzes.mode,
-                "addQuizzesCreatedAt": data.dataQuizzes.createdAt
-            }
-        })
-        history.push('/')
+    const saveQuiz = async () => {
+        try {
+            // e.preventDefault()
+            // console.log(createdQuizVar());
+            const {dataQuizzes} = createdQuizVar()
+            // console.log(data, 'ini finish data');
+            // console.log(dataQuizzes);
+            await addQuizzes({
+                variables: {
+                    input: dataQuizzes
+                }
+            })
+    
+            history.push('/')
+            Swal.fire({
+                title: 'Success Create Quiz',
+                icon: 'success',
+                timer: 2000
+            })
+
+        } catch (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Cannot Create Quiz',
+                text: 'Please login first',
+                timer: 2000
+            })
+        }
     }
+    
 
     return (
         <>

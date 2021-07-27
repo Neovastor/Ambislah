@@ -3,7 +3,7 @@ import { useMutation, useReactiveVar } from '@apollo/client';
 import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
-import { GOOGLE_LOGIN, LOGIN } from '../graphql/queiries/userQueries';
+import { GOOGLE_LOGIN, LOGIN } from '../graphql/queiries';
 import { useAlert } from 'react-alert';
 import Swal from 'sweetalert2'
 import { loginVar } from "../graphql/vars";
