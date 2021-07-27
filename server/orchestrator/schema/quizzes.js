@@ -6,7 +6,7 @@ const redis = new Redis();
 const { instanceQuizzes } = require("../axios");
 
 const typeDef = gql`
-  type Questions {
+  type questions {
     type: String
     question: String
     image: String
@@ -17,12 +17,9 @@ const typeDef = gql`
   type Quizzes {
     _id: ID
     userId: String
-    title: String
-    questions: [Questions]
+    questions: [questions]
     timer: Int
     mode: String
-    createdAt: Date
-    updatedAt: Date
   }
 
   input InputQuestion {
@@ -34,7 +31,8 @@ const typeDef = gql`
   }
 
   input InputQuizzes {
-    title: String
+    _id: ID
+    userId: String
     questions: [InputQuestion]
     timer: Int
     mode: String
@@ -46,43 +44,42 @@ const typeDef = gql`
   }
 
   extend type Mutation {
-    DeleteQuizzes(id: ID): Message
-    EditQuizzes(
-      id: ID, input: InputQuizzes
+    DeleteQuizzesById(id: ID): String
+    EditQuizzesById(
+      id: ID
+      userId: String
+      questions: [InputQuestion]
+      timer: Int
+      mode: String
     ): Quizzes
-    AddQuizzes(
-      input: InputQuizzes
+    AddQuizzesById(
+      userId: String
+      questions: [InputQuestion]
+      timer: Int
+      mode: String
     ): Quizzes
   }
 `;
 
 const resolvers = {
   Query: {
-    Quizzes: async (_, args, context) => {
+    Quizzes: async () => {
       try {
-        let QuizzesRedis = await redis.get("Quizzes");
-        QuizzesRedis = JSON.parse(QuizzesRedis);
-        if (QuizzesRedis && QuizzesRedis[0].userId === context.user.id) {
-          return QuizzesRedis
+        const QuizzesRedis = await redis.get("Quizzes");
+        if (QuizzesRedis) {
+          // console.log(JSON.parse(QuizzesRedis));
+          return JSON.parse(QuizzesRedis);
         } else {
-          const Quizzes = await instanceQuizzes({
-            url: '/',
-            method: 'get',
-            headers: {
-              access_token: context.access_token
-            }
-          })
-          // console.log(JSON.stringify(Quizzes.data));
+          const Quizzes = await instanceQuizzes.get(`/`);
+          console.log(JSON.stringify(Quizzes.data));
           redis.set("Quizzes", JSON.stringify(Quizzes.data));
-          return Quizzes.data
         }
       } catch (err) {
         throw new ApolloError(err);
       }
     },
-    QuizzesById: async (_, args, context) => {
-      const QuizzesByIdRadis = await redis.get("QuizzesById")
-
+    QuizzesById: async (_, args) => {
+      const QuizzesByIdRadis = await redis.get("QuizzesById");
       if (QuizzesByIdRadis) {
         const data = JSON.parse(QuizzesByIdRadis);
         // console.log(data._id);
@@ -103,57 +100,49 @@ const resolvers = {
     },
   },
   Mutation: {
-    DeleteQuizzes: async (_, args, context) => {
+    DeleteQuizzesById: async (_, args) => {
       try {
-        const destroyQuiz = await instanceQuizzes({
-          url: `/${args.id}`,
-          method: 'delete',
-          headers: {
-            access_token: context.access_token
-          }
-        });
+        const DestroyQuiz = await axiosQuizzes.delete(`/${args.id}`);
         redis.del("Quizzes");
-        return destroyQuiz.data
+        return DestroyQuiz.data.message;
       } catch (err) {
         // console.log(err.response.data.message);
         throw new ApolloError(err.response.data.message);
       }
     },
-    EditQuizzes: async (_, args, context) => {
+    EditQuizzesById: async (_, args) => {
       try {
-        const {title, questions, timer, mode } = args.input
-        const data = {title, questions, timer, mode } 
-        const updateQuizzes = await instanceQuizzes({
-          url: `/${args.id}`,
-          method: 'put',
-          data: data,
-          headers: {
-            access_token: context.access_token
-          }
-        });
+        const data = {
+          _id: args.id,
+          userId: args.userId,
+          questions: args.questions,
+          timer: args.timer,
+          mode: args.mode,
+        };
+        // console.log(data);
+        const updateQuizzes = await axiosQuizzes.put(`/${args.id}`, data);
+        // console.log(updateQuizzes.data, 'masuk');
         redis.del("Quizzes");
         return updateQuizzes.data;
       } catch (err) {
         throw new ApolloError(err.response.data.message);
       }
     },
-    AddQuizzes: async (_, args, context) => {
+    AddQuizzesById: async (_, args) => {
       try {
-        const {title, questions, timer, mode } = args.input
-        const data = {title, questions, timer, mode } 
-        const postQuizzes = await instanceQuizzes({
-          url: '/',
-          method: 'post',
-          data: data,
-          headers: {
-            access_token: context.access_token
-          }
-        });
-
-        // console.log(postQuizzes.data, 'masuk<<<<<<<');
+        const data = {
+          userId: args.userId,
+          questions: args.questions,
+          timer: args.timer,
+          mode: args.mode,
+        };
+        // console.log(data);
+        const postQuizzes = await axiosQuizzes.post(`/`, data);
+        // console.log(postQuizzes.data, 'masuk');
         redis.del("Quizzes");
         return postQuizzes.data;
       } catch (err) {
+        // console.log('masuk');
         throw new ApolloError(err.response.data.message);
       }
     },

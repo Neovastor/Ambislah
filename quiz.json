@@ -3,35 +3,37 @@
     {
       "id" : 1,
       "userId": 1,
+      "title": "kuis terhebat",
       "questions": [
         {
           "type": "text",
-          "question": "penemu bola lampu ?",
+          "question": "Who is the inventor of light bulb ?",
           "image": "null",
-          "choose": ["aku", "kamu", "dia", "mereka"],
-          "answer": "aku"
+          "choose": ["alexander graham bell", "Brian", "Susan", "Nathan"],
+          "answer": "alexander graham bell"
         },
         {
           "type": "text",
-          "question": "makanan terenak ?",
+          "question": "What is the best food ?",
           "image": "null",
-          "choose": ["nasi", "jagung", "mie", "sagu"],
-          "answer": "nasi"
+          "choose": ["rice", "corn", "noodle", "pizza"],
+          "answer": "rice"
         },
         {
           "type": "text",
-          "question": "kendaraan beroda 4 ?",
+          "question": "From option below, which one is the vehicle that has four wheels ?",
           "image": "null",
           "choose": ["mobil", "sepeda motor", "sepeda", "pesawat"],
           "answer": "mobil"
         }
       ],
-      "timer": 20,
+      "timer": 15,
       "mode": "live"
     },
     {
       "id" : 2,
       "userId": 1,
+      "title": "kuis menarik",
       "questions": [
         {
           "type": "text",
@@ -48,7 +50,7 @@
           "answer": "Jakarta"
         }
       ],
-      "timer": 20,
+      "timer": 5,
       "mode": "challenge"
     }
   ]
