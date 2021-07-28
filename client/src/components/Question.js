@@ -13,7 +13,7 @@ function Question({ question, i,duration }) {
   return (
     <div className="pt-12 md-max:flex md-max:flex-col-reverse">
       <div className="bg-gray-200 my-2 p-2 col-span-7 h-auto">
-        <div className="flex justify-between">
+        <div className="flex justify-center">
           <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
           <CircleTimer duration={duration} />
           </button>

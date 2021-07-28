@@ -6,8 +6,8 @@ function CircleTimer({duration}){
       <CountdownCircleTimer
       isPlaying
       duration={duration}
-      size={49}
-      strokeWidth={7}
+      size={77}
+      strokeWidth={11}
       colors={[
         ['#10B981', 0.25],
         ['#F59E0B', 0.25],
