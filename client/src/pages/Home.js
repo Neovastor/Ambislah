@@ -21,9 +21,9 @@ export default function Home() {
     const history = useHistory()
     // const [login, { data: datalogin }] = useMutation(LOGIN)
     const [googlelogin] = useMutation(GOOGLE_LOGIN)
-    const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ, {
-        fetchPolicy: "cache-and-network"
-    })
+    // const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ, {
+    //     fetchPolicy: "cache-and-network"
+    // })
     // console.log(googlelogin, 'ini google login');
     // console.log(quizzes, '>>>>>>>>>>>>>>>>>>.');
     // console.log(localStorage.access_token, 'ini lokal storege');
@@ -74,8 +74,8 @@ export default function Home() {
         history.push('/create')
     }
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error :(</p>;
 
     return (
         <>
@@ -159,7 +159,7 @@ export default function Home() {
                             <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
                                 <div>
                                     <div className="flex flex-wrap">
-                                        {
+                                        {/* {
                                             quizzes.Quizzes.map((e, i) => {
                                                 return (
                                                     <div key={i} className="md:w-1/2 lg:w-1/3 py-2 px-2">
@@ -167,7 +167,7 @@ export default function Home() {
                                                     </div>
                                                 )
                                             })
-                                        }
+                                        } */}
                                     </div>
                                 </div>
                             </div>
