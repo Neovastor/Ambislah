@@ -7,12 +7,13 @@ import { ADD_QUIZZES } from '../graphql/queiries'
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
+
 export default function FormQuestions() {
     const history = useHistory()
-    const [addQuizzes, {error: addError, loading: addLoading, data:addData}] = useMutation(ADD_QUIZZES)
+    const [addQuizzes] = useMutation(ADD_QUIZZES)
 
     const { register, handleSubmit } = useForm();
-    const [type, setType] = useState('text')
+    const [type, setType] = useState('touch')
     const [type1, setType1] = useState(false)
     const [type2, setType2] = useState(false)
     const [status1, setStatus1] = useState(false)
@@ -26,37 +27,29 @@ export default function FormQuestions() {
         setType2(false)
     }
     const typeTouch = e => {
-        setType('Touch')
+        setType('touch')
         setType2(true)
         setType1(false)
     }
     const submit1 = e => {
-        // const { input1 } = e
-        // console.log('satu', input1)
         setStatus1(true)
         setStatus2(false)
         setStatus3(false)
         setStatus4(false)
     }
     const submit2 = e => {
-        // const { input2 } = e
-        // console.log('dua', input2)
         setStatus2(true)
         setStatus3(false)
         setStatus4(false)
         setStatus1(false)
     }
     const submit3 = e => {
-        // const { input3 } = e
-        // console.log('tiga', input3)
         setStatus3(true)
         setStatus4(false)
         setStatus1(false)
         setStatus2(false)
     }
     const submit4 = e => {
-        // const { input4 } = e
-        // console.log('empat', input4)
         setStatus4(true)
         setStatus1(false)
         setStatus2(false)
@@ -82,50 +75,60 @@ export default function FormQuestions() {
             choose,
             answer
         }
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Success add Question',
+            showConfirmButton: false,
+            timer: 1500
+        })
         // console.log(existingQuiz, 'ini from quis');
         const questions = [...existingQuiz.dataQuizzes.questions, newData]
         createdQuizVar({ dataQuizzes: { ...existingQuiz.dataQuizzes, questions } });
-        console.log(createdQuizVar());
+        // console.log(createdQuizVar());
     }
 
     const saveQuiz = async () => {
         try {
-            // e.preventDefault()
-            // console.log(createdQuizVar());
             const {dataQuizzes} = createdQuizVar()
-            // console.log(data, 'ini finish data');
-            // console.log(dataQuizzes);
+            // console.log(data.dataQuizzes, 'ini finish data');
+            delete dataQuizzes.createdAt
+            delete dataQuizzes.userId
+
+            console.log(dataQuizzes);
             await addQuizzes({
                 variables: {
                     input: dataQuizzes
                 }
             })
     
-            history.push('/')
             Swal.fire({
-                title: 'Success Create Quiz',
                 icon: 'success',
-                timer: 2000
+                title: 'Success add Quiz',
+                showConfirmButton: false,
+                timer: 1500
             })
+    
+            // history.push('/')
 
         } catch (err) {
+            // console.log(err);
             Swal.fire({
                 icon: 'error',
-                title: 'Cannot Create Quiz',
-                text: 'Please login first',
-                timer: 2000
+                title: 'Cannot add Quiz',
+                showConfirmButton: false,
+                timer: 1500
             })
         }
+        // console.log(createdQuizVar());
     }
-    
 
     return (
         <>
             <div className="pt-12 md-max:flex md-max:flex-col-reverse">
                 <div className="bg-gray-200 my-2 p-2 col-span-7 h-full">
                     <form onSubmit={handleSubmit(submitAnswer)} className="flex flex-col gap-y-4 items-center p-5">
-                        {/* <input placeholder="Input question title" className="w-full px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-green-400" /> */}
-                        <input {...register('inputQuestion')} placeholder="Start typing your question" className="w-full px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-green-400" />
+                        <input {...register('inputQuestion')} placeholder="Start typing your question" className="w-full px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-[#147536]" />
                         <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
                             <FontAwesomeIcon size='2x' icon={faVolumeUp}></FontAwesomeIcon>
                         </button>
@@ -142,15 +145,15 @@ export default function FormQuestions() {
                         </div>
 
                         <div className="flex justify-center">
-                            <div className="flex flex-col mx-60 my-60">
-                                <button onClick={handleSubmit(typeSound)} className={type1 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[40px] my-4' : 'px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4'} >
+                            <div className="flex flex-col border-white border-4 rounded-lg mx-2">
+                                <button onClick={handleSubmit(typeSound)} className={type1 === true ? 'bg-blue-500 hover:text-white px-6 py-4 text-white rounded-lg min-w-[40px]' : 'px-6 py-4 rounded-lg hover:text-white bg-red-500 min-w-[40px]'} >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
                                     </svg>
                                 </button>
                             </div>
-                            <div className="flex flex-col mx-60 my-60">
-                                <button onClick={handleSubmit(typeTouch)} className={type2 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[40px] my-4' : 'px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4'}>
+                            <div className="flex flex-col border-white border-4 rounded-lg mx-2">
+                                <button onClick={handleSubmit(typeTouch)} className={type2 === true ? 'bg-blue-500 hover:text-white px-6 py-4 text-white rounded-lg min-w-[40px]' : 'px-6 py-4 rounded-lg hover:text-white bg-red-500 min-w-[40px]'}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                                     </svg>
@@ -164,8 +167,8 @@ export default function FormQuestions() {
                                     {/* <label>input your First Answer</label> */}
                                 </div>
                                 <div className="flex">
-                                    <input {...register('input1')} placeholder="add answer 1" className="w-full px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-green-400" />
-                                    <button onClick={handleSubmit(submit1)} className="rounded-full p-2 w-10 hover:bg-green-400 text-gray-200"> <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon> </button>
+                                    <input  {...register('input1')} placeholder="add answer 1" className="w-full px-4 py-2 transition duration-300 border border-white rounded-l-lg focus:border-transparent focus:outline-none" />
+                                    <button onClick={handleSubmit(submit1)} className="rounded-r-lg p-2 w-10  hover:text-green-600 bg-white text-gray-300  gray-200"> <FontAwesomeIcon size="lg" icon={faCheck}></FontAwesomeIcon> </button>
                                 </div>
                             </div>
                             <div className="flex flex-col">
@@ -173,8 +176,8 @@ export default function FormQuestions() {
                                     {/* <label>input your Second Answer</label> */}
                                 </div>
                                 <div className="flex">
-                                    <input {...register('input2')} placeholder="add answer 2" className="w-full px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-green-400" />
-                                    <button onClick={handleSubmit(submit2)} className="rounded-full p-2 w-10 hover:bg-green-400 text-gray-200"> <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon> </button>
+                                    <input {...register('input2')} placeholder="add answer 2" className="w-full px-4 py-2 transition duration-300 border border-white rounded-l-lg focus:border-transparent focus:outline-none" />
+                                    <button onClick={handleSubmit(submit2)} className="rounded-r-lg p-2 w-10  hover:text-green-600 bg-white text-gray-300  gray-200"> <FontAwesomeIcon size="lg" icon={faCheck}></FontAwesomeIcon> </button>
                                 </div>
                             </div>
                             <div className="flex flex-col">
@@ -182,8 +185,8 @@ export default function FormQuestions() {
                                     {/* <label>input your Third Answer</label> */}
                                 </div>
                                 <div className="flex">
-                                    <input {...register('input3')} placeholder="add answer 3" className="w-full px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-green-400" />
-                                    <button onClick={handleSubmit(submit3)} className="rounded-full p-2 w-10 hover:bg-green-400 text-gray-200"> <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon> </button>
+                                    <input {...register('input3')} placeholder="add answer 3" className="w-full px-4 py-2 transition duration-300 border border-white rounded-l-lg focus:border-transparent focus:outline-none" />
+                                    <button onClick={handleSubmit(submit3)} className="rounded-r-lg p-2 w-10  hover:text-green-600 bg-white text-gray-300  gray-200"> <FontAwesomeIcon size="lg" icon={faCheck}></FontAwesomeIcon> </button>
                                 </div>
                             </div>
                             <div className="flex flex-col">
@@ -191,17 +194,17 @@ export default function FormQuestions() {
                                     {/* <label>input your Fourth Answer</label> */}
                                 </div>
                                 <div className="flex">
-                                    <input {...register('input4')} placeholder="add answer 4" className="w-full px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-green-400" />
-                                    <button onClick={handleSubmit(submit4)} className="rounded-full p-2 w-10 hover:bg-green-400 text-gray-200"> <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon> </button>
+                                    <input {...register('input4')} placeholder="add answer 4" className="w-full px-4 py-2 transition duration-300 border border-white rounded-l-lg focus:border-transparent focus:outline-none" />
+                                    <button onClick={handleSubmit(submit4)} className="rounded-r-lg p-2 w-10  hover:text-green-600 bg-white text-gray-300  gray-200"> <FontAwesomeIcon size="lg" icon={faCheck}></FontAwesomeIcon> </button>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <button type="submit" className="px-8 rounded-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r">+</button>
+                            <button type="submit" className="px-8 rounded-lg hover:bg-[#15883E] font-bold p-4 uppercase hover:border-[#15883E] hover:bg-[#147536] text-white bg-yellow-400 font-bold p-4 uppercase">+</button>
                         </div>
                     </form>
                     <div className="flex justify-center">
-                        <button onClick={saveQuiz} className="px-8 rounded-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r">Finish</button>
+                        <button onClick={saveQuiz} className="rounded-lg bg-[#15883E] font-bold uppercase bg-[#15883E] hover:border-2 text-white hover:border-[#15883E] hover:bg-[#15883E] hover:text-[#fffff] text-white rounded-lg mr-2 px-8 py-4">Finish</button>
                     </div>
                 </div>
             </div >
