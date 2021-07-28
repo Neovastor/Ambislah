@@ -6,11 +6,15 @@ import CreateRoom from "./pages/CreateRoom";
 import Room from "./pages/Room";
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Report from './pages/Report';
 import Home from './pages/Home';
+import Collections from './pages/Collections'
+// import WaitingRoom from './pages/WaitingRoom'
+import UpdateQuiz from './pages/UpdateQuiz'
+import UpdateQuestions from './pages/UpdateQuestions'
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Create from './pages/Create';
-import Report from './pages/Report';
 
 
 import Host from "./pages/Host";
@@ -40,6 +44,11 @@ function App() {
     <>
       <NavBar></NavBar>
       <Switch>
+
+        <Route exact path="/collections/updatequestion"> <UpdateQuestions /> </Route>
+        <Route exact path="/collections/update"> <UpdateQuiz /> </Route>
+        <Route exact path="/waitingroom"> <WaitingRoom /> </Route>
+        <Route exact path="/collections"> <Collections /> </Route>
         <Route exact path="/login"> <Login /> </Route>
         <Route exact path="/register"> <Register /> </Route>
         <Route exact path="/report"> <Report /> </Route>
@@ -64,6 +73,7 @@ function App() {
         <Route> <Home /> </Route>
           
       </Switch>
+      <Footer></Footer>
     </>
   )
 
