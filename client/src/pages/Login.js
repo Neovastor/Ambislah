@@ -12,14 +12,14 @@ export default function Report() {
   const { register, handleSubmit } = useForm();
   const isLogin = useReactiveVar(loginVar)
   const alert = useAlert()
-  const history= useHistory()
+  const history = useHistory()
   const [login, { data: datalogin }] = useMutation(LOGIN)
   const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
 
   const CALLBACK = async (response) => {
     try {
       console.log(response);
-      console.log('id_token',response.tokenId)
+      // console.log('id_token', response.tokenId)
       const res = await googlelogin({
         variables: {
           input: {
@@ -27,8 +27,9 @@ export default function Report() {
           }
         }
       })
-      console.log('>>>>>>', res.data.googlelogin)
+      // console.log('>>>>>>', res.data.googlelogin)
       localStorage.setItem('access_token', res.data.googlelogin.access_token)
+      localStorage.setItem('name', response.Os.Ne)
       history.push('/')
       // alert.success('Welcome')
       loginVar(true)
@@ -62,7 +63,7 @@ export default function Report() {
           }
         }
       })
-      console.log('>>>>>>', res.data.login)
+      // console.log('>>>>>>', res.data.login)
       localStorage.setItem('access_token', res.data.login.access_token)
       history.push('/')
       // alert.success('Welcome')
@@ -92,20 +93,20 @@ export default function Report() {
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <form onSubmit={handleSubmit(submitLogin)}>
                   <div className="w-full mb-3 mt-5">
-                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
+                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2">Email</label>
                     <input {...register('email')} type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{ "transition": "all 0.15s ease 0s" }} />
                   </div>
                   <div className="w-full mb-3">
-                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Password</label>
+                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2">Password</label>
                     <input {...register('password')} type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{ "transition": "all 0.15s ease 0s" }} />
                   </div>
                   <div>
-                    <Link to="/register" className="text text-blue-600 cursor-pointer">
+                    <Link to="/register" className="text text-[#1a5c92] cursor-pointer">
                       don't have an account, Register here.
                     </Link>
                   </div>
                   <div className="text-center mt-6">
-                    <button className=" bg-[#1DB954] text-white active:bg-black active:opacity-70 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="submit" style={{ "transition": "all 0.15s ease 0s" }}>Log In</button>
+                    <button className=" bg-[#053742] text-white active:bg-black active:opacity-70 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="submit" style={{ "transition": "all 0.15s ease 0s" }}>Log In</button>
                   </div>
                 </form>
               </div>
