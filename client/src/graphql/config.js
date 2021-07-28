@@ -2,45 +2,23 @@ import {InMemoryCache, ApolloClient, createHttpLink} from '@apollo/client'
 import {setContext} from '@apollo/client/link/context'
 import { createdQuizVar } from './vars'
 
-
-const httpLink = new createHttpLink({
-  uri: 'http://100.26.221.233'
-})
-
-const authLink = setContext((_, {headers}) => {
-  const access_token = localStorage.access_token || ''
-  return {
-    headers: {
-      ...headers,
-      authorization: access_token ? `${access_token}` : "",
-    }
-  }
-})
-
+     
 const client = new ApolloClient({
-  credentials: 'include',
-  link: authLink.concat(httpLink),
+  // uri: 'http://localhost:4000',
+  uri: 'http://100.26.221.233',
   cache: new InMemoryCache({
-    cache: new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            createdQuiz: {
-              read() {
-                return createdQuizVar()
-              }
-            },
-          }
+    typePolicies: {
+      Query: {
+        fields: {
+          createdQuiz: {
+            read() {
+              return createdQuizVar()
+            }
+          },
         }
       }
-    })
-  }),
+    }
+  })
 })
-
-// import {InMemoryCache, ApolloClient} from '@apollo/client'
-
-// const client = new ApolloClient({
-//   uri: 'http://localhost:4000',
-//   cache: new InMemoryCache()
 
 export default client
