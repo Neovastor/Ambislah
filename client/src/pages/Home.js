@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import CardQuiz from '../components/CardQuiz'
 import { useQuery } from '@apollo/client'
 import { GET_ALL_QUIZ } from '../graphql/queiries'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faUser } from '@fortawesome/free-solid-svg-icons';
 import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { loginVar, accessToken } from "../graphql/vars";
+import { loginVar } from "../graphql/vars";
 import { useMutation, useReactiveVar } from '@apollo/client';
-import { GOOGLE_LOGIN, LOGIN } from '../graphql/queiries/userQueries';
+import { GOOGLE_LOGIN } from '../graphql/queiries/userQueries';
 
 export default function Home() {
 
@@ -19,17 +19,13 @@ export default function Home() {
     // const alert = useAlert()
     const history = useHistory()
     // const [login, { data: datalogin }] = useMutation(LOGIN)
-    const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
+    const [googlelogin] = useMutation(GOOGLE_LOGIN)
     const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ, {
         fetchPolicy: "cache-and-network"
     })
-
+    // console.log(googlelogin, 'ini google login');
     // console.log(quizzes, '>>>>>>>>>>>>>>>>>>.');
     // console.log(localStorage.access_token, 'ini lokal storege');
-
-    // useEffect(() => {
-    //     accessToken(localStorage.access_token)
-    // }, [])
 
     const CALLBACK = async (response) => {
         try {
@@ -42,14 +38,15 @@ export default function Home() {
                     }
                 }
             })
-            // console.log('>>>>>>', res.data.googlelogin)
+            // console.log('>>>>>>', response)
             localStorage.setItem('access_token', res.data.googlelogin.access_token)
+            localStorage.setItem('name', response.profileObj.name)
             history.push('/')
             // alert.success('Welcome')
             loginVar(true)
             Swal.fire({
                 icon: "success",
-                title: `Welcome..  ${response.Os.Ne}!`,
+                title: `Welcome.. ${response.profileObj.name}!`,
                 imageUrl: `${response.profileObj.imageUrl}`,
                 imageWidth: 200,
                 imageHeight: 100,
@@ -111,7 +108,7 @@ export default function Home() {
                                     Sahoot GO!
                                 </div>
                                 <div className="font-black text-5xl proportional-nums uppercase">
-                                    welcome Fadilah Arifki
+                                    welcome {localStorage.name}
                                 </div>
                             </>
                     }

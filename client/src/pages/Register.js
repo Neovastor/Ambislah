@@ -49,11 +49,11 @@ export default function Report() {
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <form onSubmit={handleSubmit(submitRegister)}>
                   <div className="w-full mb-3 mt-5">
-                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
+                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2">Email</label>
                     <input {...register('email')} type="email" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Email" style={{ "transition": "all 0.15s ease 0s" }} />
                   </div>
                   <div className="w-full mb-3">
-                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">Password</label>
+                    <label className="block uppercase text-gray-700 text-xs font-bold mb-2">Password</label>
                     <input {...register('password')} type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{ "transition": "all 0.15s ease 0s" }} />
                   </div>
                   <div className="flex justify-end">
