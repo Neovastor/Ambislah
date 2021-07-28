@@ -17,8 +17,8 @@ export default function Report() {
 
     return (
         <>
-            <div className="overflow-x-auto pt-14">
-                <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+            <div className="bg-[#27659e] h-screen mmd:h-full flex flex-auto justify-center items-end">
+                <div className="bg-[#429dda] h-[80%] w-[90%] mmd:pt-8 flex justify-center font-sans overflow-hidden">
                     <div className="w-full lg:w-5/6 pt-5">
                         {/* <div className="grid grid-cols-8 text-gray-600">
                         <input placeholder="Search" className="col-span-7 bg-white h-10 px-5 pr-10 rounded-l-full text-sm focus:outline-none w-full" />
