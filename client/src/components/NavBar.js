@@ -25,7 +25,8 @@ export default function NavBar() {
       <div className="lg:px-16 px-6 bg-[#000000] flex flex-wrap items-center lg:py-0 py-2 bg-opacity-70">
         <div className="flex-1 flex justify-between items-center">
           <NavLink exact to={"/"}>
-            <h1 className="text-2xl font-semibold text-[#ffffff]">Sahoot!</h1>
+            <img className="h-14 m-2" src="https://ik.imagekit.io/prbjdtauk2z/Screenshot_from_2021-07-29_01-02-14-removebg-preview_fFaCj7Bw9.png?updatedAt=1627495387150" alt="" />
+            {/* <h1 className="text-2xl font-semibold text-[#ffffff]">Sahoot!</h1> */}
           </NavLink>
         </div>
         <label htmlFor="menu-toggle" className="cursor-pointer sm:hidden block"><svg className="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 20 20"><title>menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg></label>
