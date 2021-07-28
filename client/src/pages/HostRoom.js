@@ -377,15 +377,15 @@ function WaitingRoom({ db }) {
             </div>
 
             <div className="overflow-x-auto pt-14">
-              <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-                <div className="w-full lg:w-5/6  pt-5">
-                  <div className="bg-white shadow-md rounded-lg my-6">
-                    <Container>
+              <div className="min-w-screen min-h-[777px] bg-transparent flex items-center justify-center font-sans overflow-hidden">
+                <div className="w-full pt-5">
+                  <div className="bg-transparent shadow-md rounded-lg my-6 object-contain">
+                    {/* <Container> */}
                       <StyledVideo muted ref={userVideo} autoPlay playsInline />
                       {peers.map((peer, index) => {
                         return <Video key={index} peer={peer} />;
                       })}
-                    </Container>
+                    {/* </Container> */}
                   </div>
                 </div>
               </div>
