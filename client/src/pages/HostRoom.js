@@ -328,41 +328,56 @@ function WaitingRoom({ db }) {
   if (statusGame === "waiting") {
     return (
       <>
-        <div className=" flex flex-col justify-center h-screen bg-red-400 ">
-          <div className="m-4 flex justify-center">
-            <div className="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white">
-              PIN JOIN QUIZ
+        <div
+          className="flex flex-col object-contain items-center justify-center min-h-screen bg-black"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/quiz1.png)",
+          }}
+        >
+          <div className="grid grid-cols-2">
+            <div className=" flex flex-col justify-center items-center max-h-[555px] mt-[200px]">
+              <div className="bg-green-600 rounded-lg pb-4">
+                <div className="m-4 flex justify-center">
+                  <button className="rounded-full text-xl font-bold px-6 py-4 mx-7 text-white bg-red-500">
+                    your PIN
+                  </button>
+                  <button className="rounded-full text-xl font-bold px-6 py-4 mx-7 text-white bg-red-500">
+                    {idparams}
+                  </button>
+                </div>
+                <div className="flex flex-row justify-center">
+                  <button
+                    type="button"
+                    className="rounded-full text-xl font-bold px-16 py-4 mx-7 text-white bg-yellow-500"
+                    onClick={(e) => onClickStartHandler(e)}
+                  >
+                    START
+                  </button>
+                </div>
+              </div>
+              <div className="m-4 ">
+                <h2>Peserta</h2>
+                <div className="m-4  ">
+                  {players.length > 0 ? (
+                    <PlayerTable players={players} />
+                  ) : null}
+                </div>
+              </div>
             </div>
-            <div className=" p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white">
-              {idparams}
-            </div>
-            <div className="rounded-r-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={(e) => onClickStartHandler(e)}
-              >
-                Start
-              </button>
-            </div>
-          </div>
-          <div className="m-4 ">
-            <h2>Peserta</h2>
-            <div className="m-4  ">
-              {players.length > 0 ? <PlayerTable players={players} /> : null}
-            </div>
-          </div>
-        </div>
-        <div className="overflow-x-auto pt-14">
-          <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-            <div className="w-full lg:w-5/6  pt-5">
-              <div className="bg-white shadow-md rounded-lg my-6">
-                <Container>
-                  <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                  {peers.map((peer, index) => {
-                    return <Video key={index} peer={peer} />;
-                  })}
-                </Container>
+
+            <div className="overflow-x-auto pt-14">
+              <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+                <div className="w-full lg:w-5/6  pt-5">
+                  <div className="bg-white shadow-md rounded-lg my-6">
+                    <Container>
+                      <StyledVideo muted ref={userVideo} autoPlay playsInline />
+                      {peers.map((peer, index) => {
+                        return <Video key={index} peer={peer} />;
+                      })}
+                    </Container>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -667,6 +667,9 @@ video {
 .m-10 {
 	margin: 2.5rem;
 }
+.m-5 {
+	margin: 1.25rem;
+}
 .my-2 {
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
@@ -759,6 +762,9 @@ video {
 .mt-32 {
 	margin-top: 8rem;
 }
+.mt-\[200px\] {
+	margin-top: 200px;
+}
 .mt-3 {
 	margin-top: 0.75rem;
 }
@@ -830,6 +836,9 @@ video {
 }
 .h-1\/5 {
 	height: 20%;
+}
+.max-h-\[555px\] {
+	max-height: 555px;
 }
 .min-h-\[777px\] {
 	min-height: 777px;
@@ -1178,6 +1187,18 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(254, 226, 226, var(--tw-bg-opacity));
 }
+.bg-black {
+	--tw-bg-opacity: 1;
+	background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+.bg-green-600 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(5, 150, 105, var(--tw-bg-opacity));
+}
+.bg-yellow-500 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(245, 158, 11, var(--tw-bg-opacity));
+}
 .bg-yellow-300 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(252, 211, 77, var(--tw-bg-opacity));
@@ -1212,6 +1233,9 @@ video {
 }
 .fill-current {
 	fill: currentColor;
+}
+.object-contain {
+	object-fit: contain;
 }
 .object-cover {
 	object-fit: cover;
@@ -1313,6 +1337,10 @@ video {
 	padding-left: 2.5rem;
 	padding-right: 2.5rem;
 }
+.px-16 {
+	padding-left: 4rem;
+	padding-right: 4rem;
+}
 .px-3 {
 	padding-left: 0.75rem;
 	padding-right: 0.75rem;
@@ -1353,6 +1381,9 @@ video {
 }
 .pb-3 {
 	padding-bottom: 0.75rem;
+}
+.pb-4 {
+	padding-bottom: 1rem;
 }
 .pt-0 {
 	padding-top: 0px;
