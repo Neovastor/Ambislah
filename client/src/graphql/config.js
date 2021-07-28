@@ -4,7 +4,7 @@ import { createdQuizVar } from './vars'
 
 
 const httpLink = new createHttpLink({
-  uri: 'http://localhost:4000',
+  uri: 'http://100.26.221.233'
 })
 
 const authLink = setContext((_, {headers}) => {

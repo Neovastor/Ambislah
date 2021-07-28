@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1627400898671" clover="3.2.0">
-  <project timestamp="1627400898671" name="All files">
+<coverage generated="1627440401466" clover="3.2.0">
+  <project timestamp="1627440401466" name="All files">
     <metrics statements="306" coveredstatements="282" conditionals="76" coveredconditionals="69" methods="60" coveredmethods="53" elements="442" coveredelements="404" complexity="0" loc="306" ncloc="306" packages="8" files="16" classes="16"/>
     <package name="services">
       <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -68,11 +68,11 @@
         <line num="49" count="1" type="stmt"/>
         <line num="54" count="2" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
-        <line num="62" count="2" type="stmt"/>
-        <line num="63" count="2" type="stmt"/>
-        <line num="64" count="2" type="stmt"/>
-        <line num="65" count="2" type="stmt"/>
-        <line num="66" count="2" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
         <line num="70" count="0" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
@@ -87,7 +87,7 @@
         <line num="95" count="0" type="stmt"/>
         <line num="96" count="0" type="stmt"/>
         <line num="97" count="0" type="stmt"/>
-        <line num="101" count="2" type="stmt"/>
+        <line num="101" count="1" type="stmt"/>
         <line num="106" count="4" type="stmt"/>
       </file>
       <file name="quizController.js" path="/home/muhammad/Desktop/Ammar/phase3/week3/Ambislah/server/services/controllers/quizController.js">
@@ -213,22 +213,22 @@
       </file>
       <file name="errorHandler.js" path="/home/muhammad/Desktop/Ammar/phase3/week3/Ambislah/server/services/middlewares/errorHandler.js">
         <metrics statements="17" coveredstatements="17" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
-        <line num="2" count="24" type="stmt"/>
-        <line num="5" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="23" type="stmt"/>
+        <line num="5" count="23" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="5" type="stmt"/>
         <line num="7" count="5" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
-        <line num="10" count="19" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="18" type="cond" truecount="2" falsecount="0"/>
         <line num="11" count="10" type="stmt"/>
         <line num="12" count="10" type="stmt"/>
         <line num="13" count="18" type="stmt"/>
-        <line num="16" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="17" count="4" type="stmt"/>
         <line num="18" count="4" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
-        <line num="31" count="5" type="stmt"/>
-        <line num="32" count="5" type="stmt"/>
-        <line num="35" count="24" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="35" count="23" type="stmt"/>
         <line num="73" count="4" type="stmt"/>
       </file>
     </package>
