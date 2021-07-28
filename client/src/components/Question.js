@@ -16,18 +16,18 @@ function Question({ question, i,duration }) {
         <div className="flex justify-between">
           <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
           <CircleTimer duration={duration} />
-            
           </button>
           <div className=" p-3 rounded-lg">
-            
           </div>
           <div className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
-
           </div>
         </div>
         <div className="flex flex-col gap-y-4 items-center p-5">
-          <div className="w-full px-4 py-2 border border-gray-300 bg-white rounded  text-center">
-            {`${i + 1}. ${question.question}`}
+          <div className="relative items-center">
+            <img alt="" className="top-0 our-story-card-img transform scale-125" src="/mil-ques.png" data-uia="our-story-card-img"/>
+            <div className="absolute top-0 w-full px-4 py-2 text-2xl transform translate-y-[50px] rounded text-white font-extrabold text-center">
+              {`${i + 1}. ${question.question}`}
+            </div>
           </div>
           <div className="box-border w-64 border-4">
             <img
