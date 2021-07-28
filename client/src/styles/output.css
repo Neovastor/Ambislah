@@ -909,9 +909,6 @@ video {
 .cursor-pointer {
 	cursor: pointer;
 }
-.list-disc {
-	list-style-type: disc;
-}
 .grid-flow-row {
 	grid-auto-flow: row;
 }
@@ -920,6 +917,9 @@ video {
 }
 .grid-cols-2 {
 	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-7 {
+	grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 .grid-cols-6 {
 	grid-template-columns: repeat(6, minmax(0, 1fr));
