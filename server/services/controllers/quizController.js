@@ -1,4 +1,6 @@
 const Quizzes = require("../models/quizModel");
+const cronJob = require('../helpers/cron')
+
 
 class QuizController {
   static getQuizHandler(req, res, next) {
@@ -95,6 +97,22 @@ class QuizController {
       .catch((err) => {
         next(err);
       });
+  }
+
+  static postChallenge(req, res, next){
+    const {roomid, minute, hour, day,month} = req.body
+
+    cronJob({
+      minute,
+      hour,
+      day,
+      month
+    }, roomid)
+
+    res.status(200).send({
+      message: `quiz berhasil diset`,
+    });
+
   }
 }
 

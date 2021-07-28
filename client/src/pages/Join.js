@@ -10,6 +10,8 @@ function Join({ db }) {
   function handleOnSubmit(e) {
     e.preventDefault();
     //chekck dulu ada engga room dengan room key segitu
+    
+    
     let choosenQuiz;
     if (db) {
       db.collection("quizzes")
@@ -35,7 +37,7 @@ function Join({ db }) {
             });
 
             history.push({
-              pathname: "/player",
+              pathname: `/player/${idroom}`,
               state: { idroom, playername },
             });
           }

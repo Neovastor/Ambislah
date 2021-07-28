@@ -44,7 +44,7 @@ function App() {
         <Route exact path="/register"> <Register /> </Route>
         <Route exact path="/report"> <Report /> </Route>
         <Route exact path="/create"> <Create /> </Route>
-        <Route path="/room" exact component={CreateRoom} />
+        <Route exact path="/room"  component={CreateRoom} />
         <Route path="/room/:roomID" component={Room} />
           <Route exact path="/host">            
             <Host db={db}></Host>
@@ -58,7 +58,8 @@ function App() {
             <Join db={db}></Join>
           </Route>
 
-          <Route exact path="/player">
+          <Route exact path="/player/:idroom">
+            
             <PlayerRoom db={db}></PlayerRoom>
           </Route>
         <Route> <Home /> </Route>
