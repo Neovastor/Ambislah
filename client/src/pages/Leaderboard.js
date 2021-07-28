@@ -126,7 +126,7 @@ function Leaderboard({ db, idparams }) {
           </button>
         </div>
       </div>
-
+ 
     </div>
   );
 }
