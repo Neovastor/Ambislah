@@ -3,7 +3,8 @@ import { useLocation, Prompt, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
 // import WaitingRoomPlayer from "../components/WaitingRoomPlayer";
-import PausePhasePlayer from "../components/PausePhasePlayer";
+// import PausePhasePlayer from "../components/PausePhasePlayer";
+import PausePhaseHost from "../components/PausePhaseHost";
 
 import TextToSpeech from "../components/TextToSpeech";
 import SpeechRecognition from "../components/SpeechRecognition";
@@ -41,11 +42,11 @@ function PlayerRoom({ db }) {
   const {idroom} = useParams(); 
 
   const buttonRight =
-    "h-20 rounded-lg p-2 bg-green-500 hover:bg-green-600 w-screen text-gray-200";
+    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant bg-green-500 hover:bg-green-600 text-gray-200"
   const buttonWrong =
-    "h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 w-screen text-gray-200";
+    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant bg-red-500 hover:bg-red-600 text-gray-200"
   const buttonNormal =
-    "h-20 rounded-lg p-2 bg-blue-500 hover:bg-blue-600 w-screen text-gray-200";
+    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant hover:bg-blue-600 text-gray-200"
   const [status, setStatus] = useState("waiting");
   const [indexSoal, setIndexSoal] = useState(0);
   const [quizzes, setQuizzes] = useState({});
@@ -316,7 +317,8 @@ function PlayerRoom({ db }) {
     // return <PausePhasePlayer />;
     return (
       <div className="overflow-x-auto pt-14">
-        <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+        <PausePhaseHost  />
+        {/* <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
           <div className="w-full lg:w-5/6  pt-5">
             <div className="bg-white shadow-md rounded-lg my-6">
               <Container>
@@ -327,7 +329,7 @@ function PlayerRoom({ db }) {
               </Container>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -381,7 +383,8 @@ function PlayerRoom({ db }) {
                 </div>
 
                 <div className="grid grid-cols-2 gap-1">
-                  <div className="flex">
+                  <div className="relative flex">
+                  <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
                     <button
                       onClick={(e) => onClickHandler("a")}
                       className={optionA}
@@ -389,7 +392,8 @@ function PlayerRoom({ db }) {
                       A. {quizzes.questions[indexSoal].choose[0]}
                     </button>
                   </div>
-                  <div className="flex">
+                  <div className="relative flex">
+                  <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
                     <button
                       onClick={(e) => onClickHandler("b")}
                       className={optionB}
@@ -397,7 +401,8 @@ function PlayerRoom({ db }) {
                       B. {quizzes.questions[indexSoal].choose[1]}
                     </button>
                   </div>
-                  <div className="flex">
+                  <div className="relative flex">
+                  <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
                     <button
                       onClick={(e) => onClickHandler("c")}
                       className={optionC}
@@ -405,7 +410,8 @@ function PlayerRoom({ db }) {
                       C. {quizzes.questions[indexSoal].choose[2]}
                     </button>
                   </div>
-                  <div className="flex">
+                  <div className="relative flex">
+                  <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
                     <button
                       onClick={(e) => onClickHandler("d")}
                       className={optionD}
