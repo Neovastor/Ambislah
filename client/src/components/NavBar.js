@@ -36,7 +36,7 @@ export default function NavBar() {
               <li><NavLink exact to={"/"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Home</NavLink></li>
               {/* <li><NavLink exact to={"/"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Library</NavLink></li> */}
               <li><NavLink exact to={"/report"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Report</NavLink></li>
-              <li><NavLink exact to={"/room"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >webRTC</NavLink></li>
+              {/* <li><NavLink exact to={"/room"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >webRTC</NavLink></li> */}
               <li><NavLink exact to={"/create"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Create</NavLink></li>
               {
                 (!isLogin && !access_token)
