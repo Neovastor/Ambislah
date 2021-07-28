@@ -379,7 +379,7 @@ function WaitingRoom({ db }) {
               </div>
             </div>
 
-            <div className="overflow-x-auto pt-14">
+            <div className="overflow-x-auto pt-14 mx-11">
               <div className="min-w-screen min-h-[777px] bg-transparent flex items-center justify-center font-sans overflow-hidden">
                 <div className="w-full pt-5">
                   <div className="bg-transparent shadow-md rounded-lg my-6 object-contain">
