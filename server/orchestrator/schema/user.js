@@ -69,7 +69,7 @@ const resolvers = {
         const data = {
           id_token: args.idToken.id_token
         }
-        const res = await instanceUsers.put(`/googlelogin`, data)
+        const res = await instanceUsers.post(`/googlelogin`, data)
         const output = await res.data
         redis.del('GoogleLogin')
         return output
