@@ -1,14 +1,15 @@
-import {InMemoryCache, ApolloClient, createHttpLink} from '@apollo/client'
-import {setContext} from '@apollo/client/link/context'
-import { createdQuizVar } from './vars'
-
+import { InMemoryCache, ApolloClient, createHttpLink, useReactiveVar } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
+import { createdQuizVar, accessToken } from './vars'
 
 const httpLink = new createHttpLink({
-  uri: 'http://100.26.221.233'
+  // uri: 'http://100.26.221.233'
+  uri: `http://localhost:4000/`
 })
 
-const authLink = setContext((_, {headers}) => {
-  const access_token = localStorage.access_token || ''
+const authLink = setContext((_, { headers }) => {
+  const access_token = useReactiveVar(accessToken) || ''
+  console.log(access_token, 'ini config grapg ql');
   return {
     headers: {
       ...headers,
@@ -21,19 +22,17 @@ const client = new ApolloClient({
   credentials: 'include',
   link: authLink.concat(httpLink),
   cache: new InMemoryCache({
-    cache: new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            createdQuiz: {
-              read() {
-                return createdQuizVar()
-              }
-            },
-          }
+    typePolicies: {
+      Query: {
+        fields: {
+          createdQuiz: {
+            read() {
+              return createdQuizVar()
+            }
+          },
         }
       }
-    })
+    }
   }),
 })
 

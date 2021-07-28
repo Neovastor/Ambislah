@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CardQuiz from '../components/CardQuiz'
 import { useQuery } from '@apollo/client'
 import { GET_ALL_QUIZ } from '../graphql/queiries'
@@ -7,13 +7,15 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { loginVar } from "../graphql/vars";
+import { loginVar, accessToken } from "../graphql/vars";
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { GOOGLE_LOGIN, LOGIN } from '../graphql/queiries/userQueries';
 
 export default function Home() {
+
     // const { register, handleSubmit } = useForm();
-    // const isLogin = useReactiveVar(loginVar)
+    const isLogin = useReactiveVar(loginVar)
+    const access_token = localStorage.access_token
     // const alert = useAlert()
     const history = useHistory()
     // const [login, { data: datalogin }] = useMutation(LOGIN)
@@ -21,10 +23,18 @@ export default function Home() {
     const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ, {
         fetchPolicy: "cache-and-network"
     })
+
+    // console.log(quizzes, '>>>>>>>>>>>>>>>>>>.');
+    // console.log(localStorage.access_token, 'ini lokal storege');
+
+    // useEffect(() => {
+    //     accessToken(localStorage.access_token)
+    // }, [])
+
     const CALLBACK = async (response) => {
         try {
-            console.log(response);
-            console.log('id_token', response.tokenId)
+            // console.log(response);
+            // console.log('id_token', response.tokenId)
             const res = await googlelogin({
                 variables: {
                     input: {
@@ -32,7 +42,7 @@ export default function Home() {
                     }
                 }
             })
-            console.log('>>>>>>', res.data.googlelogin)
+            // console.log('>>>>>>', res.data.googlelogin)
             localStorage.setItem('access_token', res.data.googlelogin.access_token)
             history.push('/')
             // alert.success('Welcome')
@@ -73,23 +83,38 @@ export default function Home() {
         <>
             <div className="bg-[#ecb744] h-screen  ">
                 <div className="flex flex-col items-center py-60">
-                    <div className="font-black text-5xl proportional-nums uppercase">
-                        Sahoot GO!
-                    </div>
-                    <div>
-                        <div>
-                            <button onClick={toLogin} className="bg-[#1DB954] rounded-full text-white hover:bg-[#1fc258] px-12 py-1 mt-10 m-2 text-2xl text-bold uppercase">Login</button>
-                        </div>
-                        <div>
-                            <GoogleLogin
-                                clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
-                                onSuccess={CALLBACK}
-                                onFailure={CALLBACK}
-                                cookiePolicy={'single_host_origin'}
-                                className="rounded-full"
-                            />
-                        </div>
-                    </div>
+
+                    {
+                        (!isLogin && !access_token)
+                            ? <>
+                                <div className="font-black text-5xl proportional-nums uppercase">
+                                    Sahoot GO!
+                                </div>
+                                <div>
+                                    <div>
+                                        <button onClick={toLogin} className="bg-[#1DB954] rounded-full text-white hover:bg-[#1fc258] px-12 py-1 mt-10 m-2 text-2xl text-bold uppercase">Login</button>
+                                    </div>
+                                    <div>
+                                        <GoogleLogin
+                                            clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
+                                            onSuccess={CALLBACK}
+                                            onFailure={CALLBACK}
+                                            cookiePolicy={'single_host_origin'}
+                                            className="rounded-full"
+                                        />
+                                    </div>
+
+                                </div>
+                            </>
+                            : <>
+                                <div className="font-black text-5xl proportional-nums uppercase">
+                                    Sahoot GO!
+                                </div>
+                                <div className="font-black text-5xl proportional-nums uppercase">
+                                    welcome Fadilah Arifki
+                                </div>
+                            </>
+                    }
                 </div>
             </div>
 
@@ -206,7 +231,7 @@ export default function Home() {
             </div>
 
             {/* card quiz */}
-            <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
+            {/* <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
                 <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
                     <div>
                         <div className="flex flex-wrap">
@@ -222,7 +247,7 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
