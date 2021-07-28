@@ -3,8 +3,8 @@ import { useLocation, Prompt, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
 // import WaitingRoomPlayer from "../components/WaitingRoomPlayer";
-// import PausePhasePlayer from "../components/PausePhasePlayer";
-import PausePhaseHost from "../components/PausePhaseHost";
+import PausePhasePlayer from "../components/PausePhasePlayer";
+// import PausePhaseHost from "../components/PausePhaseHost";
 
 import TextToSpeech from "../components/TextToSpeech";
 import SpeechRecognition from "../components/SpeechRecognition";
@@ -317,7 +317,7 @@ function PlayerRoom({ db }) {
     // return <PausePhasePlayer />;
     return (
       <div className="overflow-x-auto pt-14">
-        <PausePhaseHost  />
+        <PausePhasePlayer  />
         {/* <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
           <div className="w-full lg:w-5/6  pt-5">
             <div className="bg-white shadow-md rounded-lg my-6">
