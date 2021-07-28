@@ -93,14 +93,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="flex flex-col py-10">
-                <div className="flex flex-col items-center">
-                    <div className="text-3xl capitalize font-semibold m-2 mmd:text-2xl">Looking for your Quiz ?</div>
-                    <div className="text-xl font-light m-2">Start your Quiz or</div>
-                    <button onClick={toCreate} className="text-2xl font-semibold m-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white rounded-full uppercase py-1 px-10">Create</button>
-                </div>
-            </div>
-
+            {/* card home */}
             <div className="flex flex-wrap bg-[#f8f8f8]">
                 <div className="md:w-1/2 lg:w-1/2 py-4 px-4">
                     <div className=" ">
@@ -151,6 +144,68 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
+            {/* Sahoot */}
+            <div className="flex flex-col py-10">
+                <div className="flex flex-col items-center">
+                    <div className="text-3xl capitalize font-semibold m-2 mmd:text-2xl">How does Sahoot! work?</div>
+                    {/* commerce slide cards */}
+                    <div style={{ backgroundColor: '#fff8f4' }} className="h-full">
+                        <div className="container mx-auto  lg:px-20">
+                            <div className="grid grid-cols-3 h-full pb-40">
+                                <div className="border-r border-gray-300 mx-3 lg:pl-20">
+                                    <div className=" py-10 pb-3 mt-72 h-4/6 bg-purple-100 group hover:bg-purple-200 cursor-pointer transition ease-out duration-300">
+                                        <div>
+                                            <div className="w-4 h-1/5 bg-red-50	absolute right-0 -top-48 bg-purple-100 group-hover:bg-purple-50" />
+                                            <img src="https://image.freepik.com/free-vector/learning-languages-concept-illustration_114360-3251.jpg" alt="https://www.pngegg.com/en/png-nllal/download" />
+                                        </div>
+                                        <div className="px-7 mt-20">
+                                            <h1 className="text-3xl text-center mt-4 font-bold">Create</h1>
+                                            <p className="mt-2 text-center opacity-60 group-hover:opacity-70 ">It only takes minutes to create a learning game or quiz on any topic.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-r border-gray-300 mx-3 lg:pl-20">
+                                    <div className=" py-10  pb-3 mt-32 h-4/6 bg-indigo-100 group hover:bg-indigo-200 cursor-pointer transition ease-out duration-300">
+                                        <div>
+                                            <div className="w-4 h-1/5 bg-red-50	absolute right-0 -top-48 bg-indigo-100  group-hover:bg-indigo-50" />
+                                            <img src="https://image.freepik.com/free-vector/international-cooperation-concept-illustration_114360-6002.jpg" alt="https://www.pngegg.com/en/png-zquqj/download" />
+                                        </div>
+                                        <div className="px-7 mt-20">
+                                            <h1 className="text-3xl text-center mt-4 font-bold">Host or Share</h1>
+                                            <p className="mt-2 text-center opacity-60 group-hover:opacity-70 ">Host a live game with questions on a big screen or share a game with remote players.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-r border-gray-300 mx-3 lg:pl-20">
+                                    <div className=" py-10 pb-3 mt-5 h-4/6 bg-red-100 group hover:bg-red-200 cursor-pointer transition ease-out duration-300">
+                                        <div>
+                                            <div className="w-4 h-1/5 bg-red-50	absolute right-0 -bottom-44 bg-red-100 group-hover:bg-red-50" />
+                                            <img src="https://image.freepik.com/free-vector/mobile-ux-concept-illustration_114360-4276.jpg" alt="https://www.pngegg.com/en/png-epwii/download" />
+                                        </div>
+                                        <div className="px-7 mt-20">
+                                            <h1 className="text-3xl text-center mt-4 font-bold">Play</h1>
+                                            <p className="mt-2 text-center opacity-60 group-hover:opacity-70 ">Game on! Join a kahoot with a PIN provided by the host and answer questions on your device.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* looking */}
+            <div className="flex flex-col py-10">
+                <div className="flex flex-col items-center">
+                    <div className="text-3xl capitalize font-semibold m-2 mmd:text-2xl">Looking for your Quiz ?</div>
+                    <div className="text-xl font-light m-2">Start your Quiz or</div>
+                    <button onClick={toCreate} className="text-2xl font-semibold m-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white rounded-full uppercase py-1 px-10">Create</button>
+                </div>
+            </div>
+
+            {/* card quiz */}
             <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
                 <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
                     <div>
