@@ -364,7 +364,7 @@ function PlayerRoom({ db }) {
             <div className="bg-transparant my-2 p-2 col-span-7 h-auto">
               <div className="flex justify-between">
                 <div className=" p-3 rounded-lg"></div>
-                <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
+                <button className="hover:bg-red-600 bg-green-600 text-black hover:text-white p-3 rounded-lg">
                   <TextToSpeech text={quizzes.questions[indexSoal].question} />
                 </button>
                 <div className=" p-3 rounded-lg"></div>
