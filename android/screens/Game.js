@@ -44,7 +44,7 @@ export default function Game({ navigation }) {
 
               </View>
 
-              <View style={tailwind('flex flex-row items-center max-w-full')}>
+              <View style={tailwind('flex flex-row justify-center max-w-full')}>
                 <TouchableHighlight
                   // onPress={onPress}
                   >
@@ -60,7 +60,7 @@ export default function Game({ navigation }) {
                   </View>
                 </TouchableHighlight>
               </View>
-              <View style={tailwind('flex flex-row items-center max-w-full mt-4 mb-4')}>
+              <View style={tailwind('flex flex-row justify-center max-w-full mt-4 mb-4')}>
                 <TouchableHighlight
                   // onPress={onPress}
                   >
@@ -94,7 +94,7 @@ export default function Game({ navigation }) {
             <TouchableHighlight
               // onPress={onPress}
               >
-              <View style={tailwind('mt-4 px-4 py-2 rounded-full bg-red-300 text-center text-gray-800 font-bold uppercase border-yellow-500 ')}>
+              <View style={tailwind('mt-4 mx-16 px-4 py-2 rounded-full bg-red-300 text-center text-gray-800 font-bold uppercase border-yellow-500 ')}>
                 <Text>Submit</Text>
               </View>
             </TouchableHighlight>
