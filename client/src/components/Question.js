@@ -17,10 +17,6 @@ function Question({ question, i,duration }) {
           <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
           <CircleTimer duration={duration} />
           </button>
-          <div className=" p-3 rounded-lg">
-          </div>
-          <div className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
-          </div>
         </div>
         <div className="flex flex-col gap-y-4 items-center p-5">
           <div className="relative items-center">
