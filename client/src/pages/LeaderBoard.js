@@ -21,11 +21,8 @@ export default function LeaderBoard() {
                                             <span className="font-medium">1</span>
                                         </div>
                                     </td>
-                                    <td className="py-3 px-6 text-left bg-yellow-300">
+                                    <td className="py-3 px-6 text-left bg-white">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -41,9 +38,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -59,9 +53,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -77,9 +68,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -95,9 +83,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -113,9 +98,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -131,9 +113,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -149,9 +128,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -167,9 +143,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -185,9 +158,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>
@@ -203,9 +173,6 @@ export default function LeaderBoard() {
                                     </td>
                                     <td className="py-3 px-6 text-left">
                                         <div className="flex items-center">
-                                            <div className="mr-2">
-                                                <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
-                                            </div>
                                             <span>Eshal Rosas</span>
                                         </div>
                                     </td>

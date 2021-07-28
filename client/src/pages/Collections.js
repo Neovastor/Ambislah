@@ -34,7 +34,7 @@ export default function Collections() {
 
     return (
         <>
-            <div className="grid grid-cols-6 mmd:grid-cols-1 justify-center pt-14 bg-gradient-to-t from-green-400 to-[#1496c9] h-full">
+            <div className="grid grid-cols-6 mmd:grid-cols-1 justify-center pt-14 bg-gradient-to-t from-[#ffc353] to-[#1496c9] h-full">
                 <div className="md:col-span-2 flex justify-center w md:mt-28 mb-4">
                     <div>
                         <img className="w-72 " src={"https://www.physicsacademy.com.sg/wp-content/uploads/2018/08/download.jpg"} alt="" />
@@ -46,37 +46,24 @@ export default function Collections() {
                     <div className="ml-4 mt-2">
                         <button onClick={updated} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg mr-2">Update</button>
                         <button onClick={destory} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg ml-2">Delete</button>
+                        <button onClick={toWaitingRoom} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-6 py-1 rounded-lg mt-2">Create Room</button>
                     </div>
                 </div>
             </div>
-            <div className="h-20 bg-gradient-to-t from-[#e0e0e0] to-green-400 ">
+            <div className="h-20 bg-gradient-to-t from-[#ffc353] to-[#ffc353] ">
 
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 bg-[#e9e9e9]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 bg-[#ffc353]">
                 {
                     Quiz.dataQuizzes.questions.map((e, i) => {
                         return (
-                            <div key={i} className="flex flex-col items-center justify-start bg-[#c0c0c0]  p-4 shadow rounded-lg m-2">
+                            <div key={i} className="flex flex-col items-center justify-start bg-[#d49f3c]  p-4 shadow rounded-lg m-2">
                                 <CardQuestions dataQuizzes={e} index={i} />
                             </div>
                         )
                     })
                 }
             </div>
-            {/* <div className="h-screen bg-[#121212]">
-                <div className="flex flex-wrap">
-                    {
-                        Quiz.dataQuizzes.questions.map((e, i) => {
-                            return (
-                                <div key={i} className="md:w-1/2 lg:w-1/3 py-4 px-4">
-                                    <CardQuestions dataQuizzes={e} index={i} />
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div> */}
-
         </>
     )
 }

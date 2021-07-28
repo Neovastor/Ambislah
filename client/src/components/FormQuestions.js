@@ -194,7 +194,7 @@ export default function FormQuestions() {
                         </div>
                     </form>
                     <div className="flex justify-center">
-                        <button onClick={saveQuiz} className="rounded-lg hover:text-[#15883E] font-bold p-4 uppercase hover:border-[#15883E] hover:bg-[#147536] font-bold uppercase bg-[#15883E] font-bold p-4 uppercase hover:border-[#15883E] hover:bg-[#147536] hover:border-2 text-white hover:border-[#15883E] font-bold p-4 uppercase hover:border-[#15883E] hover:bg-[#147536] hover:bg-white hover:text-[#15883E] font-bold p-4 uppercase hover:border-[#15883E] hover:bg-[#147536] text-white rounded-lg mr-2 py-4 px-20">Finish</button>
+                        <button onClick={saveQuiz} className="rounded-lg bg-[#15883E] font-bold uppercase bg-[#15883E] hover:border-2 text-white hover:border-[#15883E] hover:bg-[#15883E] hover:text-[#fffff] text-white rounded-lg mr-2 px-8 py-4">Finish</button>
                     </div>
                 </div>
             </div >

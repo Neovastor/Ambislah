@@ -14,7 +14,7 @@ export default function CardQuestions(props) {
 
     return (
         <>
-            <div className="inline-flex shadow-lg border border-gray-200 rounded-full overflow-hidden h-40 w-40">
+            <div className="inline-flex shadow-lg border border-gray-200 rounded-full overflow-hidden h-20 w-20">
                 <img src="https://asset.kompas.com/crops/mTnVdoYXCoN9ElxrsEDbdoY7y0s=/65x65:865x599/750x500/data/photo/2017/06/28/1265845835.jpg" alt="" className="h-full w-full" />
             </div>
             <h2 className="mt-4 font-bold text-xl text-white">{props.dataQuizzes.question}</h2>
