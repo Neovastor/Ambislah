@@ -43,7 +43,6 @@ mutation AddQuizzesMutation($addQuizzesUserId: String, $addQuizzesTitle: String,
     timer
     mode
     createdAt
-    updatedAt
   }
 }
 `
@@ -69,7 +68,6 @@ mutation Mutation($editQuizzesByIdId: ID, $editQuizzesByIdUserId: String, $editQ
     timer
     mode
     createdAt
-    updatedAt
   }
 }
 `

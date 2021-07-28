@@ -67,7 +67,7 @@ function App() {
             <Join db={db}></Join>
           </Route>
 
-          <Route exact path="/player">
+          <Route exact path="/player/:idroom">
             <PlayerRoom db={db}></PlayerRoom>
           </Route>
         <Route> <Home /> </Route>

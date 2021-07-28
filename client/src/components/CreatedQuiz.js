@@ -16,8 +16,7 @@ export default function CreatedQuiz() {
             questions: [],
             timer: 20,
             mode: data.inputMode,
-            createdAt: "2014-01-01T23:28:56.782Z",
-            updatedAt: "2014-01-01T23:28:56.782Z"
+            createdAt: "2014-01-01T23:28:56.782Z"
         }
         createdQuizVar({ ...existingcreatedQuiz, dataQuizzes })
     }
