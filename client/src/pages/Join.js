@@ -35,7 +35,7 @@ function Join({ db }) {
             });
 
             history.push({
-              pathname: "/player",
+              pathname: `/player/${idroom}`,
               state: { idroom, playername },
             });
           }

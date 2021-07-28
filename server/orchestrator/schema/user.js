@@ -69,7 +69,8 @@ const resolvers = {
         const data = {
           id_token: args.idToken.id_token
         }
-        const res = await axios.put(`http://localhost:4001/googlelogin`, data)
+        console.log(data)
+        const res = await axios.post(`http://localhost:4001/googlelogin`, data)
         const output = await res.data
         redis.del('GoogleLogin')
         return output
