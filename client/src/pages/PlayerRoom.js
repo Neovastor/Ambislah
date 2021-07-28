@@ -287,11 +287,17 @@ function PlayerRoom({ db }) {
 
   if (status === "waiting") {
     return (
-      <div className=" flex flex-col justify-center h-screen bg-red-400 ">
+      <div className=" flex flex-col justify-center h-screen">
         <div className="overflow-x-auto pt-14">
-          <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+          <div className="min-w-screen min-h-[777px] flex items-center justify-center font-sans overflow-hidden"
+          style={{
+            "backgroundImage":
+              "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/star.gif)",
+            "background-size": "100% 100%"
+          }}
+          >
             <div className="w-full lg:w-5/6  pt-5">
-              <div className="bg-white shadow-md rounded-lg my-6">
+              <div className="bg-transparent shadow-md rounded-lg my-6">
                 <Container>
                   <StyledVideo muted ref={userVideo} autoPlay playsInline />
                   {peers.map((peer, index) => {
@@ -346,9 +352,16 @@ function PlayerRoom({ db }) {
   if (status === "live") {
     return (
       <section>
+        <div className="my-2 p-2 col-span-7 h-auto"
+      style={{
+        "backgroundImage":
+          "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/million3.jpg)",
+          "background-size": "100% 100%"
+      }}
+      >
         {Object.keys(quizzes).length > 0 ? (
           <div className="pt-12 md-max:flex md-max:flex-col-reverse">
-            <div className="bg-gray-200 my-2 p-2 col-span-7 h-auto">
+            <div className="bg-transparant my-2 p-2 col-span-7 h-auto">
               <div className="flex justify-between">
                 <div className=" p-3 rounded-lg"></div>
                 <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
@@ -411,6 +424,7 @@ function PlayerRoom({ db }) {
             </div>
           </div>
         ) : null}
+        </div>
       </section>
     );
   }

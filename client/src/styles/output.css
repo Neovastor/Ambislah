@@ -1724,6 +1724,10 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(156, 163, 175, var(--tw-bg-opacity));
 }
+.hover\:bg-red-500:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
+}
 .hover\:bg-blue-600:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
@@ -1751,6 +1755,10 @@ video {
 .hover\:text-\[\#FF8303\]:hover {
 	--tw-text-opacity: 1;
 	color: rgba(255, 131, 3, var(--tw-text-opacity));
+}
+.hover\:text-red-300:hover {
+	--tw-text-opacity: 1;
+	color: rgba(252, 165, 165, var(--tw-text-opacity));
 }
 .hover\:text-green-500:hover {
 	--tw-text-opacity: 1;
