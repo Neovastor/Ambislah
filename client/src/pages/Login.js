@@ -12,14 +12,14 @@ export default function Report() {
   const { register, handleSubmit } = useForm();
   const isLogin = useReactiveVar(loginVar)
   const alert = useAlert()
-  const history= useHistory()
+  const history = useHistory()
   const [login, { data: datalogin }] = useMutation(LOGIN)
   const [googlelogin, { data: datagooglelogin }] = useMutation(GOOGLE_LOGIN)
 
   const CALLBACK = async (response) => {
     try {
       console.log(response);
-      console.log('id_token',response.tokenId)
+      console.log('id_token', response.tokenId)
       const res = await googlelogin({
         variables: {
           input: {
@@ -100,7 +100,7 @@ export default function Report() {
                     <input {...register('password')} type="password" className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="Password" style={{ "transition": "all 0.15s ease 0s" }} />
                   </div>
                   <div>
-                    <Link to="/register" className="text text-blue-600 cursor-pointer">
+                    <Link to="/register" className="text text-[#1a5c92] cursor-pointer">
                       don't have an account, Register here.
                     </Link>
                   </div>

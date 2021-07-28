@@ -59,13 +59,13 @@ const typeDef = gql`
 const resolvers = {
   Query: {
     Quizzes: async (_, args, context) => {
-      console.log('masuk finAll');
+      // console.log('masuk finAll');
       try {
-        console.log('masuk');
-        console.log(context, 'ini ??????');
+        // console.log('masuk');
+        // console.log(context, 'ini ??????');
         let QuizzesRedis = await redis.get("Quizzes");
         QuizzesRedis = JSON.parse(QuizzesRedis);
-        console.log(QuizzesRedis);
+        // console.log(QuizzesRedis);
         if (QuizzesRedis || QuizzesRedis[0].userId === context.user.id) {
           return QuizzesRedis
         } else {

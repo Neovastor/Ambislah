@@ -1,7 +1,7 @@
 const Kahoot = require('../models/kahoot')
 const { comparePassword } = require('../helpers/bcrypt')
-const {generateJWT} = require('../helpers/jwt')
-const {OAuth2Client} = require('google-auth-library')
+const { generateJWT } = require('../helpers/jwt')
+const { OAuth2Client } = require('google-auth-library')
 
 class AuthController {
   // static async findAll(req, res) {
@@ -18,11 +18,11 @@ class AuthController {
       let errorInput = []
       !email && errorInput.push('email cannot be empty')
       !password && errorInput.push('password cannot be empty')
-      
+
       if (errorInput.length) {
-          next({code: 400, 'message': errorInput})
+        next({ code: 400, 'message': errorInput })
       }
-      
+
       const name = email.split('@')[0]
       const input = { email, password, name }
       const output = await Kahoot.register(input)
@@ -30,29 +30,31 @@ class AuthController {
     } catch (err) {
       next(err)
     }
-  } 
+  }
   static async login(req, res, next) {
     try {
       const { email, password } = req.body
-
+      console.log(req.body);
       Kahoot.login(email)
-      .then (output => {
-        if (output.email) {
-          if (comparePassword(password, output.password)) {
-            const userInfo = {
-              email: output.email,
-              name: output.name,
-              id: output._id
+        .then(output => {
+          if (output.email) {
+            if (comparePassword(password, output.password)) {
+              const userInfo = {
+                email: output.email,
+                name: output.name,
+                id: output._id
+              }
+              console.log(userInfo);
+              const token = generateJWT(userInfo)
+              console.log(token, 'ini controller')
+              req.headers.access_token = token
+              res.status(200).json({ access_token: token })
             }
-            const token = generateJWT(userInfo)
-            req.headers.access_token = token
-            res.status(200).json({ access_token: token })
           }
-        }
-      })
-      .catch(err => {
-        next({code: 400, message: ["Wrong email/password"]})
-      })
+        })
+        .catch(err => {
+          next({ code: 400, message: ["Wrong email/password"] })
+        })
     } catch (err) {
       // console.log(err);
       next(err)
@@ -66,9 +68,9 @@ class AuthController {
       const ticket = await client.verifyIdToken({
         idToken: token,
         audience: process.env.CLIENT_ID,
-      })   
+      })
       payload = ticket.getPayload()
-  
+
       const email = payload.email
       const output = await Kahoot.login(email)
       if (output) {
@@ -83,7 +85,7 @@ class AuthController {
       } else {
         const registration = {
           email: email,
-          password: `Aa1@${payload.at_hash.split('_').join('').substring(0,5)}`,
+          password: `Aa1@${payload.at_hash.split('_').join('').substring(0, 5)}`,
           name: email.split('@')[0],
         }
         const output = await Kahoot.register(registration)
@@ -96,7 +98,7 @@ class AuthController {
         req.headers.access_token = token
         res.status(200).json({ access_token: token })
       }
-      
+
     } catch (err) {
       next(err)
     }

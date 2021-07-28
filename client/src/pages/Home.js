@@ -117,6 +117,38 @@ export default function Home() {
                     }
                 </div>
             </div>
+            {
+                (isLogin)
+                    ? <>
+                        {/* looking */}
+                        <div className="flex flex-col py-10">
+                            <div className="flex flex-col items-center">
+                                <div className="text-3xl capitalize font-semibold m-2 mmd:text-2xl">Looking for your Quiz ?</div>
+                                <div className="text-xl font-light m-2">Start your Quiz or</div>
+                                <button onClick={toCreate} className="text-2xl font-semibold m-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white rounded-full uppercase py-1 px-10">Create</button>
+                            </div>
+                        </div>
+                        {/* card quiz */}
+                        <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
+                            <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
+                                <div>
+                                    <div className="flex flex-wrap">
+                                        {
+                                            quizzes.Quizzes.map((e, i) => {
+                                                return (
+                                                    <div key={i} className="md:w-1/2 lg:w-1/3 py-2 px-2">
+                                                        <CardQuiz dataQuizzes={e} index={i} />
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                    : <></>
+            }
 
             {/* card home */}
             <div className="flex flex-wrap bg-[#f8f8f8]">
@@ -220,34 +252,6 @@ export default function Home() {
 
                 </div>
             </div>
-
-            {/* looking */}
-            <div className="flex flex-col py-10">
-                <div className="flex flex-col items-center">
-                    <div className="text-3xl capitalize font-semibold m-2 mmd:text-2xl">Looking for your Quiz ?</div>
-                    <div className="text-xl font-light m-2">Start your Quiz or</div>
-                    <button onClick={toCreate} className="text-2xl font-semibold m-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white rounded-full uppercase py-1 px-10">Create</button>
-                </div>
-            </div>
-
-            {/* card quiz */}
-            {/* <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
-                <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
-                    <div>
-                        <div className="flex flex-wrap">
-                            {
-                                quizzes.Quizzes.map((e, i) => {
-                                    return (
-                                        <div key={i} className="md:w-1/2 lg:w-1/3 py-2 px-2">
-                                            <CardQuiz dataQuizzes={e} index={i} />
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div> */}
         </>
     )
 }

@@ -8,7 +8,7 @@ const server = new ApolloServer({
   schema,
   cors: true,
   context: ({ req, res }) => {
-    console.log(req.headers, 'ini appjs');
+    // console.log(req.headers, 'ini appjs');
     let access_token = req.headers.authorization || ''
     let user = access_token && verifyJWT(access_token) ? verifyJWT(access_token) : ''
     return {

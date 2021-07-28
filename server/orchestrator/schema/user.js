@@ -1,5 +1,5 @@
-const {gql, ApolloError } = require ('apollo-server')
-const {instanceUsers} = require ('../axios')
+const { gql, ApolloError } = require('apollo-server')
+const { instanceUsers } = require('../axios')
 const Redis = require('ioredis')
 const redis = new Redis()
 
@@ -44,7 +44,7 @@ const resolvers = {
         const output = await res.data
         redis.del('Register')
         return output
-        
+
       } catch (err) {
         throw new ApolloError('status: 500 - Internal Server Error')
       }
@@ -57,9 +57,10 @@ const resolvers = {
         }
         const res = await instanceUsers.post('/login', data)
         const output = await res.data
+        console.log(output, 'Login');
         redis.del('Login')
         return output
-        
+
       } catch (err) {
         throw new ApolloError('status: 500 - Internal Server Error')
       }
@@ -73,12 +74,12 @@ const resolvers = {
         const output = await res.data
         redis.del('GoogleLogin')
         return output
-        
+
       } catch (err) {
         throw new ApolloError('status: 500 - Internal Server Error')
       }
     }
   }
 }
- 
+
 module.exports = { typeDef, resolvers }
