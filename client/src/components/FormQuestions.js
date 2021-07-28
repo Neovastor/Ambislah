@@ -124,31 +124,41 @@ export default function FormQuestions() {
     // console.log(createdQuizVar());
   };
 
-  const saveQuiz = () => {
-    // console.log(createdQuizVar());
-    const data = createdQuizVar();
-    // console.log(data, 'ini finish data');
-    console.log(data, "Create quiz var");
-
-    addQuizzes({
-      variables: {
-        addQuizzesUserId: data.dataQuizzes.userId,
-        addQuizzesTitle: data.dataQuizzes.title,
-        addQuizzesQuestions: data.dataQuizzes.questions,
-        addQuizzesTimer: data.dataQuizzes.timer,
-        addQuizzesMode: data.dataQuizzes.mode,
-        addQuizzesCreatedAt: data.dataQuizzes.createdAt,
-      },
-    });
-
-    Swal.fire({
-      icon: "success",
-      title: "Success add Quiz",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-
-    history.push("/");
+  const saveQuiz = async () => {
+    try {
+      // console.log(createdQuizVar());
+      const data = createdQuizVar();
+      // console.log(data, 'ini finish data');
+      console.log(data, "Create quiz var");
+  
+      await addQuizzes({
+        variables: {
+          input: {
+            // addQuizzesUserId: data.dataQuizzes.userId,
+            title: data.dataQuizzes.title,
+            questions: data.dataQuizzes.questions,
+            timer: data.dataQuizzes.timer,
+            mode: data.dataQuizzes.mode,
+            // addQuizzesCreatedAt: data.dataQuizzes.createdAt,
+          },
+          access_token: localStorage.access_token
+        },
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Success add Quiz",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      history.push("/");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "You must login first",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   return (
