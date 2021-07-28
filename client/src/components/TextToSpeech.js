@@ -1,4 +1,5 @@
 import TTS from 'text-to-speech-offline'
+
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
