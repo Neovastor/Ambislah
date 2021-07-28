@@ -1447,6 +1447,9 @@ video {
 .pt-0 {
 	padding-top: 0px;
 }
+.pt-\[350px\] {
+	padding-top: 350px;
+}
 .pr-10 {
 	padding-right: 2.5rem;
 }

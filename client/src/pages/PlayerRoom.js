@@ -31,22 +31,20 @@ const videoConstraints = {
   width: window.innerWidth / 2,
 };
 
-
-
 function PlayerRoom({ db }) {
   const location = useLocation();
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const {idroom} = useParams(); 
+  const { idroom } = useParams();
 
   const buttonRight =
-    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant bg-green-500 hover:bg-green-600 text-gray-200"
+    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant bg-green-500 hover:bg-green-600 text-gray-200";
   const buttonWrong =
-    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant bg-red-500 hover:bg-red-600 text-gray-200"
+    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant bg-red-500 hover:bg-red-600 text-gray-200";
   const buttonNormal =
-    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant hover:bg-blue-600 text-gray-200"
+    "absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant hover:bg-blue-600 text-gray-200";
   const [status, setStatus] = useState("waiting");
   const [indexSoal, setIndexSoal] = useState(0);
   const [quizzes, setQuizzes] = useState({});
@@ -58,7 +56,6 @@ function PlayerRoom({ db }) {
 
   const livegamesRef = db.collection("livegames").doc(location.state.idroom);
 
-  
   function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
       initiator: true,
@@ -79,13 +76,13 @@ function PlayerRoom({ db }) {
 
   function Video(props) {
     const ref = useRef();
-  
+
     useEffect(() => {
       props.peer.on("stream", (stream) => {
         ref.current.srcObject = stream;
       });
     }, []);
-  
+
     return <StyledVideo playsInline autoPlay ref={ref} />;
   }
 
@@ -95,7 +92,7 @@ function PlayerRoom({ db }) {
       trickle: false,
       stream,
     });
-    
+
     peer.on("signal", (signal) => {
       socketRef.current.emit("returning signal", { signal, callerID });
     });
@@ -169,7 +166,6 @@ function PlayerRoom({ db }) {
     setOptionB(buttonNormal);
     setOptionC(buttonNormal);
     setOptionD(buttonNormal);
-    
   }, [indexSoal]);
 
   function onClickHandler(payload) {
@@ -290,12 +286,13 @@ function PlayerRoom({ db }) {
     return (
       <div className=" flex flex-col justify-center h-screen">
         <div className="overflow-x-auto pt-14">
-          <div className="min-w-screen min-h-[777px] flex items-center justify-center font-sans overflow-hidden"
-          style={{
-            "backgroundImage":
-              "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/star.gif)",
-            "background-size": "100% 100%"
-          }}
+          <div
+            className="min-w-screen min-h-[777px] flex items-center justify-center font-sans overflow-hidden"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/star.gif)",
+              "background-size": "100% 100%",
+            }}
           >
             <div className="w-full lg:w-5/6  pt-5">
               <div className="bg-transparent shadow-md rounded-lg my-6">
@@ -317,7 +314,7 @@ function PlayerRoom({ db }) {
     // return <PausePhasePlayer />;
     return (
       <div className="overflow-x-auto pt-14">
-        <PausePhasePlayer  />
+        <PausePhasePlayer />
         {/* <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
           <div className="w-full lg:w-5/6  pt-5">
             <div className="bg-white shadow-md rounded-lg my-6">
@@ -344,9 +341,20 @@ function PlayerRoom({ db }) {
     });
     return (
       <div>
-        <h1>Game Finished</h1>
-        <h2>Your Score</h2>
-        <h2> {playerTotalScore} </h2>
+        <div
+          className="my-2 p-2 col-span-7 min-h-screen"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/podium.jpg)",
+            "background-size": "100% 100%",
+          }}
+        >
+          <div className="flex flex-col justify-center items-center pt-[350px]">
+            <h1 className="text text-black bg-white font-extrabold text-2xl">Game Finished</h1>
+            <h2 className="text text-black bg-white font-extrabold text-2xl">Your Score</h2>
+            <h2 className="text text-black bg-white font-semibold text-xl"> {playerTotalScore} </h2>
+          </div>
+        </div>
       </div>
     );
   }
@@ -354,82 +362,101 @@ function PlayerRoom({ db }) {
   if (status === "live") {
     return (
       <section>
-        <div className="my-2 p-2 col-span-7 h-auto"
-      style={{
-        "backgroundImage":
-          "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/million3.jpg)",
-          "background-size": "100% 100%"
-      }}
-      >
-        {Object.keys(quizzes).length > 0 ? (
-          <div className="pt-12 md-max:flex md-max:flex-col-reverse">
-            <div className="bg-transparant my-2 p-2 col-span-7 h-auto">
-              <div className="flex justify-between">
-                <div className=" p-3 rounded-lg"></div>
-                <button className="hover:bg-red-600 bg-green-600 text-black hover:text-white p-3 rounded-lg">
-                  <TextToSpeech text={quizzes.questions[indexSoal].question} />
-                </button>
-                <div className=" p-3 rounded-lg"></div>
-              </div>
-              <div className="flex flex-col gap-y-4 items-center p-5">
-                {/* <div className="w-full px-4 py-2 border border-gray-300 bg-white rounded  text-center" >Question</div> */}
-                <div className="box-border w-64 border-4">
-                  <img
-                    src={
-                      "https://asset.kompas.com/crops/sn--2PkUfeAmtszsB-wnqXmwBkM=/0x0:5184x3456/750x500/data/photo/2020/12/11/5fd303549b2c9.jpg"
-                    }
-                    className="h-32 rounded-lg w-full object-cover"
-                  />
+        <div
+          className="my-2 p-2 col-span-7 h-auto"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/million3.jpg)",
+            "background-size": "100% 100%",
+          }}
+        >
+          {Object.keys(quizzes).length > 0 ? (
+            <div className="pt-12 md-max:flex md-max:flex-col-reverse">
+              <div className="bg-transparant my-2 p-2 col-span-7 h-auto">
+                <div className="flex justify-between">
+                  <div className=" p-3 rounded-lg"></div>
+                  <button className="hover:bg-red-600 bg-green-600 text-black hover:text-white p-3 rounded-lg">
+                    <TextToSpeech
+                      text={quizzes.questions[indexSoal].question}
+                    />
+                  </button>
+                  <div className=" p-3 rounded-lg"></div>
                 </div>
+                <div className="flex flex-col gap-y-4 items-center p-5">
+                  {/* <div className="w-full px-4 py-2 border border-gray-300 bg-white rounded  text-center" >Question</div> */}
+                  <div className="box-border w-64 border-4">
+                    <img
+                      src={
+                        "https://asset.kompas.com/crops/sn--2PkUfeAmtszsB-wnqXmwBkM=/0x0:5184x3456/750x500/data/photo/2020/12/11/5fd303549b2c9.jpg"
+                      }
+                      className="h-32 rounded-lg w-full object-cover"
+                    />
+                  </div>
 
-                <div className="grid grid-cols-2 gap-1">
-                  <div className="relative flex">
-                  <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
-                    <button
-                      onClick={(e) => onClickHandler("a")}
-                      className={optionA}
-                    >
-                      A. {quizzes.questions[indexSoal].choose[0]}
-                    </button>
+                  <div className="grid grid-cols-2 gap-1">
+                    <div className="relative flex">
+                      <img
+                        className="top-0 object-fill"
+                        src="/mil-but.png"
+                        alt=".."
+                      />
+                      <button
+                        onClick={(e) => onClickHandler("a")}
+                        className={optionA}
+                      >
+                        A. {quizzes.questions[indexSoal].choose[0]}
+                      </button>
+                    </div>
+                    <div className="relative flex">
+                      <img
+                        className="top-0 object-fill"
+                        src="/mil-but.png"
+                        alt=".."
+                      />
+                      <button
+                        onClick={(e) => onClickHandler("b")}
+                        className={optionB}
+                      >
+                        B. {quizzes.questions[indexSoal].choose[1]}
+                      </button>
+                    </div>
+                    <div className="relative flex">
+                      <img
+                        className="top-0 object-fill"
+                        src="/mil-but.png"
+                        alt=".."
+                      />
+                      <button
+                        onClick={(e) => onClickHandler("c")}
+                        className={optionC}
+                      >
+                        C. {quizzes.questions[indexSoal].choose[2]}
+                      </button>
+                    </div>
+                    <div className="relative flex">
+                      <img
+                        className="top-0 object-fill"
+                        src="/mil-but.png"
+                        alt=".."
+                      />
+                      <button
+                        onClick={(e) => onClickHandler("d")}
+                        className={optionD}
+                      >
+                        D. {quizzes.questions[indexSoal].choose[3]}
+                      </button>
+                    </div>
                   </div>
-                  <div className="relative flex">
-                  <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
-                    <button
-                      onClick={(e) => onClickHandler("b")}
-                      className={optionB}
-                    >
-                      B. {quizzes.questions[indexSoal].choose[1]}
-                    </button>
-                  </div>
-                  <div className="relative flex">
-                  <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
-                    <button
-                      onClick={(e) => onClickHandler("c")}
-                      className={optionC}
-                    >
-                      C. {quizzes.questions[indexSoal].choose[2]}
-                    </button>
-                  </div>
-                  <div className="relative flex">
-                  <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
-                    <button
-                      onClick={(e) => onClickHandler("d")}
-                      className={optionD}
-                    >
-                      D. {quizzes.questions[indexSoal].choose[3]}
-                    </button>
-                  </div>
-                </div>
-                <div>
-                  {/* <button className="rounded-lg p-5 bg-red-500 hover:bg-red-600 text-white">
+                  <div>
+                    {/* <button className="rounded-lg p-5 bg-red-500 hover:bg-red-600 text-white">
                     <FontAwesomeIcon size="2x" icon={faMicrophone} />
                   </button> */}
-                  <SpeechRecognition inputVoice={inputVoice} />
+                    <SpeechRecognition inputVoice={inputVoice} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : null}
+          ) : null}
         </div>
       </section>
     );
