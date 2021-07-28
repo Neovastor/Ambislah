@@ -1,11 +1,9 @@
-const { getDatabase } = require('../config/mongodb')
-const { ObjectId } = require("mongodb");
+const { getDatabase, ObjectId } = require('../config/mongodb')
 
 class Quizzes {
-    static async findAll() {
-
+    static async findAll(userId) {
         const quizzesCollection = getDatabase().collection('Quizzes')
-        const quizzes = await quizzesCollection.find().toArray()
+        const quizzes = await quizzesCollection.find({userId: userId}).toArray()
         return quizzes
     }
 
@@ -21,13 +19,17 @@ class Quizzes {
     }
 
     static async postQuiz(payload) {
-        const { userId, questions, timer, mode} = payload
-        let result = { userId, questions, timer, mode}
+        const { userId, title, questions, timer, mode} = payload
+        let result = {userId, title, questions, timer, mode, createdAt: new Date(),
+            updatedAt: new Date()}
         let err = {
             message: []
         }
-        if (!userId) {
-            err.message.push("userId must be filled")
+        // if (!userId) {
+        //     err.message.push("userId must be filled")
+        // }
+        if (!title) {
+            err.message.push("title must be filled")
         }
         if (!questions) {
             err.message.push("questions must be filled")
@@ -54,17 +56,21 @@ class Quizzes {
     }
 
     static async putQuiz(payload, id) {
-        const { userId, questions, timer, mode} = payload
-
+        const { userId, title, questions, timer, mode} = payload
+        let result = {userId, title, questions, timer, mode, updatedAt: new Date()}
+        
         let err = {
             message: []
         }
-        if (!userId) {
-            err.message.push("userId must be filled")
+        // if (!userId) {
+        //     err.message.push("userId must be filled")
+        // }
+        if (!title) {
+            err.message.push("title must be filled")
         }
-        if (!questions) {
-            err.message.push("questions must be filled")
-        }
+        // if (!questions) {
+        //     err.message.push("questions must be filled")
+        // }
         
         if (!timer) {
             err.message.push("timer must be filled")
@@ -75,12 +81,19 @@ class Quizzes {
 
         if (err.message.length > 0) {
             return err
-        }
-
-        let result = { userId, questions, timer, mode};            
+        }       
 
         const quizzesCollection = getDatabase().collection('Quizzes')
 
+        quizzesCollection.findOne({_id: ObjectId(id)})
+        .then(data => {
+            if (data) {
+                result.createdAt = data.createdAt
+            } else {
+                return result.matchedCount = 0
+            }
+        })
+        
         let quizzes = await quizzesCollection.updateOne(
             {
                 _id: ObjectId(id)
