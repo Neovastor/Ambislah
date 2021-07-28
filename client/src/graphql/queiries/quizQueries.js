@@ -49,7 +49,7 @@ export const CREATED_QUIZZES = gql`
 `
 
 export const ADD_QUIZZES = gql`
-utation Mutation($input: InputQuizzes, $access_token: String) {
+mutation Mutation($input: InputQuizzes, $access_token: String) {
   AddQuizzes(input: $input, access_token: $access_token) {
     _id
     title

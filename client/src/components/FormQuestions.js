@@ -98,7 +98,8 @@ export default function FormQuestions() {
             console.log(dataQuizzes);
             await addQuizzes({
                 variables: {
-                    input: dataQuizzes
+                    input: dataQuizzes,
+                    access_token: localStorage.access_token
                 }
             })
     
@@ -109,7 +110,7 @@ export default function FormQuestions() {
                 timer: 1500
             })
     
-            // history.push('/')
+            history.push('/')
 
         } catch (err) {
             // console.log(err);

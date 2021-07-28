@@ -44,8 +44,8 @@ query Query($access_token: String) {
 
 
 export const GET_ONE_REPORT = gql `
-query Query($$idReport: ID, $access_token: String) {
-  getReports(id: $$idReport, access_token: $access_token) {
+query Query($idReport: ID, $access_token: String) {
+  getReports(id: $idReport, access_token: $access_token) {
     _id
     userId
     quizId

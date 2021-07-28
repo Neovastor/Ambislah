@@ -6,7 +6,7 @@ export {
   GET_ONE_REPORT,
 } from "./reportQueries";
 
-export { REGISTER, LOGIN } from "./userQueries";
+export { REGISTER, LOGIN, GOOGLE_LOGIN } from "./userQueries";
 
 export {
   GET_ALL_QUIZ,
