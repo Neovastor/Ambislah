@@ -11,17 +11,20 @@ function Leaderboard({ db, idparams }) {
     livegamesRef.onSnapshot((doc) => {
       setlivegamesData(doc.data());
 
-      // sortedLeaderboard = doc.data().leaderboard.sort((a, b) => {
-      //   if (a.score > b.score) {
-      //     return -1;
-      //   }
-      //   if (a.score < b.score) {
-      //     return 1;
-      //   }
-      //   return 0;
-      // });
-      let sortedLeaderboard = doc.data().leaderboard;
-      console.log(doc.data(), "DATA");
+      let sortedLeaderboard
+      if (doc.data().leaderboard.length > 1) {
+        sortedLeaderboard = doc.data().leaderboard.sort((a, b) => {
+          if (a.score > b.score) {
+            return -1;
+          }
+          if (a.score < b.score) {
+            return 1;
+          }
+          return 0;
+        });
+      }else {
+        sortedLeaderboard = doc.data().leaderboard;
+      }
       setLeaderboard(sortedLeaderboard);
     });
   }, []);
