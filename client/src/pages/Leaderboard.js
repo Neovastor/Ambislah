@@ -120,7 +120,7 @@ function Leaderboard({ db, idparams }) {
             </div>
           </div>
         ) : null}
-        <div className="grid" grid-row>
+        <div className="grid">
           <button className="px-6 py-4 rounded-full bg-yellow-500 text-white hover:bg-red-500 hover:text-red-300" onClick={(e) => finishHandler(e)}>
             Finish
           </button>
