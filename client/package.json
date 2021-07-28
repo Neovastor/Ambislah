@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4002",
+  "proxy": "http://13.212.159.68",
   "dependencies": {
     "@apollo/client": "^3.3.21",
     "@craco/craco": "^6.2.0",
