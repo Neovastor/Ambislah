@@ -34,10 +34,14 @@ function Question({ question, i,duration }) {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-1">
-            {question.choose.map((choice, j) => {
+          <div className="grid grid-cols-2 gap-1 max-w-screen-lg">
+            {/* {question.choose.map((choice, j) => {
               return <Choice choice={choice} key={j} />;
-            })}            
+            })}    */}
+              <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[0]} </button>
+              <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[1]} </button>
+              <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[2]} </button>
+              <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[3]} </button>
           </div>
 
           <div>
