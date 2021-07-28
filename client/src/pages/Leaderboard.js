@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useMutation } from '@apollo/client'
+import { ADD_REPORT } from "../graphql/queiries";
 function Leaderboard({ db, idparams }) {
+  const [addReport] = useMutation(ADD_REPORT)
   const [leaderboard, setLeaderboard] = useState([]);
   const [livegamesData, setlivegamesData] = useState({});
 
@@ -30,7 +33,7 @@ function Leaderboard({ db, idparams }) {
   }, []);
 
   function finishHandler(e) {
-    db.collection("quizzes").onSnapshot((querySnapshot) => {
+    db.collection("quizzes").onSnapshot( async (querySnapshot) => {
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
@@ -46,7 +49,12 @@ function Leaderboard({ db, idparams }) {
       };
       console.log(payload);
       //Kirim PAYLOAD
-
+      await addReport({
+        variables: {
+          input: payload,
+          access_token: localStorage.access_token
+        }
+      })
       //pindah halaman
       history.push("/");
 

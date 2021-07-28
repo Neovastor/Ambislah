@@ -12,7 +12,11 @@ const Channel = ({ db = null }) => {
     e.preventDefault();
     let roomkey = "";
 
-    fetch(`http://localhost:3000/quizzes/${id}`)
+    fetch(`http://54.166.28.112/quizzes/${id}`, {
+      headers: {
+        access_token: localStorage.access_token
+      }
+    })
       .then((response) => {
         return response.json();
       })
