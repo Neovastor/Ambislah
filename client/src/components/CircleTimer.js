@@ -3,18 +3,6 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 function CircleTimer({duration}){
     return (
-      //   <CountdownCircleTimer
-      //   isPlaying
-      //   size={30}
-      //   duration={duration}
-      //   colors={[
-      //     ["#004777", 0.33],
-      //     ["#F7B801", 0.33],
-      //     ["#A30000", 0.33],
-      //   ]}
-      // >
-      //   {({ remainingTime }) => remainingTime}
-      // </CountdownCircleTimer>
       <CountdownCircleTimer
       isPlaying
       duration={duration}
