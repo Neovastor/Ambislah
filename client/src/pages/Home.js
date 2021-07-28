@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import { loginVar } from "../graphql/vars";
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { GOOGLE_LOGIN } from '../graphql/queiries/userQueries';
+import ReactPlayer from 'react-player'
 
 export default function Home() {
 
@@ -110,7 +111,10 @@ export default function Home() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div><iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                                        <div>
+                                            {/* <ReactPlayer className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" url='https://www.youtube-nocookie.com/embed/uaXYjCzPpzs' /> */}
+                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
                                     </div>
                                 </>
                                 : <>
@@ -129,7 +133,10 @@ export default function Home() {
                                                 Sahoot! is a game-based learning platform, used as educational technology and most importantly for FUN!. This app provide you tool to make a quiz with multiple choice or audio as an input. It uses a quiz-style teaching where a user answers questions in a series and competes with other users on the same quiz. With Sahoot!, player can learn new thing while having fun.
                                             </div>
                                         </div>
-                                        <div><iframe onPlay width="500" height="250" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                                        <div>
+                                            {/* <ReactPlayer className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" url='https://www.youtube-nocookie.com/embed/uaXYjCzPpzs' /> */}
+                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
                                     </div>
                                 </>
                         }

@@ -1223,10 +1223,6 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(209, 213, 219, var(--tw-bg-opacity));
 }
-.bg-\[\#1DB954\] {
-	--tw-bg-opacity: 1;
-	background-color: rgba(29, 185, 84, var(--tw-bg-opacity));
-}
 .bg-purple-200 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(221, 214, 254, var(--tw-bg-opacity));

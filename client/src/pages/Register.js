@@ -62,7 +62,7 @@ export default function Report() {
                     </Link>
                   </div>
                   <div className="text-center mt-6">
-                    <button className="bg-[#1DB954] text-white active:bg-black active:opacity-70 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="submit" style={{ "transition": "all 0.15s ease 0s" }}>REGISTER</button>
+                    <button className="bg-[#053742] text-white active:bg-black active:opacity-70 text-xl font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" type="submit" style={{ "transition": "all 0.15s ease 0s" }}>REGISTER</button>
                   </div>
                 </form>
               </div>
