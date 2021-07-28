@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import client from '../src/graphql/config'
 
 const options = {
   // you can also just use 'bottom center'
@@ -17,10 +18,10 @@ const options = {
   transition: transitions.SCALE
 }
 
-const client = new ApolloClient({
-  uri: 'http://localhost:4000',
-  cache: new InMemoryCache()
-})
+// const client = new ApolloClient({
+//   uri: 'http://localhost:4000',
+//   cache: new InMemoryCache()
+// })
 
 ReactDOM.render(
   <React.StrictMode>
