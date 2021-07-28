@@ -78,42 +78,64 @@ export default function Home() {
 
     return (
         <>
-            <div className="bg-[#ecb744] h-screen  ">
-                <div className="flex flex-col items-center py-60">
+            {/* bg-[#ecb744]  */}
+            <div className="bg-[#27659e] h-screen mmd:h-full flex flex-auto justify-center items-end">
+                <div className="bg-[#429dda] h-[80%] w-[90%] mmd:pt-8">
+                    <div className="flex flex-col items-center pt-20">
 
-                    {
-                        (!isLogin && !access_token)
-                            ? <>
-                                <div className="font-black text-5xl proportional-nums uppercase">
-                                    Sahoot GO!
-                                </div>
-                                <div>
-                                    <div>
-                                        <button onClick={toLogin} className="bg-[#1DB954] rounded-full text-white hover:bg-[#1fc258] px-12 py-1 mt-10 m-2 text-2xl text-bold uppercase">Login</button>
-                                    </div>
-                                    <div>
-                                        <GoogleLogin
-                                            clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
-                                            onSuccess={CALLBACK}
-                                            onFailure={CALLBACK}
-                                            cookiePolicy={'single_host_origin'}
-                                            className="rounded-full"
-                                        />
-                                    </div>
+                        {
+                            (!isLogin && !access_token)
+                                ? <>
 
-                                </div>
-                            </>
-                            : <>
-                                <div className="font-black text-5xl proportional-nums uppercase">
-                                    Sahoot GO!
-                                </div>
-                                <div className="font-black text-5xl proportional-nums uppercase">
-                                    welcome {localStorage.name}
-                                </div>
-                            </>
-                    }
+                                    <div className="grid grid-cols-2 justify-center mmd:grid-cols-1">
+                                        <div className="px-10">
+                                            <div className="font-black text-white text-7xl mmd:text-3xl proportional-nums uppercase">
+                                                Sahoot GO!
+                                            </div>
+                                            <div className="text-white font-serif mt-2">
+                                                Sahoot! is a game-based learning platform, used as educational technology and most importantly for FUN!. This app provide you tool to make a quiz with multiple choice or audio as an input. It uses a quiz-style teaching where a user answers questions in a series and competes with other users on the same quiz. With Sahoot!, player can learn new thing while having fun.
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <button onClick={toLogin} className="bg-[#1d54b9] rounded-full text-white hover:text-[#1d54b9] hover:bg-[#ffffff] px-12 py-1 mt-10 m-2 text-2xl text-bold uppercase">Login</button>
+                                                </div>
+                                                <div>
+                                                    <GoogleLogin
+                                                        clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
+                                                        onSuccess={CALLBACK}
+                                                        onFailure={CALLBACK}
+                                                        cookiePolicy={'single_host_origin'}
+                                                        className="rounded-full"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div><iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                                    </div>
+                                </>
+                                : <>
+                                    <div className="grid grid-cols-2">
+                                        <div className="px-10">
+                                            <div className="font-black m-2 text-white text-5xl proportional-nums uppercase">
+                                                Sahoot GO!
+                                            </div>
+                                            <div className="font-black m-2 text-white text-5xl proportional-nums uppercase">
+                                                welcome
+                                            </div>
+                                            <div className="font-black m-2 text-white text-5xl proportional-nums uppercase">
+                                                {localStorage.name}
+                                            </div>
+                                            <div className="text-white font-serif mt-2">
+                                                Sahoot! is a game-based learning platform, used as educational technology and most importantly for FUN!. This app provide you tool to make a quiz with multiple choice or audio as an input. It uses a quiz-style teaching where a user answers questions in a series and competes with other users on the same quiz. With Sahoot!, player can learn new thing while having fun.
+                                            </div>
+                                        </div>
+                                        <div><iframe onPlay width="500" height="250" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                                    </div>
+                                </>
+                        }
+                    </div>
                 </div>
-            </div>
+            </div >
             {
                 (isLogin)
                     ? <>
