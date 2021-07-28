@@ -114,7 +114,7 @@ export default function Report() {
             <div className="rounded-t mb-0 px-6 py-6">
               <div className="btn-wrapper text-center">
                 <GoogleLogin
-                  clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
+                  clientId={"242292821855-irao4vnt2skrbe2581024tm7ruk8cq8l.apps.googleusercontent.com"}
                   onSuccess={CALLBACK}
                   onFailure={CALLBACK}
                   cookiePolicy={'single_host_origin'}

@@ -102,7 +102,7 @@ export default function Home() {
                                                 </div>
                                                 <div>
                                                     <GoogleLogin
-                                                        clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
+                                                        clientId={"242292821855-irao4vnt2skrbe2581024tm7ruk8cq8l.apps.googleusercontent.com"}
                                                         onSuccess={CALLBACK}
                                                         onFailure={CALLBACK}
                                                         cookiePolicy={'single_host_origin'}
