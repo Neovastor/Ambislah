@@ -23,7 +23,7 @@ export default function SpeechToText({inputVoice}) {
 
   return (
     <>
-      <div className="text-center">
+      <div className="text-center text-white font-bold text-4xl">
         <p>Microphone: {listening ? "on" : "off"}</p>
         <input
           placeholder=""
