@@ -84,7 +84,7 @@ export default function Game({ navigation }) {
               // onSubmit={(e) => handleOnSubmit(e)}
               >
               <Image
-                style={tailwind('px-4 py-4 rounded-full  text-gray-800 border-gray-200 bg-white')}
+                style={tailwind('px-4 py-6 rounded-full  text-gray-800 border-gray-200 bg-white')}
                 source={{
                   uri: 'https://img.freepik.com/free-vector/isolated-retro-vintage-microphone_1284-38772.jpg?size=338&ext=jpg',
                 }}
