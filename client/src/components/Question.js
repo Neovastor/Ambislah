@@ -38,7 +38,15 @@ function Question({ question, i,duration }) {
             {/* {question.choose.map((choice, j) => {
               return <Choice choice={choice} key={j} />;
             })}    */}
-              <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[0]} </button>
+            {/* <img src="/images/logo.png" /> */}
+            {/* <div>
+              <img src="images/logo.jpg" alt="BigCo Inc. logo"/>
+            </div> */}
+              <div className="relative">
+                
+                <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
+                <button className="absolute top-0 h-20 rounded-lg p-2 bg-transparant hover:bg-red-600 text-gray-200"> {question.choose[0]} </button>
+              </div>
               <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[1]} </button>
               <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[2]} </button>
               <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[3]} </button>
