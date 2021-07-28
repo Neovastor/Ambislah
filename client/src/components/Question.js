@@ -45,7 +45,7 @@ function Question({ question, i,duration }) {
               <div className="relative">
                 
                 <img className="top-0 object-fill" src="/mil-but.png" alt=".." /> 
-                <button className="absolute top-0 h-20 rounded-lg p-2 bg-transparant hover:bg-red-600 text-gray-200"> {question.choose[0]} </button>
+                <button className="absolute top-0 h-11 rounded-lg p-2 transform translate-x-[100px] translate-y-[25px] text-xl bg-transparant hover:bg-red-600 text-gray-200"> {question.choose[0]} </button>
               </div>
               <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[1]} </button>
               <button className="h-20 rounded-lg p-2 bg-red-500 hover:bg-red-600 text-gray-200"> {question.choose[2]} </button>
