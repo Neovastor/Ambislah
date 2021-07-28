@@ -16,6 +16,7 @@ query Query {
     timer
     mode
     createdAt
+    updatedAt
   }
 }
 `
