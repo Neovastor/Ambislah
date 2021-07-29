@@ -16,9 +16,12 @@ export default function UpdateQuestions() {
     const Quiz = useReactiveVar(collectionVar)
     const dataQuestion = useReactiveVar(questionVar)
     const [updateQuizzes] = useMutation(UPDATE_QUIZZES, {
-        refetchQueries: [
+        refetchQueries:[
             {
-                query: GET_ALL_QUIZ,
+                query: GET_ALL_QUIZ, 
+                variables: {
+                    access_token: localStorage.access_token
+                }
             },
         ]
     })
@@ -85,41 +88,62 @@ export default function UpdateQuestions() {
     }
 
     const saveData = async (e) => {
-        const { input1, input2, input3, input4, inputQuestion } = e
-        let answer = ""
-        if (status1) answer = input1
-        if (status2) answer = input2
-        if (status3) answer = input3
-        if (status4) answer = input4
-
-        const choose = [input1, input2, input3, input4]
-        const newData = {
-            type: type,
-            "question": inputQuestion,
-            "image": "null",
-            choose,
-            answer
-        }
-        question[dataQuestion.index] = newData
-
-        await updateQuizzes({
-            variables: {
-                "editQuizzesByIdId": Quiz.dataQuizzes._id,
-                "editQuizzesByIdUserId": Quiz.dataQuizzes.userId,
-                "editQuizzesByIdTitle": Quiz.dataQuizzes.title,
-                "editQuizzesByIdQuestions": question,
-                "editQuizzesByIdTimer": Quiz.dataQuizzes.timer,
-                "editQuizzesByIdMode": Quiz.dataQuizzes.mode,
-                "editQuizzesByIdCreatedAt": Quiz.dataQuizzes.createdAt
+        try {
+            const { input1, input2, input3, input4, inputQuestion } = e
+            let answer = ""
+            if (status1) answer = input1
+            if (status2) answer = input2
+            if (status3) answer = input3
+            if (status4) answer = input4
+    
+            const choose = [input1, input2, input3, input4]
+            const newData = {
+                type: type,
+                "question": inputQuestion,
+                "image": "null",
+                choose,
+                answer
             }
-        })
-        Swal.fire({
-            icon: 'success',
-            title: 'update question successfully',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        history.push('/')
+            question[dataQuestion.index] = newData
+
+            // console.log(Quiz, 'ini quiz ---------' );
+            // console.log(question, 'ini questions ---------' );
+
+            let updateQuiz = {...Quiz.dataQuizzes, questions: question }
+            let idUpdated = updateQuiz._id
+            
+            console.log(updateQuiz);
+
+    
+            await updateQuizzes({
+                variables: {
+                    id: idUpdated,
+                    input: {
+                        title: updateQuiz.title,
+                        questions: updateQuiz.questions,
+                        mode: updateQuiz.mode,
+                        timer: updateQuiz.timer,
+                    },
+                    access_token: localStorage.access_token
+                }
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'update question successfully',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            history.push('/')
+
+        } catch(err) {
+            console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: 'update question failed',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
     }
 
     return (
