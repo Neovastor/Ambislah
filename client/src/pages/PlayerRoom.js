@@ -332,14 +332,16 @@ function PlayerRoom({ db }) {
           className="my-2 p-2 col-span-7 min-h-screen"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/podium.jpg)",
+              "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/finish.jpg)",
             "background-size": "100% 100%",
           }}
         >
-          <div className="flex flex-col justify-center items-center pt-[350px]">
-            <h1 className="text text-black bg-white font-extrabold text-2xl">Game Finished</h1>
-            <h2 className="text text-black bg-white font-extrabold text-2xl">Your Score</h2>
-            <h2 className="text text-black bg-white font-semibold text-xl"> {playerTotalScore} </h2>
+          <div className="flex justify-center mt-[350px]">
+            <div className="px-8 py-2 bg-[#E87A2A] rounded-lg">
+              <h1 className="text-center text-white font-extrabold text-2xl">Game Finished</h1>
+              <h2 className="text-center text-white font-extrabold text-2xl">Your Score</h2>
+              <h2 className="text-center text-white font-semibold text-xl"> {playerTotalScore} </h2>
+            </div>
           </div>
         </div>
       </div>
