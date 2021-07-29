@@ -8,15 +8,17 @@ import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { loginVar } from "../graphql/vars";
-import { useMutation, useReactiveVar } from '@apollo/client';
+// import { useMutation, useReactiveVar } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { GOOGLE_LOGIN } from '../graphql/queiries/userQueries';
-import ReactPlayer from 'react-player'
+import Loading from '../components/Loading'
+// import ReactPlayer from 'react-player'
 
 export default function Home() {
 
     // const { register, handleSubmit } = useForm();
-    const isLogin = useReactiveVar(loginVar)
-    const access_token = localStorage.access_token
+    // const isLogin = useReactiveVar(loginVar)
+    // const access_token = localStorage.access_token
     // const alert = useAlert()
     const history = useHistory()
     // const [login, { data: datalogin }] = useMutation(LOGIN)
@@ -24,7 +26,7 @@ export default function Home() {
     const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ, {
         fetchPolicy: "cache-and-network",
         variables: {
-          access_token: localStorage.access_token
+            access_token: localStorage.access_token
         }
     })
     // console.log(googlelogin, 'ini google login');
@@ -77,51 +79,60 @@ export default function Home() {
         history.push('/create')
     }
 
-    if (loading) return <p>Loading...</p>;
+    const toJoin = () => {
+        history.push('/join')
+    }
+
+    if (loading) return (
+        <Loading />
+    );
     if (error) return (
-      <>
+        <>
             {/* bg-[#ecb744]  */}
             <div className="bg-[#27659e] h-screen mmd:h-full flex flex-auto justify-center items-end">
                 <div className="bg-[#429dda] h-[80%] w-[90%] mmd:pt-8">
-                    <div className="flex flex-col items-center pt-20">
+                    <div className="flex flex-col items-center pt-16">
 
                         {
                             // (!localStorage.access_token)
-                                <>
+                            <>
 
-                                    <div className="grid grid-cols-2 justify-center mmd:grid-cols-1">
-                                        <div className="px-10">
-                                            <div className="font-black text-white text-7xl mmd:text-3xl proportional-nums uppercase">
-                                                Sahoot GO!
-                                            </div>
-                                            <div className="text-white font-serif mt-2">
-                                                Sahoot! is a game-based learning platform, used as educational technology and most importantly for FUN!. This app provide you tool to make a quiz with multiple choice or audio as an input. It uses a quiz-style teaching where a user answers questions in a series and competes with other users on the same quiz. With Sahoot!, player can learn new thing while having fun.
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <button onClick={toLogin} className="bg-[#1d54b9] rounded-full text-white hover:text-[#1d54b9] hover:bg-[#ffffff] px-12 py-1 mt-10 m-2 text-2xl text-bold uppercase">Login</button>
-                                                </div>
-                                                <div>
-                                                    <GoogleLogin
-                                                        clientId={"242292821855-irao4vnt2skrbe2581024tm7ruk8cq8l.apps.googleusercontent.com"}
-                                                        onSuccess={CALLBACK}
-                                                        onFailure={CALLBACK}
-                                                        cookiePolicy={'single_host_origin'}
-                                                        className="rounded-full"
-                                                    />
-                                                </div>
-                                            </div>
+                                <div className="grid grid-cols-2 justify-center mmd:grid-cols-1">
+                                    <div className="px-10">
+                                        <div className="font-black text-white text-7xl mmd:text-3xl proportional-nums uppercase">
+                                            Sahoot GO!
+                                        </div>
+                                        <div className="text-white font-serif mt-2">
+                                            Sahoot! is a game-based learning platform, used as educational technology and most importantly for FUN!. This app provide you tool to make a quiz with multiple choice or audio as an input. It uses a quiz-style teaching where a user answers questions in a series and competes with other users on the same quiz. With Sahoot!, player can learn new thing while having fun.
                                         </div>
                                         <div>
-                                            {/* <ReactPlayer className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" url='https://www.youtube-nocookie.com/embed/uaXYjCzPpzs' /> */}
-                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            <div>
+                                                <button onClick={toLogin} className="bg-[#1d54b9] w-44  rounded-lg text-white hover:text-[#1d54b9] hover:bg-[#ffffff] px-12 py-1 mt-5 m-2 text-2xl text-bold uppercase">Login</button>
+                                            </div>
+                                            <div>
+                                                <button onClick={toJoin} className="bg-[#1d54b9] w-44  rounded-lg text-white hover:text-[#1d54b9] hover:bg-[#ffffff] px-12 py-1 mt-1 m-2 text-2xl text-bold uppercase">Join</button>
+                                            </div>
+                                            <div>
+                                                <GoogleLogin
+                                                    clientId={"242292821855-irao4vnt2skrbe2581024tm7ruk8cq8l.apps.googleusercontent.com"}
+                                                    onSuccess={CALLBACK}
+                                                    onFailure={CALLBACK}
+                                                    cookiePolicy={'single_host_origin'}
+                                                    className="rounded-full"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
+                                    <div>
+                                        {/* <ReactPlayer className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" url='https://www.youtube-nocookie.com/embed/uaXYjCzPpzs' /> */}
+                                        <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                    </div>
+                                </div>
                                 {/* </>
                                 // : 
                                 <> */}
-                                    <div className="grid grid-cols-2">
-                                        {/* <div className="px-10">
+                                <div className="grid grid-cols-2">
+                                    {/* <div className="px-10">
                                             <div className="font-black m-2 text-white text-5xl proportional-nums uppercase">
                                                 Sahoot GO!
                                             </div>
@@ -137,31 +148,31 @@ export default function Home() {
                                         </div>
                                         <div>
                                             <ReactPlayer className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" url='https://www.youtube-nocookie.com/embed/uaXYjCzPpzs' />
-                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                         </div> */}
-                                    </div>
-                                </>
+                                </div>
+                            </>
                         }
                     </div>
                 </div>
             </div >
             {
-              // (localStorage.access_token)
-                    // ? 
-                    <>
-                        {/* looking */}
-                        {/* <div className="flex flex-col py-10">
+                // (localStorage.access_token)
+                // ? 
+                <>
+                    {/* looking */}
+                    {/* <div className="flex flex-col py-10">
                             <div className="flex flex-col items-center">
                                 <div className="text-3xl capitalize font-semibold m-2 mmd:text-2xl">Looking for your Quiz ?</div>
                                 <div className="text-xl font-light m-2">Start your Quiz or</div>
                                 <button onClick={toCreate} className="text-2xl font-semibold m-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white rounded-full uppercase py-1 px-10">Create</button>
                             </div>
                         </div> */}
-                        {/* card quiz */}
-                        <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
-                            <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
-                                <div>
-                                    {/* <div className="flex flex-wrap">
+                    {/* card quiz */}
+                    <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
+                        <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
+                            <div>
+                                {/* <div className="flex flex-wrap">
                                         {
                                             quizzes.Quizzes.map((e, i) => {
                                                 return (
@@ -172,12 +183,12 @@ export default function Home() {
                                             })
                                         }
                                     </div> */}
-                                </div>
                             </div>
                         </div>
-                    </>
-                    // : 
-                    // <></>
+                    </div>
+                </>
+                // : 
+                // <></>
             }
 
             {/* card home */}
@@ -324,7 +335,7 @@ export default function Home() {
                                         </div>
                                         <div>
                                             {/* <ReactPlayer className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" url='https://www.youtube-nocookie.com/embed/uaXYjCzPpzs' /> */}
-                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                         </div>
                                     </div>
                                 </>
@@ -346,7 +357,7 @@ export default function Home() {
                                         </div>
                                         <div>
                                             {/* <ReactPlayer className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" url='https://www.youtube-nocookie.com/embed/uaXYjCzPpzs' /> */}
-                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            <iframe className="w-[500px] h-[250px] mmd:w-[300px] mmd:[150px] mmd:m-3" src="https://www.youtube-nocookie.com/embed/uaXYjCzPpzs" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                         </div>
                                     </div>
                                 </>
@@ -355,7 +366,7 @@ export default function Home() {
                 </div>
             </div >
             {
-              (localStorage.access_token)
+                (localStorage.access_token)
                     ? <>
                         {/* looking */}
                         <div className="flex flex-col py-10">
@@ -366,7 +377,7 @@ export default function Home() {
                             </div>
                         </div>
                         {/* card quiz */}
-                        <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
+                        <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 bg-[#ffffff] mb-10">
                             <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
                                 <div>
                                     <div className="flex flex-wrap">
@@ -445,7 +456,7 @@ export default function Home() {
                     <div className="text-3xl capitalize font-semibold m-2 mmd:text-2xl">How does Sahoot! work?</div>
                     {/* commerce slide cards */}
                     <div style={{ backgroundColor: '#fff8f4' }} className="h-full">
-                        <div className="container mx-auto  lg:px-20">
+                        <div className="container mx-auto lg:px-20">
                             <div className="grid grid-cols-3 h-full pb-40">
                                 <div className="border-r border-gray-300 mx-3 lg:pl-20">
                                     <div className=" py-10 pb-3 mt-5 h-5/6 bg-red-100 group hover:bg-red-200 cursor-pointer transition ease-out duration-300">
