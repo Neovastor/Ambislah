@@ -19,7 +19,8 @@ export default function Collections({ db = null }) {
 
 
     async function handleOnSubmit(e) {
-        e.preventDefault();
+      console.log('masuk tombol')
+        // e.preventDefault();
         let roomkey = "";
         // await setId(Quiz.dataQuizzes._id)
         // console.log(id, 'ini id??????????/');

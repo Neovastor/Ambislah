@@ -48,7 +48,7 @@ function App() {
         <Route exact path="/collections/updatequestion"> <UpdateQuestions /> </Route>
         <Route exact path="/collections/update"> <UpdateQuiz /> </Route>
         <Route exact path="/waitingroom"> <WaitingRoom /> </Route>
-        <Route exact path="/collections"> <Collections /> </Route>
+        <Route exact path="/collections"> <Collections db={db}/> </Route>
         <Route exact path="/login"> <Login /> </Route>
         <Route exact path="/register"> <Register /> </Route>
         <Route exact path="/report"> <Report /> </Route>

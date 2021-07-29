@@ -34,56 +34,57 @@ function Leaderboard({ db, idparams }) {
   }, []);
 
   function finishHandler(e) {
-    db.collection("quizzes").onSnapshot(async (querySnapshot) => {
-      const data = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-      }));
+    history.push("/");
+    // db.collection("quizzes").onSnapshot(async (querySnapshot) => {
+    //   const data = querySnapshot.docs.map((doc) => ({
+    //     ...doc.data(),
+    //   }));
 
-      const choosenQuiz = data.find(({ roomkey }) => +roomkey === +idparams);
+    //   const choosenQuiz = data.find(({ roomkey }) => +roomkey === +idparams);
 
-      let payload = {
-        playersCount: livegamesData.players.length,
-        date: new Date(),
-        players: livegamesData.leaderboard,
-        quizTitle: choosenQuiz.title,
-        quizId: choosenQuiz.id,
-      };
-      console.log(payload);
-      //Kirim PAYLOAD
-      await addReport({
-        variables: {
-          input: payload,
-          access_token: localStorage.access_token
-        }
-      })
-      //pindah halaman
-      history.push("/");
+    //   let payload = {
+    //     playersCount: livegamesData.players.length,
+    //     date: new Date(),
+    //     players: livegamesData.leaderboard,
+    //     quizTitle: choosenQuiz.title,
+    //     quizId: choosenQuiz.id,
+    //   };
+    //   console.log(payload);
+    //   //Kirim PAYLOAD
+    //   await addReport({
+    //     variables: {
+    //       input: payload,
+    //       access_token: localStorage.access_token
+    //     }
+    //   })
+    //   //pindah halaman
+    //   history.push("/");
 
-      // Hapus dari data base
-      // setTimeout(function () {
-      //   livegamesRef.delete();
+    //   // Hapus dari data base
+    //   // setTimeout(function () {
+    //   //   livegamesRef.delete();
 
-      //   const deletePlayers = db
-      //     .collection("players")
-      //     .where("idroom", "==", idparams);
+    //   //   const deletePlayers = db
+    //   //     .collection("players")
+    //   //     .where("idroom", "==", idparams);
 
-      //   deletePlayers.get().then((querySnapshot) => {
-      //     querySnapshot.forEach((doc) => {
-      //       doc.ref.delete();
-      //     });
-      //   });
+    //   //   deletePlayers.get().then((querySnapshot) => {
+    //   //     querySnapshot.forEach((doc) => {
+    //   //       doc.ref.delete();
+    //   //     });
+    //   //   });
 
-      //   const deleteQuizzes = db
-      //     .collection("quizzes")
-      //     .where("roomkey", "==", idparams);
+    //   //   const deleteQuizzes = db
+    //   //     .collection("quizzes")
+    //   //     .where("roomkey", "==", idparams);
 
-      //   deleteQuizzes.get().then((querySnapshot) => {
-      //     querySnapshot.forEach((doc) => {
-      //       doc.ref.delete();
-      //     });
-      //   });
-      // }, 3000);
-    });
+    //   //   deleteQuizzes.get().then((querySnapshot) => {
+    //   //     querySnapshot.forEach((doc) => {
+    //   //       doc.ref.delete();
+    //   //     });
+    //   //   });
+    //   // }, 3000);
+    // });
   }
 
   return (
@@ -131,7 +132,7 @@ function Leaderboard({ db, idparams }) {
           </div>
         </>
         ) : null}
-        <div className="flex justify-end m-6">
+        <div className="flex justify-center m-6">
           <button className="px-8 rounded-lg bg-[#053742] font-bold p-4 uppercase hover:border-[#053742] hover:bg-[#053742] text-white border-2" onClick={(e) => finishHandler(e)}>
             Finish
           </button>
