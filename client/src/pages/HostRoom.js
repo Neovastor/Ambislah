@@ -94,42 +94,42 @@ function WaitingRoom({ db }) {
     return peer;
   }
 
-  useEffect(() => {
-    socketRef.current = io.connect("/");
-    navigator.mediaDevices
-      .getUserMedia({ video: videoConstraints, audio: true })
-      .then((stream) => {
-        userVideo.current.srcObject = stream;
-        socketRef.current.emit("join room", idparams);
-        socketRef.current.on("all users", (users) => {
-          const peers = [];
-          users.forEach((userID) => {
-            const peer = createPeer(userID, socketRef.current.id, stream);
-            peersRef.current.push({
-              peerID: userID,
-              peer,
-            });
-            peers.push(peer);
-          });
-          setPeers(peers);
-        });
+  // useEffect(() => {
+  //   socketRef.current = io.connect("/");
+  //   navigator.mediaDevices
+  //     .getUserMedia({ video: videoConstraints, audio: true })
+  //     .then((stream) => {
+  //       userVideo.current.srcObject = stream;
+  //       socketRef.current.emit("join room", idparams);
+  //       socketRef.current.on("all users", (users) => {
+  //         const peers = [];
+  //         users.forEach((userID) => {
+  //           const peer = createPeer(userID, socketRef.current.id, stream);
+  //           peersRef.current.push({
+  //             peerID: userID,
+  //             peer,
+  //           });
+  //           peers.push(peer);
+  //         });
+  //         setPeers(peers);
+  //       });
 
-        socketRef.current.on("user joined", (payload) => {
-          const peer = addPeer(payload.signal, payload.callerID, stream);
-          peersRef.current.push({
-            peerID: payload.callerID,
-            peer,
-          });
+  //       socketRef.current.on("user joined", (payload) => {
+  //         const peer = addPeer(payload.signal, payload.callerID, stream);
+  //         peersRef.current.push({
+  //           peerID: payload.callerID,
+  //           peer,
+  //         });
 
-          setPeers((users) => [...users, peer]);
-        });
+  //         setPeers((users) => [...users, peer]);
+  //       });
 
-        socketRef.current.on("receiving returned signal", (payload) => {
-          const item = peersRef.current.find((p) => p.peerID === payload.id);
-          item.peer.signal(payload.signal);
-        });
-      });
-  }, []);
+  //       socketRef.current.on("receiving returned signal", (payload) => {
+  //         const item = peersRef.current.find((p) => p.peerID === payload.id);
+  //         item.peer.signal(payload.signal);
+  //       });
+  //     });
+  // }, []);
 
   useEffect(() => {
     livegamesRef
@@ -382,14 +382,14 @@ function WaitingRoom({ db }) {
             <div className="overflow-x-auto">
               <div className="min-w-screen min-h-[777px] bg-transparent flex items-center justify-center font-sans overflow-hidden">
                 <div className="w-full pt-5">
-                  <div className="bg-transparent shadow-md rounded-lg my-6 object-contain">
-                    {/* <Container> */}
-                    <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                    {peers.map((peer, index) => {
-                      return <Video key={index} peer={peer} />;
-                    })}
-                    {/* </Container> */}
-                  </div>
+                              {/* <div className="bg-transparent shadow-md rounded-lg my-6 object-contain">
+                                <Container>
+                                <StyledVideo muted ref={userVideo} autoPlay playsInline />
+                                {peers.map((peer, index) => {
+                                  return <Video key={index} peer={peer} />;
+                                })}
+                                </Container>
+                              </div> */}
                 </div>
               </div>
             </div>
