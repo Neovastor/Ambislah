@@ -2,11 +2,11 @@ const axios = require('axios')
 const uri = 'http://54.166.28.112'
 
 const instanceReports = axios.create({
-    baseURL: `${uri}/reports`,
-  });
+  baseURL: `${uri}/reports`,
+});
 
 const instanceQuizzes = axios.create({
-    baseURL: `${uri}/quizzes`
+  baseURL: `${uri}/quizzes`
 })
 
 const instanceUsers = axios.create({
@@ -14,6 +14,6 @@ const instanceUsers = axios.create({
 })
 
 
-module.exports = {instanceReports, instanceQuizzes, instanceUsers}
+module.exports = { instanceReports, instanceQuizzes, instanceUsers }
 
 
