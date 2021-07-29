@@ -65,12 +65,13 @@ function App() {
 
         <Route exact path="/join">
           <Join db={db}></Join>
+          {/* <h1>ini halaman join</h1> */}
         </Route>
 
         <Route exact path="/player/:idroom">
           <PlayerRoom db={db}></PlayerRoom>
         </Route>
-        <Route> <Home /> </Route>
+        <Route exact path="/"> <Home /> </Route>
 
       </Switch>
       <Footer></Footer>

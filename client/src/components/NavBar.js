@@ -21,7 +21,7 @@ export default function NavBar() {
   }
 
   useEffect(() => {
-    history.push('/')
+    // history.push('/')
   }, [localStorage.access_token])
 
   return (

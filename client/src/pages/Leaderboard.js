@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useMutation } from '@apollo/client'
 import { ADD_REPORT } from "../graphql/queiries";
+
 function Leaderboard({ db, idparams }) {
   const [addReport] = useMutation(ADD_REPORT)
   const [leaderboard, setLeaderboard] = useState([]);
@@ -25,7 +26,7 @@ function Leaderboard({ db, idparams }) {
           }
           return 0;
         });
-      }else {
+      } else {
         sortedLeaderboard = doc.data().leaderboard;
       }
       setLeaderboard(sortedLeaderboard);
@@ -33,7 +34,7 @@ function Leaderboard({ db, idparams }) {
   }, []);
 
   function finishHandler(e) {
-    db.collection("quizzes").onSnapshot( async (querySnapshot) => {
+    db.collection("quizzes").onSnapshot(async (querySnapshot) => {
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
@@ -137,7 +138,7 @@ function Leaderboard({ db, idparams }) {
           </button>
         </div>
       </div>
- 
+
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CardQuestions from '../components/CardQuestions'
 import { collectionVar } from '../graphql/vars'
 import { useReactiveVar, useMutation } from '@apollo/client';
@@ -12,18 +12,17 @@ export default function Collections({ db = null }) {
     const [removeMovies] = useMutation(DELETE_QUIZZEZ)
     const Quiz = useReactiveVar(collectionVar)
     console.log(Quiz, '>>>>>>>>>>>>>>>>>');
-    const [id, setId] = useState("");
+    console.log(Quiz.dataQuizzes._id, 'iddddddd');
+    // const [id, setId] = useState("");
     const history = useHistory();
 
-    // const toWaitingRoom = () => {
-    //     history.push("/waitingroom")
-    // }
 
-    function handleOnSubmit(e) {
+    async function handleOnSubmit(e) {
         e.preventDefault();
         let roomkey = "";
-        setId(Quiz.dataQuizzes._id)
-        fetch(`http://54.166.28.112/quizzes/${id}`, {
+        // await setId(Quiz.dataQuizzes._id)
+        // console.log(id, 'ini id??????????/');
+        fetch(`http://54.166.28.112/quizzes/${Quiz.dataQuizzes._id}`, {
             headers: {
                 access_token: localStorage.access_token
             }
