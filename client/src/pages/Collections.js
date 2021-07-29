@@ -53,11 +53,11 @@ export default function Collections() {
             <div className="h-20 bg-gradient-to-t from-[#ffc353] to-[#ffc353] ">
 
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 bg-[#ffc353]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 pb-10 bg-[#ffc353]">
                 {
                     Quiz.dataQuizzes.questions.map((e, i) => {
                         return (
-                            <div key={i} className="flex flex-col items-center justify-start bg-[#d49f3c]  p-4 shadow rounded-lg m-2">
+                            <div key={i} className="flex flex-col items-center justify-start bg-[#28527A]  shadow rounded-lg">
                                 <CardQuestions dataQuizzes={e} index={i} />
                             </div>
                         )
