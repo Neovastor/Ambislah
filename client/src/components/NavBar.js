@@ -1,10 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { loginVar } from '../graphql/vars'
 
 export default function NavBar() {
+  
   const isLogin = useReactiveVar(loginVar)
   const access_token = localStorage.access_token
   const history = useHistory()
@@ -20,6 +21,11 @@ export default function NavBar() {
       timer: 1500,
     });
   }
+
+  // useEffect(() => {
+  //   history.push('/')
+  // }, [localStorage.access_token])
+  
   return (
     <header className="fixed w-full">
       <div className="lg:px-16 px-6 bg-[#000000] flex flex-wrap items-center lg:py-0 py-2 bg-opacity-70">
@@ -35,10 +41,14 @@ export default function NavBar() {
           <nav>
             <ul className="sm:flex items-center justify-between text-base text-gray-700 pt-4 sm:pt-0">
               <li><NavLink exact to={"/"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Home</NavLink></li>
+              {
+                localStorage.access_token && <>
+                <li><NavLink exact to={"/report"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Report</NavLink></li>
+                {/* <li><NavLink exact to={"/room"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >webRTC</NavLink></li> */}
+                <li><NavLink exact to={"/create"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Create</NavLink></li>
+                </>
+              }
               {/* <li><NavLink exact to={"/"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Library</NavLink></li> */}
-              <li><NavLink exact to={"/report"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Report</NavLink></li>
-              {/* <li><NavLink exact to={"/room"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >webRTC</NavLink></li> */}
-              <li><NavLink exact to={"/create"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Create</NavLink></li>
               {
                 (!isLogin && !access_token)
                   ? <li><NavLink exact to={"/login"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Login</NavLink></li>
