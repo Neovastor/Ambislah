@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation, Prompt, useParams } from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
 // import WaitingRoomPlayer from "../components/WaitingRoomPlayer";
@@ -32,6 +32,7 @@ const videoConstraints = {
 };
 
 function PlayerRoom({ db }) {
+  const history = useHistory()
   const location = useLocation();
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
@@ -282,6 +283,10 @@ function PlayerRoom({ db }) {
     }
   }
 
+  const toJoin = () => {
+    history.push('/join')
+  }
+
   if (status === "waiting") {
     return (
       <div className="bg-[#9e2727] min-h-screen mmd:h-full flex flex-auto justify-center items-end">
@@ -342,6 +347,11 @@ function PlayerRoom({ db }) {
               <h2 className="text-center text-white font-extrabold text-2xl">Your Score</h2>
               <h2 className="text-center text-white font-semibold text-xl"> {playerTotalScore} </h2>
             </div>
+          </div>
+          <div className="flex justify-end">
+            <button onClick={toJoin} className="px-8 py-2 bg-[#E87A2A] rounded-lg text-white">
+              Back Join
+            </button>
           </div>
         </div>
       </div>

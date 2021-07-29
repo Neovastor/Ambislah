@@ -755,6 +755,9 @@ video {
 .ml-2 {
 	margin-left: 0.5rem;
 }
+.mt-1 {
+	margin-top: 0.25rem;
+}
 .mt-10 {
 	margin-top: 2.5rem;
 }
@@ -904,6 +907,9 @@ video {
 }
 .w-\[90\%\] {
 	width: 90%;
+}
+.w-44 {
+	width: 11rem;
 }
 .w-\[500px\] {
 	width: 500px;
