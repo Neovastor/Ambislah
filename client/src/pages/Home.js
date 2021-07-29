@@ -11,6 +11,7 @@ import { loginVar } from "../graphql/vars";
 // import { useMutation, useReactiveVar } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { GOOGLE_LOGIN } from '../graphql/queiries/userQueries';
+import Loading from '../components/Loading'
 // import ReactPlayer from 'react-player'
 
 export default function Home() {
@@ -78,7 +79,9 @@ export default function Home() {
         history.push('/create')
     }
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return (
+        <Loading />
+    );
     if (error) return (
         <>
             {/* bg-[#ecb744]  */}
