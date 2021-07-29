@@ -1,21 +1,68 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CardQuestions from '../components/CardQuestions'
 import { collectionVar } from '../graphql/vars'
 import { useReactiveVar, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { DELETE_QUIZZEZ } from '../graphql/queiries'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faUser } from '@fortawesome/free-solid-svg-icons';
+// import firebase from "firebase/app";
 
-
-export default function Collections() {
+export default function Collections({ db = null }) {
     const [removeMovies] = useMutation(DELETE_QUIZZEZ)
     const Quiz = useReactiveVar(collectionVar)
-    const history = useHistory()
-    console.log(Quiz);
+    console.log(Quiz, '>>>>>>>>>>>>>>>>>');
+    const [id, setId] = useState("");
+    const history = useHistory();
 
-    const toWaitingRoom = () => {
-        history.push("/waitingroom")
+    // const toWaitingRoom = () => {
+    //     history.push("/waitingroom")
+    // }
+
+    function handleOnSubmit(e) {
+        e.preventDefault();
+        let roomkey = "";
+        setId(Quiz.dataQuizzes._id)
+        fetch(`http://54.166.28.112/quizzes/${id}`, {
+            headers: {
+                access_token: localStorage.access_token
+            }
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((myJson) => {
+                // console.log(myJson);
+
+                if (db) {
+                    for (let i = 0; i < 6; i++) {
+                        roomkey = roomkey + String(Math.floor(Math.random() * 10));
+                    }
+
+                    const livegamesRef = db.collection("livegames").doc(roomkey);
+
+                    db.collection("quizzes").add({
+                        ...myJson,
+                        roomkey,
+                    });
+
+                    livegamesRef
+                        .set({
+                            status: "waiting", // live / waiting / done
+                            indexSoal: 0,
+                            leaderboard: [],
+                        })
+                        .then(() => {
+                            history.push(`/waitingroom/${roomkey}`);
+                        })
+                        .catch((error) => {
+                            console.error("Error writing document: ", error);
+                        });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     const destory = () => {
@@ -46,7 +93,7 @@ export default function Collections() {
                     <div className="ml-4 mt-2">
                         <button onClick={updated} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg mr-2">Update</button>
                         <button onClick={destory} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg ml-2">Delete</button>
-                        <button onClick={toWaitingRoom} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-6 py-1 rounded-lg mt-2">Create Room</button>
+                        <button onClick={(e) => handleOnSubmit(e)} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-6 py-1 rounded-lg mt-2">Create Room</button>
                     </div>
                 </div>
             </div>

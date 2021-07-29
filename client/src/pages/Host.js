@@ -21,7 +21,7 @@ const Channel = ({ db = null }) => {
         return response.json();
       })
       .then((myJson) => {
-        console.log(myJson);
+        // console.log(myJson);
 
         if (db) {
           for (let i = 0; i < 6; i++) {
@@ -58,14 +58,14 @@ const Channel = ({ db = null }) => {
     setId(e.target.value);
   }
 
-  function onChangeChallenge(e){
+  function onChangeChallenge(e) {
     setDeadline(e.target.value)
   }
 
-  function handleChallenge(e){
+  function handleChallenge(e) {
     e.preventDefault();
     console.log(deadline);
-    console.log(typeof(deadline));
+    console.log(typeof (deadline));
   }
 
   return (
@@ -92,9 +92,9 @@ const Channel = ({ db = null }) => {
       <div>
         <h1>Challenge</h1>
         <form onSubmit={(e) => handleChallenge(e)}>
-          <input 
-          onChange={(e) => onChangeChallenge(e)}
-          type="datetime-local" placeholder="date" />
+          <input
+            onChange={(e) => onChangeChallenge(e)}
+            type="datetime-local" placeholder="date" />
           <button type="submit">Schedule</button>
 
         </form>
