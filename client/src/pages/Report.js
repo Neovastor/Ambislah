@@ -5,6 +5,7 @@ import { useQuery, useReactiveVar, useMutation } from '@apollo/client'
 import Modal from '../components/Modal'
 import { modalVar } from '../graphql/vars'
 import {DELETE_REPORT, GET_ALL_REPORTS} from '../graphql/queiries'
+import Swal from 'sweetalert2'
 
 export default function Report() {
     const {loading, error, data: dataReports} = useQuery(GET_ALL_REPORTS, {
@@ -17,8 +18,6 @@ export default function Report() {
     const showModal = () => {
         modalVar(true)
     }
-
-
     const destroy = async (id) => {
       try {
         console.log('destroy data');
