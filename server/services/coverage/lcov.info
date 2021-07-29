@@ -18,7 +18,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:config\mongodb.js
+SF:config/mongodb.js
 FN:7,connect
 FN:21,getDatabase
 FNF:2
@@ -46,7 +46,7 @@ BRF:2
 BRH:1
 end_of_record
 TN:
-SF:controllers\authController.js
+SF:controllers/authController.js
 FN:15,(anonymous_0)
 FN:34,(anonymous_1)
 FN:39,(anonymous_2)
@@ -125,7 +125,7 @@ BRF:12
 BRH:8
 end_of_record
 TN:
-SF:controllers\quizController.js
+SF:controllers/quizController.js
 FN:4,(anonymous_0)
 FN:6,(anonymous_1)
 FN:9,(anonymous_2)
@@ -218,7 +218,7 @@ BRF:16
 BRH:16
 end_of_record
 TN:
-SF:controllers\reportController.js
+SF:controllers/reportController.js
 FN:4,(anonymous_0)
 FN:15,(anonymous_1)
 FN:19,(anonymous_2)
@@ -291,7 +291,7 @@ BRF:14
 BRH:13
 end_of_record
 TN:
-SF:helpers\bcrypt.js
+SF:helpers/bcrypt.js
 FN:3,(anonymous_0)
 FN:7,(anonymous_1)
 FNF:2
@@ -310,7 +310,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:helpers\jwt.js
+SF:helpers/jwt.js
 FN:3,(anonymous_0)
 FN:6,(anonymous_1)
 FNF:2
@@ -329,7 +329,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:middlewares\authentification.js
+SF:middlewares/authentification.js
 FN:4,(anonymous_0)
 FN:17,(anonymous_1)
 FN:22,(anonymous_2)
@@ -364,7 +364,7 @@ BRF:4
 BRH:3
 end_of_record
 TN:
-SF:middlewares\errorHandler.js
+SF:middlewares/errorHandler.js
 FN:1,errorHandler
 FN:7,(anonymous_1)
 FN:12,(anonymous_2)
@@ -404,7 +404,7 @@ BRF:6
 BRH:6
 end_of_record
 TN:
-SF:models\kahoot.js
+SF:models/kahoot.js
 FN:5,(anonymous_0)
 FN:8,(anonymous_1)
 FN:13,(anonymous_2)
@@ -430,7 +430,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:models\quizModel.js
+SF:models/quizModel.js
 FN:4,(anonymous_0)
 FN:10,(anonymous_1)
 FN:21,(anonymous_2)
@@ -519,7 +519,7 @@ BRF:20
 BRH:20
 end_of_record
 TN:
-SF:models\reportModel.js
+SF:models/reportModel.js
 FN:4,(anonymous_0)
 FN:8,(anonymous_1)
 FN:16,(anonymous_2)
@@ -556,7 +556,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:routes\index.js
+SF:routes/index.js
 FN:9,(anonymous_0)
 FNF:1
 FNH:0
@@ -584,7 +584,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:routes\quizRoutes.js
+SF:routes/quizRoutes.js
 FNF:0
 FNH:0
 DA:1,4
@@ -602,7 +602,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:routes\reportRoutes.js
+SF:routes/reportRoutes.js
 FNF:0
 FNH:0
 DA:1,4
@@ -618,7 +618,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:test\testing.helpers.js
+SF:test/testing.helpers.js
 FN:1,dummyReports
 FN:20,isValidDate
 FN:22,(anonymous_2)
