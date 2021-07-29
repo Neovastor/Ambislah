@@ -69,22 +69,22 @@ export default function FormQuestions() {
 
   const changeImageHandler = async (e) => {
     // console.log(e.target.files);
-    
+
     setSelectedFile(e.target.files[0]);
     // if (selectedFile !== null) {
-      try {
-        e.preventDefault();
+    try {
+      e.preventDefault();
 
-        const form = new FormData();
-        form.append("file", e.target.files[0]);
-        form.append("fileName", "sahoot");
+      const form = new FormData();
+      form.append("file", e.target.files[0]);
+      form.append("fileName", "sahoot");
 
-        const { data } = await uploadImage.post("", form);
-        setUploaded(data.url);
-        // console.log(data);
-      } catch (err) {
-        console.log(err);
-      }
+      const { data } = await uploadImage.post("", form);
+      setUploaded(data.url);
+      // console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
     // }
   };
 
@@ -130,7 +130,7 @@ export default function FormQuestions() {
       const data = createdQuizVar();
       // console.log(data, 'ini finish data');
       console.log(data, "Create quiz var");
-  
+
       await addQuizzes({
         variables: {
           input: {
@@ -205,8 +205,8 @@ export default function FormQuestions() {
                       </p>
                     </div>
                   )}
-                  
-                  <input                    
+
+                  <input
                     onChange={(e) => changeImageHandler(e)}
                     type="file"
                     className="hidden"
@@ -379,64 +379,4 @@ export default function FormQuestions() {
       </div>
     </>
   );
-}
-
-{
-  /* <div className="overflow-x-auto pt-14">
-    <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-        <div className="w-full lg:w-5/6 max-w-screen-2xl pt-5">
-            <div className="bg-white shadow-md rounded-lg my-6 min-h-screen">
-                <div className="flex justify-center">
-                    <div className="flex flex-col">
-                        <label>input your question</label>
-                        <input {...register('inputQuestion')} type="text" className="text px-72 py-8 bg-red-300 focus:ring-2 focus:ring-blue-500 focus:outline-none rounded-xl" placeholder="input your question" />
-                    </div>
-                </div>
-                <div className="flex justify-center">
-                    <div className="flex flex-col mx-60 my-60">
-                        <button onClick={handleSubmit(typeSound)} className={type1 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[40px] my-4' : 'px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4'} >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div className="flex flex-col mx-60 my-60">
-                        <button onClick={handleSubmit(typeText)} className={type2 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[40px] my-4' : 'px-6 py-4 rounded-lg bg-red-500 min-w-[40px] my-4'}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <form onSubmit={handleSubmit(submitAnswer)}>
-                    <div className="flex justify-center">
-                        <div className="flex flex-col mx-60">
-                            <div className="flex flex-col">
-                                <label>input your First Answer</label>
-                                <input {...register('input1')} onClick={handleSubmit(submit1)} className={status1 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4'} placeholder="input first answer" />
-                            </div>
-                            <div className="flex flex-col">
-                                <label>input your Second Answer</label>
-                                <input {...register('input2')} onClick={handleSubmit(submit2)} className={status2 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4'} placeholder="input second answer" />
-                            </div>
-                        </div>
-                        <div className="flex flex-col mx-60">
-                            <div className="flex flex-col">
-                                <label>input your Third Answer</label>
-                                <input {...register('input3')} onClick={handleSubmit(submit3)} className={status3 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4'} placeholder="input third answer" />
-                            </div>
-                            <div className="flex flex-col">
-                                <label>input your Fourth Answer</label>
-                                <input {...register('input4')} onClick={handleSubmit(submit4)} className={status4 === true ? 'bg-green-500 px-6 py-4 rounded-lg min-w-[400px] my-4' : 'bg-red-300 px-6 py-4 rounded-lg min-w-[400px] my-4'} placeholder="input fourth answer" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex justify-center">
-                        <button className="px-6 py-2 bg-red-300 rounded-xl">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> */
 }
