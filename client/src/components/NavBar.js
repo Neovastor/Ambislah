@@ -1,11 +1,10 @@
-import { useReactiveVar } from '@apollo/client'
 import React, { useEffect } from 'react'
+import { useReactiveVar } from '@apollo/client'
 import { NavLink, useHistory } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { loginVar } from '../graphql/vars'
 
 export default function NavBar() {
-  
   const isLogin = useReactiveVar(loginVar)
   const access_token = localStorage.access_token
   const history = useHistory()
@@ -23,9 +22,9 @@ export default function NavBar() {
   }
 
   // useEffect(() => {
-  //   history.push('/')
+    // history.push('/')
   // }, [localStorage.access_token])
-  
+
   return (
     <header className="fixed w-full">
       <div className="lg:px-16 px-6 bg-[#000000] flex flex-wrap items-center lg:py-0 py-2 bg-opacity-70">
@@ -43,9 +42,9 @@ export default function NavBar() {
               <li><NavLink exact to={"/"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Home</NavLink></li>
               {
                 localStorage.access_token && <>
-                <li><NavLink exact to={"/report"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Report</NavLink></li>
-                {/* <li><NavLink exact to={"/room"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >webRTC</NavLink></li> */}
-                <li><NavLink exact to={"/create"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Create</NavLink></li>
+                  <li><NavLink exact to={"/report"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Report</NavLink></li>
+                  {/* <li><NavLink exact to={"/room"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >webRTC</NavLink></li> */}
+                  <li><NavLink exact to={"/create"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Create</NavLink></li>
                 </>
               }
               {/* <li><NavLink exact to={"/"} className="sm:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-white text-[#ffffff]  font-bold" >Library</NavLink></li> */}
