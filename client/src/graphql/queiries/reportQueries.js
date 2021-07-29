@@ -3,17 +3,16 @@ import {gql} from '@apollo/client'
 export const ADD_REPORT = gql `
 mutation Mutation($input: InputReport, $access_token: String) {
   addReports(input: $input, access_token: $access_token) {
-      getReportsAll {
-      _id
-      userId
-      quizId
-      date
-      playersCount
-      players {
-        name
-        score
-      }
+    _id
+    userId
+    quizId
+    quizTitle
+    playersCount
+    players {
+      name
+      score
     }
+    createdAt
   }
 }
 `

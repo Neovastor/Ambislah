@@ -33,32 +33,51 @@ function Leaderboard({ db, idparams }) {
     });
   }, []);
 
-  function finishHandler(e) {
-    history.push("/");
-    // db.collection("quizzes").onSnapshot(async (querySnapshot) => {
-    //   const data = querySnapshot.docs.map((doc) => ({
-    //     ...doc.data(),
-    //   }));
+  async function finishHandler(e) {
+    try {
+      history.push("/");
 
-    //   const choosenQuiz = data.find(({ roomkey }) => +roomkey === +idparams);
+      await db.collection("quizzes").onSnapshot(async(querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+        }));
+  
+        const choosenQuiz = data.find(({ roomkey }) => +roomkey === +idparams);
 
-    //   let payload = {
-    //     playersCount: livegamesData.players.length,
-    //     date: new Date(),
-    //     players: livegamesData.leaderboard,
-    //     quizTitle: choosenQuiz.title,
-    //     quizId: choosenQuiz.id,
-    //   };
-    //   console.log(payload);
-    //   //Kirim PAYLOAD
-    //   await addReport({
-    //     variables: {
-    //       input: payload,
-    //       access_token: localStorage.access_token
-    //     }
-    //   })
-    //   //pindah halaman
-    //   history.push("/");
+        // console.log(choosenQuiz);
+  
+        let payload = {
+          players: livegamesData.leaderboard,
+          quizTitle: choosenQuiz.title,
+          quizId: choosenQuiz._id
+        };
+
+        // const inputManual = {
+        //   "quizId": "610193098c1839820188d7c2",
+        //   "quizTitle": "APAYA? IDIOT 2",
+        //   "players": [
+        //     {"name": "ab", "score": 8},
+        //     {"name": "cd", "score": 7},
+        //     {"name": "ef", "score": 6},
+        //     {"name": "ef", "score": 8}
+        //   ]
+        // }
+
+        // console.log(payload);
+        //Kirim PAYLOAD
+        await addReport({
+          variables: {
+            input: payload,
+            access_token: localStorage.access_token
+          }
+        })
+        //pindah halaman
+        history.push("/");
+      })
+    }
+    catch(err) {
+      console.log(err);
+    }
 
     //   // Hapus dari data base
     //   // setTimeout(function () {
@@ -84,7 +103,7 @@ function Leaderboard({ db, idparams }) {
     //   //     });
     //   //   });
     //   // }, 3000);
-    // });
+    
   }
 
   return (
