@@ -88,7 +88,7 @@ export default function Home() {
                     <div className="flex flex-col items-center pt-20">
 
                         {
-                            (!isLogin && !access_token)
+                            (!localStorage.access_token)
                                 ? <>
 
                                     <div className="grid grid-cols-2 justify-center mmd:grid-cols-1">
@@ -147,7 +147,7 @@ export default function Home() {
                 </div>
             </div >
             {
-              (!isLogin && !access_token)
+              (localStorage.access_token)
                     ? <>
                         {/* looking */}
                         <div className="flex flex-col py-10">
