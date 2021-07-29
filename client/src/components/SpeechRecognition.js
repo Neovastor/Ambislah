@@ -23,7 +23,7 @@ export default function SpeechToText({inputVoice}) {
 
   return (
     <>
-      <div className="text-center">
+      <div className="text-center text-white font-bold text-4xl">
         <p>Microphone: {listening ? "on" : "off"}</p>
         <input
           placeholder=""
@@ -53,7 +53,7 @@ export default function SpeechToText({inputVoice}) {
             </div>
           </>
         )}
-        <button className="rounded p-2 my-2 text-center bg-white" onClick={() => inputVoice(transcript)}>submit</button>
+        <button className="rounded p-2 my-2 text-center text-xl font-bold text-black bg-white" onClick={() => inputVoice(transcript)}>submit</button>
 
         {/* <button onClick={SpeechRecognition.startListening}>Start</button>
         <button onClick={SpeechRecognition.stopListening}>Stop</button>

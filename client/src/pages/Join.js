@@ -35,7 +35,7 @@ function Join({ db }) {
             });
 
             history.push({
-              pathname: "/player",
+              pathname: `/player/${idroom}`,
               state: { idroom, playername },
             });
           }
@@ -52,7 +52,12 @@ function Join({ db }) {
   }
 
   return (
-    <div className=" flex flex-col justify-center h-screen bg-red-500 ">
+    <div className=" flex flex-col justify-center h-screen"
+    style={{
+      backgroundImage:
+        "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/quiz1.png)",
+    }}
+    >
       <div>
         <form
           className="m-4 flex justify-center "
@@ -60,13 +65,13 @@ function Join({ db }) {
         >
           
           <input
-            className="md-max:w-40 rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+            className="md-max:w-40 rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-blue-500 bg-white"
             placeholder="input pin"
             onChange={(e) => onChangeHandlerRoomkey(e)}
           />
 
           <input
-            className="md-max:w-40 p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+            className="md-max:w-40 p-4 border-t mr-0 border-b border-l text-gray-800 border-blue-500 bg-white"
             placeholder="nickname"
             onChange={(e) => onChangeHandlerPlayername(e)}
           />

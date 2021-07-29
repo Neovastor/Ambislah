@@ -1,19 +1,20 @@
 const {verifyJWT} = require('../helpers/jwt') 
-const {User} = require('../models')
+const User = require('../models/kahoot')
 
 module.exports = (req, res, next) => {
+  // console.log(req.headers.access_token);
   const token = req.headers.access_token
   if (token) {
     try {
       const payload = verifyJWT(token)
       const userInfo = {
         email: payload.email,
-        phoneNumber: payload.phoneNumber,
+        name: payload.name,
         id: payload.id
       }
-      User.findOne({
-        where: userInfo})
-        .then(user => {
+
+      User.findOne(userInfo.id)
+      .then(user => {
           if (user) {
             req.user = userInfo
             next()
@@ -21,5 +22,5 @@ module.exports = (req, res, next) => {
         .catch(err => next({code:500}))
     }
     catch(err) {next({code:401, message: [`token JWT not valid`]})}
-  } else next({code:401, message: [`please Register...., and login >>`]})
+  } else next({code:401, message: [`please Register...., and login`]})
 }
