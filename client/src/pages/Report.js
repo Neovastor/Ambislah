@@ -1,15 +1,22 @@
 import React, { useState } from 'react'
-import { useReactiveVar } from '@apollo/client'
+import { useQuery, useReactiveVar } from '@apollo/client'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Modal from '../components/Modal'
 import { modalVar } from '../graphql/vars'
+import {GET_ALL_REPORTS} from '../graphql/queiries'
 
 export default function Report() {
+    const {loading, error, data: dataReports} = useQuery(GET_ALL_REPORTS, {
+        variables: {
+            access_token: localStorage.access_token
+        }
+    })
     const openModal = useReactiveVar(modalVar)
     const showModal = () => {
         modalVar(true)
     }
+
 
     const destroy = () => {
         console.log('destroy data');
@@ -17,7 +24,19 @@ export default function Report() {
 
     return (
         <>
-            <div className="bg-[#27659e] h-screen mmd:h-full flex flex-auto justify-center items-end">
+        {/* {
+            JSON.stringify(dataReports)
+
+        } */}
+        {
+            !dataReports.getReportsAll.length 
+            ? <div>
+                <button className="bg-yellow-500 rounded-full px-6 py-4 hover:bg-yellow-700 text-lg text-white font-bold">
+                  There is no reports
+                </button>
+            </div>
+            :
+            (<div className="bg-[#27659e] h-screen mmd:h-full flex flex-auto justify-center items-end">
                 <div className="bg-[#429dda] h-[80%] w-[90%] mmd:pt-8 flex justify-center font-sans overflow-hidden">
                     <div className="w-full lg:w-5/6 pt-5">
                         {/* <div className="grid grid-cols-8 text-gray-600">
@@ -39,10 +58,11 @@ export default function Report() {
                                     </tr>
                                 </thead>
                                 <tbody className="text-gray-600 text-sm font-light">
+                                    { dataReports.getReportsAll.map((report,i) => (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100">
                                         <td className="py-3 px-6 text-left">
                                             <div className="flex items-center">
-                                                <span>Eshal Rosas</span>
+                                                <span>{report.quizTitle}</span>
                                             </div>
                                         </td>
                                         {/* <td className="py-3 px-6 text-center">
@@ -50,7 +70,7 @@ export default function Report() {
                                     </td> */}
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <div className="flex items-center">
-                                                <span className="font-medium">12/12/2020</span>
+                                                <span className="font-medium">{report.createdAt}</span>
                                             </div>
                                         </td>
 
@@ -58,7 +78,7 @@ export default function Report() {
                                         <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">Live</span>
                                     </td> */}
                                         <td className="py-3 px-6 text-center">
-                                            <span className=" py-1 px-3 rounded-full text-xs">1</span>
+                                            <span className=" py-1 px-3 rounded-full text-xs">{report.playersCount}</span>
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex item-center justify-center">
@@ -75,16 +95,19 @@ export default function Report() {
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> ))
+                                    }
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+            )}
             {
                 openModal ? <Modal /> : <></>
             }
+        
         </>
     )
 }
