@@ -174,12 +174,12 @@ export default function FormQuestions() {
               placeholder="Start typing your question"
               className="w-full px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-[#147536]"
             />
-            <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
+            {/* <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
               <FontAwesomeIcon size="2x" icon={faVolumeUp}></FontAwesomeIcon>
-            </button>
+            </button> */}
             <div className="grid grid-cols-1 mt-5 mx-7">
               <div className="flex items-center justify-center w-full ">
-                <label className="flex flex-col border-4 border-dashed w-96 h-32 hover:bg-white border-[#ffffff] hover:border-[#053742] group">
+                <label className="flex flex-col w-32 hover:border-[#053742] group m-10">
                   {uploaded ? (
                     <div className="flex flex-col items-center justify-center h-24 w-full">
                       <img src={uploaded} alt="" srcSet="" />

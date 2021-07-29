@@ -367,7 +367,7 @@ export default function Home() {
                             </div>
                         </div>
                         {/* card quiz */}
-                        <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
+                        <div className="grid md:grid-cols-3 gap-4 mmd:grid-cols-3 bg-[#ffffff] mb-10">
                             <div className="box-border rounded-xl h-auto w-full p-4 col-span-4">
                                 <div>
                                     <div className="flex flex-wrap">
