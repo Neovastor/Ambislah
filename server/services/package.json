@@ -13,12 +13,7 @@
     "google-auth-library": "^7.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.0.1",
-<<<<<<< HEAD
-    "multer": "^1.4.2",
-    "node-cron": "^3.0.0"
-=======
     "multer": "^1.4.2"
->>>>>>> testing
   },
   "devDependencies": {
     "jest": "^27.0.6",
@@ -26,7 +21,7 @@
   },
   "scripts": {
     "start": "nodemon ./bin/http",
-    "test": "jest --detectOpenHandles --forceExit --runInBand"
+    "test": "jest --detectOpenHandles --forceExit --runInBand --coverage"
   },
   "keywords": [],
   "author": "",

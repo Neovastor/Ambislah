@@ -4,6 +4,14 @@ const {generateJWT} = require('../helpers/jwt')
 const {OAuth2Client} = require('google-auth-library')
 
 class AuthController {
+  // static async findAll(req, res) {
+  //   try {
+  //     const kahoot = await Kahoot.findAll()
+  //     res.json(kahoot)
+  //   } catch (err) {
+  //     err.response.data ? res.status(400).json({ msg: err.response.data }) : res.status(500).json({ error: err })
+  //   }
+  // }
   static async register(req, res, next) {
     try {
       const { email, password } = req.body

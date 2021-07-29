@@ -21,7 +21,7 @@ export default function InputPin() {
             </div>
             <div className="m-4 flex justify-center ">
                 <GoogleLogin className="md-max:w-40 rounded-lg"
-                    clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
+                    clientId={"242292821855-irao4vnt2skrbe2581024tm7ruk8cq8l.apps.googleusercontent.com"}
                     buttonText="Login"
                     onSuccess={CALLBACK}
                     onFailure={CALLBACK}

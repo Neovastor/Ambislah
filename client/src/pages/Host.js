@@ -5,13 +5,18 @@ import { useHistory } from "react-router-dom";
 
 const Channel = ({ db = null }) => {
   const [id, setId] = useState("");
+  const [deadline, setDeadline] = useState("");
   const history = useHistory();
 
   function handleOnSubmit(e) {
     e.preventDefault();
     let roomkey = "";
 
-    fetch(`http://localhost:3000/quizzes/${id}`)
+    fetch(`http://54.166.28.112/quizzes/${id}`, {
+      headers: {
+        access_token: localStorage.access_token
+      }
+    })
       .then((response) => {
         return response.json();
       })
@@ -53,18 +58,48 @@ const Channel = ({ db = null }) => {
     setId(e.target.value);
   }
 
+  function onChangeChallenge(e){
+    setDeadline(e.target.value)
+  }
+
+  function handleChallenge(e){
+    e.preventDefault();
+    console.log(deadline);
+    console.log(typeof(deadline));
+  }
+
   return (
-    <>
-     
-      <form onSubmit={(e) => handleOnSubmit(e)}>
-        <input
-          type="text"
-          placeholder="input id soal"
-          onChange={(e) => onChangeHandler(e)}
-        />
-        <button type="submit">Host</button>
-      </form>
-    </>
+    <div className="m-5">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div>
+        <h1>Live</h1>
+        <form onSubmit={(e) => handleOnSubmit(e)}>
+          <input
+            type="text"
+            placeholder="input id soal"
+            onChange={(e) => onChangeHandler(e)}
+          />
+          <button type="submit">Host</button>
+        </form>
+      </div>
+      <br />
+
+      <div>
+        <h1>Challenge</h1>
+        <form onSubmit={(e) => handleChallenge(e)}>
+          <input 
+          onChange={(e) => onChangeChallenge(e)}
+          type="datetime-local" placeholder="date" />
+          <button type="submit">Schedule</button>
+
+        </form>
+      </div>
+    </div>
   );
 };
 
