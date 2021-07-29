@@ -127,23 +127,22 @@ export default function FormQuestions() {
   const saveQuiz = async () => {
     try {
       // console.log(createdQuizVar());
-      const data = createdQuizVar();
-      // console.log(data, 'ini finish data');
-      console.log(data, "Create quiz var");
+      const {dataQuizzes} = createdQuizVar();
+
+      delete dataQuizzes.userId
+      delete dataQuizzes.createdAt
+
+      const access_token = localStorage.access_token
+
+      // console.log(dataQuizzes,'---', access_token, "Create quiz var");
   
       await addQuizzes({
         variables: {
-          input: {
-            // addQuizzesUserId: data.dataQuizzes.userId,
-            title: data.dataQuizzes.title,
-            questions: data.dataQuizzes.questions,
-            timer: data.dataQuizzes.timer,
-            mode: data.dataQuizzes.mode,
-            // addQuizzesCreatedAt: data.dataQuizzes.createdAt,
-          },
-          access_token: localStorage.access_token
+          input: dataQuizzes,
+          access_token: access_token
         },
       });
+
       Swal.fire({
         icon: "success",
         title: "Success add Quiz",
@@ -151,7 +150,9 @@ export default function FormQuestions() {
         timer: 1500,
       });
       history.push("/");
+
     } catch (err) {
+      console.log(err);
       Swal.fire({
         icon: "error",
         title: "You must login first",
