@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { DELETE_QUIZZEZ } from '../graphql/queiries'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2'
 
 
 export default function Collections() {
@@ -18,13 +19,31 @@ export default function Collections() {
         history.push("/waitingroom")
     }
 
-    const destory = () => {
-        removeMovies({
-            variables: {
-                "deleteQuizzesByIdId": Quiz.dataQuizzes._id
-            }
-        })
-        history.push("/")
+    const destory = async () => {
+        try {
+            await removeMovies({
+                variables: {
+                    id: Quiz.dataQuizzes._id,
+                    access_token: localStorage.access_token
+                }
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'Success delete Quiz',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            history.push("/")
+        }
+        catch(err) {
+            console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: 'cannot delete Quiz',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
     }
 
     const updated = () => {
