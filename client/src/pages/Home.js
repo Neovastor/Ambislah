@@ -22,7 +22,10 @@ export default function Home() {
     // const [login, { data: datalogin }] = useMutation(LOGIN)
     const [googlelogin] = useMutation(GOOGLE_LOGIN)
     const { loading, error, data: quizzes } = useQuery(GET_ALL_QUIZ, {
-        fetchPolicy: "cache-and-network"
+        fetchPolicy: "cache-and-network",
+        variables: {
+          access_token: localStorage.access_token
+        }
     })
     // console.log(googlelogin, 'ini google login');
     // console.log(quizzes, '>>>>>>>>>>>>>>>>>>.');
@@ -91,7 +94,7 @@ export default function Home() {
                                     <div className="grid grid-cols-2 justify-center mmd:grid-cols-1">
                                         <div className="px-10">
                                             <div className="font-black text-white text-7xl mmd:text-3xl proportional-nums uppercase">
-                                                Sahoot GO!
+                                                Sahoot GO! {JSON.stringify(quizzes)}
                                             </div>
                                             <div className="text-white font-serif mt-2">
                                                 Sahoot! is a game-based learning platform, used as educational technology and most importantly for FUN!. This app provide you tool to make a quiz with multiple choice or audio as an input. It uses a quiz-style teaching where a user answers questions in a series and competes with other users on the same quiz. With Sahoot!, player can learn new thing while having fun.
@@ -102,7 +105,7 @@ export default function Home() {
                                                 </div>
                                                 <div>
                                                     <GoogleLogin
-                                                        clientId={"126002171773-rcnptkt46cifkib3ek6po65o7ljh4jgv.apps.googleusercontent.com"}
+                                                        clientId={"242292821855-irao4vnt2skrbe2581024tm7ruk8cq8l.apps.googleusercontent.com"}
                                                         onSuccess={CALLBACK}
                                                         onFailure={CALLBACK}
                                                         cookiePolicy={'single_host_origin'}
@@ -144,7 +147,7 @@ export default function Home() {
                 </div>
             </div >
             {
-                (isLogin)
+              (!isLogin && !access_token)
                     ? <>
                         {/* looking */}
                         <div className="flex flex-col py-10">

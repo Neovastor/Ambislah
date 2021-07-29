@@ -328,41 +328,69 @@ function WaitingRoom({ db }) {
   if (statusGame === "waiting") {
     return (
       <>
-        <div className=" flex flex-col justify-center h-screen bg-red-400 ">
-          <div className="m-4 flex justify-center">
-            <div className="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white">
-              PIN JOIN QUIZ
+        <div
+          className="flex flex-col object-contain items-center justify-center min-h-screen bg-black"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/quiz1.png)",
+          }}
+        >
+          <div className="grid grid-cols-2">
+            <div className=" flex flex-col justify-center items-center max-h-[555px] mt-[200px]">
+              <div className="bg-green-600 rounded-lg pb-4 mb-7">
+                <div className="m-4 flex justify-center">
+                  <button className="rounded-full text-xl font-bold px-6 py-4 mx-7 text-white bg-red-500">
+                    your PIN
+                  </button>
+                  <button className="rounded-full text-xl font-bold px-6 py-4 mx-7 text-white bg-red-500">
+                    {idparams}
+                  </button>
+                </div>
+                <div className="flex flex-row justify-center">
+                  <button
+                    type="button"
+                    className="rounded-full text-xl font-bold px-16 py-4 mx-7 text-white bg-yellow-500"
+                    onClick={(e) => onClickStartHandler(e)}
+                  >
+                    START
+                  </button>
+                </div>
+              </div>
+              <div className="bg-green-600 rounded-lg pb-4 mt-4 min-w-[400px]">
+                <div className="m-4">
+                  <div className="flex flex-row text-white font-extrabold text-xl">
+                    { players.length > 0 ?
+                      <h2 className="flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" > <path d="M12 14l9-5-9-5-9 5 9 5z" /> <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /> </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" > <path d="M12 14l9-5-9-5-9 5 9 5z" /> <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /> </svg>
+                          Participants
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" > <path d="M12 14l9-5-9-5-9 5 9 5z" /> <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /> </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" > <path d="M12 14l9-5-9-5-9 5 9 5z" /> <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /> </svg>
+                      </h2> :
+                      <h2 className="text text-center text-white">waiting.....</h2>
+                    }
+                  </div>
+                  <div className="m-4  ">
+                    {players.length > 0 ? (
+                      <PlayerTable players={players} />
+                    ) : null}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className=" p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white">
-              {idparams}
-            </div>
-            <div className="rounded-r-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={(e) => onClickStartHandler(e)}
-              >
-                Start
-              </button>
-            </div>
-          </div>
-          <div className="m-4 ">
-            <h2>Peserta</h2>
-            <div className="m-4  ">
-              {players.length > 0 ? <PlayerTable players={players} /> : null}
-            </div>
-          </div>
-        </div>
-        <div className="overflow-x-auto pt-14">
-          <div className="min-w-screen min-h-[777px] bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-            <div className="w-full lg:w-5/6  pt-5">
-              <div className="bg-white shadow-md rounded-lg my-6">
-                <Container>
-                  <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                  {peers.map((peer, index) => {
-                    return <Video key={index} peer={peer} />;
-                  })}
-                </Container>
+
+            <div className="overflow-x-auto pt-14 mx-11">
+              <div className="min-w-screen min-h-[777px] bg-transparent flex items-center justify-center font-sans overflow-hidden">
+                <div className="w-full pt-5">
+                  <div className="bg-transparent shadow-md rounded-lg my-6 object-contain">
+                    {/* <Container> */}
+                      <StyledVideo muted ref={userVideo} autoPlay playsInline />
+                      {peers.map((peer, index) => {
+                        return <Video key={index} peer={peer} />;
+                      })}
+                    {/* </Container> */}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

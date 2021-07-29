@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useMutation } from '@apollo/client'
+import { ADD_REPORT } from "../graphql/queiries";
 function Leaderboard({ db, idparams }) {
+  const [addReport] = useMutation(ADD_REPORT)
   const [leaderboard, setLeaderboard] = useState([]);
   const [livegamesData, setlivegamesData] = useState({});
 
@@ -11,23 +14,26 @@ function Leaderboard({ db, idparams }) {
     livegamesRef.onSnapshot((doc) => {
       setlivegamesData(doc.data());
 
-      // sortedLeaderboard = doc.data().leaderboard.sort((a, b) => {
-      //   if (a.score > b.score) {
-      //     return -1;
-      //   }
-      //   if (a.score < b.score) {
-      //     return 1;
-      //   }
-      //   return 0;
-      // });
-      let sortedLeaderboard = doc.data().leaderboard;
-      console.log(doc.data(), "DATA");
+      let sortedLeaderboard
+      if (doc.data().leaderboard.length > 1) {
+        sortedLeaderboard = doc.data().leaderboard.sort((a, b) => {
+          if (a.score > b.score) {
+            return -1;
+          }
+          if (a.score < b.score) {
+            return 1;
+          }
+          return 0;
+        });
+      }else {
+        sortedLeaderboard = doc.data().leaderboard;
+      }
       setLeaderboard(sortedLeaderboard);
     });
   }, []);
 
   function finishHandler(e) {
-    db.collection("quizzes").onSnapshot((querySnapshot) => {
+    db.collection("quizzes").onSnapshot( async (querySnapshot) => {
       const data = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
@@ -43,7 +49,12 @@ function Leaderboard({ db, idparams }) {
       };
       console.log(payload);
       //Kirim PAYLOAD
-
+      await addReport({
+        variables: {
+          input: payload,
+          access_token: localStorage.access_token
+        }
+      })
       //pindah halaman
       history.push("/");
 
@@ -76,7 +87,7 @@ function Leaderboard({ db, idparams }) {
 
   return (
     <div className="overflow-x-auto pt-14">
-      <h1>Leaderboard</h1>
+      <h1 className="text-center font-extrabold text-7xl bg-transparent">Leaderboard</h1>
       <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
         {leaderboard.length > 0 ? (
           <div className="w-full lg:w-5/6 pt-5">
@@ -120,13 +131,13 @@ function Leaderboard({ db, idparams }) {
             </div>
           </div>
         ) : null}
-        <div className="grid" grid-row>
-          <button className="btn btn-primary" onClick={(e) => finishHandler(e)}>
+        <div className="grid">
+          <button className="px-6 py-4 rounded-full bg-yellow-500 text-white hover:bg-red-500 hover:text-red-300" onClick={(e) => finishHandler(e)}>
             Finish
           </button>
         </div>
       </div>
-
+ 
     </div>
   );
 }

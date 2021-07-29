@@ -1,8 +1,29 @@
 import { gql } from '@apollo/client'
 
 export const GET_ALL_QUIZ = gql`
-query Query {
-  Quizzes {
+query Query($access_token: String) {
+  Quizzes(access_token: $access_token) {
+    _id
+    userId
+    title
+    questions {
+      type
+      question
+      image
+      choose
+      answer
+    }
+    timer
+    mode
+    createdAt
+    updatedAt
+  }
+}
+`
+
+export const GET_ONE_QUIZ = gql `
+query Query($id: ID, $access_token: String) {
+  QuizzesById(id: $id, access_token: $access_token) {
     _id
     userId
     title
@@ -28,10 +49,9 @@ export const CREATED_QUIZZES = gql`
 `
 
 export const ADD_QUIZZES = gql`
-mutation AddQuizzesMutation($addQuizzesUserId: String, $addQuizzesTitle: String, $addQuizzesQuestions: [InputQuestion], $addQuizzesTimer: Int, $addQuizzesMode: String, $addQuizzesCreatedAt: Date) {
-  AddQuizzes(userId: $addQuizzesUserId, title: $addQuizzesTitle, questions: $addQuizzesQuestions, timer: $addQuizzesTimer, mode: $addQuizzesMode, createdAt: $addQuizzesCreatedAt) {
+mutation Mutation($input: InputQuizzes, $access_token: String) {
+  AddQuizzes(input: $input, access_token: $access_token) {
     _id
-    userId
     title
     questions {
       type
@@ -41,20 +61,24 @@ mutation AddQuizzesMutation($addQuizzesUserId: String, $addQuizzesTitle: String,
       answer
     }
     timer
-    mode
     createdAt
+    mode
+    userId
+    updatedAt
   }
 }
 `
 export const DELETE_QUIZZEZ = gql`
-mutation DeleteQuizzesByIdMutation($deleteQuizzesByIdId: ID) {
-  DeleteQuizzesById(id: $deleteQuizzesByIdId)
+mutation DeleteQuizzesMutation($id: ID, $access_token: String) {
+  DeleteQuizzes(id: $id, access_token: $access_token) {
+    message
+  }
 }
 `
 
 export const UPDATE_QUIZZES = gql`
-mutation Mutation($editQuizzesByIdId: ID, $editQuizzesByIdUserId: String, $editQuizzesByIdTitle: String, $editQuizzesByIdQuestions: [InputQuestion], $editQuizzesByIdTimer: Int, $editQuizzesByIdMode: String, $editQuizzesByIdCreatedAt: Date) {
-  EditQuizzesById(id: $editQuizzesByIdId, userId: $editQuizzesByIdUserId, title: $editQuizzesByIdTitle, questions: $editQuizzesByIdQuestions, timer: $editQuizzesByIdTimer, mode: $editQuizzesByIdMode, createdAt: $editQuizzesByIdCreatedAt) {
+mutation Mutation($id: ID, $input: InputQuizzes, $access_token: String) {
+  EditQuizzes(id: $id, input: $input, access_token: $access_token) {
     _id
     userId
     title
@@ -68,6 +92,7 @@ mutation Mutation($editQuizzesByIdId: ID, $editQuizzesByIdUserId: String, $editQ
     timer
     mode
     createdAt
+    updatedAt
   }
 }
 `

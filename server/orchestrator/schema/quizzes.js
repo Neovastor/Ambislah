@@ -59,14 +59,10 @@ const typeDef = gql`
 const resolvers = {
   Query: {
     Quizzes: async (_, args, context) => {
-      // console.log('masuk finAll');
       try {
-        // console.log('masuk');
-        // console.log(context, 'ini ??????');
         let QuizzesRedis = await redis.get("Quizzes");
         QuizzesRedis = JSON.parse(QuizzesRedis);
-        // console.log(QuizzesRedis);
-        if (QuizzesRedis || QuizzesRedis[0].userId === context.user.id) {
+        if (QuizzesRedis && QuizzesRedis[0].userId === context.user.id) {
           return QuizzesRedis
         } else {
           const Quizzes = await instanceQuizzes({
@@ -81,7 +77,6 @@ const resolvers = {
           return Quizzes.data
         }
       } catch (err) {
-        console.log('masuk error');
         throw new ApolloError(err);
       }
     },
@@ -126,8 +121,8 @@ const resolvers = {
     },
     EditQuizzes: async (_, args, context) => {
       try {
-        const { title, questions, timer, mode } = args.input
-        const data = { title, questions, timer, mode }
+        const {title, questions, timer, mode } = args.input
+        const data = {title, questions, timer, mode } 
         const updateQuizzes = await instanceQuizzes({
           url: `/${args.id}`,
           method: 'put',
@@ -144,8 +139,8 @@ const resolvers = {
     },
     AddQuizzes: async (_, args, context) => {
       try {
-        const { title, questions, timer, mode } = args.input
-        const data = { title, questions, timer, mode }
+        const {title, questions, timer, mode } = args.input
+        const data = {title, questions, timer, mode } 
         const postQuizzes = await instanceQuizzes({
           url: '/',
           method: 'post',

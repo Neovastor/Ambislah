@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 export default function Report() {
   const { register, handleSubmit } = useForm()
   const history = useHistory()
-  const [registration, { data: dataregister }] = useMutation(REGISTER)
+  const [registration] = useMutation(REGISTER)
 
   const submitRegister = async e => {
     try {

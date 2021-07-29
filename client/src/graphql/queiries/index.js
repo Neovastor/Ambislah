@@ -3,11 +3,10 @@ export {
   ADD_REPORT,
   DELETE_REPORT,
   GET_ALL_REPORTS,
-  GET_REPORT,
-  SEARCH_REPORT,
+  GET_ONE_REPORT,
 } from "./reportQueries";
 
-export { REGISTER, LOGIN } from "./userQueries";
+export { REGISTER, LOGIN, GOOGLE_LOGIN } from "./userQueries";
 
 export {
   GET_ALL_QUIZ,

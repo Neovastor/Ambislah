@@ -1,16 +1,15 @@
 require('dotenv').config()
-const { ApolloServer } = require('apollo-server')
+const { ApolloServer} = require('apollo-server')
 const schema = require('./schema')
 const PORT = process.env.PORT || 4000
-const { verifyJWT } = require('./helpers')
+const {verifyJWT} = require('./helpers')
 
 const server = new ApolloServer({
-  schema,
+  schema, 
   cors: true,
-  context: ({ req, res }) => {
-    // console.log(req.headers, 'ini appjs');
+  context: ({req, res}) => {
     let access_token = req.headers.authorization || ''
-    let user = access_token && verifyJWT(access_token) ? verifyJWT(access_token) : ''
+    let user = access_token && verifyJWT(access_token) ? verifyJWT(access_token)  : ''
     return {
       access_token,
       user
@@ -20,6 +19,6 @@ const server = new ApolloServer({
 
 
 // The `listen` method launches a web server.
-server.listen({ port: PORT }).then(({ url }) => {
+server.listen({port: PORT}).then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
