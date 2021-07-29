@@ -123,13 +123,13 @@ export default function UpdateQuestions() {
     }
 
     return (
-        <div className="pt-12 md-max:flex md-max:flex-col-reverse">
-            <div className="bg-gray-200 my-2 p-2 col-span-7 h-full">
+        <div className="md-max:flex md-max:flex-col-reverse">
+            <div className="bg-[#429dda] my-2 pt-16 col-span-7 h-full">
                 <form onSubmit={handleSubmit(saveData)} className="flex flex-col gap-y-4 items-center p-5">
                     <input defaultValue={dataQuestion.dataQuizzes.question}  {...register('inputQuestion')} placeholder="Start typing your question" className="w-full px-4 py-2 transition duration-300 border border-white rounded-l-lg focus:border-transparent focus:outline-none" />
-                    <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
+                    {/* <button className="hover:bg-red-600 text-black hover:text-white p-3 rounded-lg">
                         <FontAwesomeIcon size='2x' icon={faVolumeUp}></FontAwesomeIcon>
-                    </button>
+                    </button> */}
                     <div className="grid grid-cols-1 mt-5 mx-7">
                         <div className="flex items-center justify-center w-full">
                             <label className="flex flex-col border-4 border-dashed w-96 h-32 hover:bg-gray-100 border-green-300 group">
@@ -201,7 +201,12 @@ export default function UpdateQuestions() {
                         <button type="submit" className="px-8 rounded-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r">+</button>
                     </div> */}
                     <div className="flex justify-center">
-                        <button type="submit" className="rounded-lg bg-[#15883E] font-bold uppercase bg-[#15883E] hover:border-2 text-white hover:border-[#15883E] hover:bg-[#15883E] hover:text-[#fffff] text-white rounded-lg mr-2 px-8 py-4">Update</button>
+                        <button
+                            type="submit"
+                            className="mb-4 rounded-lg bg-[#053742] font-bold uppercase bg-[#053742] hover:border-2 text-white hover:border-[#053742] hover:bg-[#053742] hover:text-[#fffff] text-white rounded-lg mr-2 px-8 py-2"
+                        >
+                            Update
+                        </button>
                     </div>
                 </form>
             </div>

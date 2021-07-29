@@ -646,11 +646,11 @@ video {
 .col-span-7 {
 	grid-column: span 7 / span 7;
 }
-.col-span-4 {
-	grid-column: span 4 / span 4;
-}
 .col-span-3 {
 	grid-column: span 3 / span 3;
+}
+.col-span-4 {
+	grid-column: span 4 / span 4;
 }
 .row-span-4 {
 	grid-row: span 4 / span 4;
@@ -755,9 +755,6 @@ video {
 }
 .ml-2 {
 	margin-left: 0.5rem;
-}
-.mt-14 {
-	margin-top: 3.5rem;
 }
 .mt-10 {
 	margin-top: 2.5rem;
@@ -992,9 +989,6 @@ video {
 .grid-cols-8 {
 	grid-template-columns: repeat(8, minmax(0, 1fr));
 }
-.grid-rows-2 {
-	grid-template-rows: repeat(2, minmax(0, 1fr));
-}
 .flex-row {
 	flex-direction: row;
 }
@@ -1158,10 +1152,6 @@ video {
 	--tw-border-opacity: 1;
 	border-color: rgba(59, 130, 246, var(--tw-border-opacity));
 }
-.border-blue-300 {
-	--tw-border-opacity: 1;
-	border-color: rgba(147, 197, 253, var(--tw-border-opacity));
-}
 .bg-gray-200 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
@@ -1222,18 +1212,6 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 195, 83, var(--tw-bg-opacity));
 }
-.bg-\[\#f8f8f8\] {
-	--tw-bg-opacity: 1;
-	background-color: rgba(248, 248, 248, var(--tw-bg-opacity));
-}
-.bg-\[\#FDF6F0\] {
-	--tw-bg-opacity: 1;
-	background-color: rgba(253, 246, 240, var(--tw-bg-opacity));
-}
-.bg-\[\#FF8303\] {
-	--tw-bg-opacity: 1;
-	background-color: rgba(255, 131, 3, var(--tw-bg-opacity));
-}
 .bg-gray-100 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
@@ -1249,6 +1227,10 @@ video {
 .bg-\[\#1d54b9\] {
 	--tw-bg-opacity: 1;
 	background-color: rgba(29, 84, 185, var(--tw-bg-opacity));
+}
+.bg-\[\#f8f8f8\] {
+	--tw-bg-opacity: 1;
+	background-color: rgba(248, 248, 248, var(--tw-bg-opacity));
 }
 .bg-red-100 {
 	--tw-bg-opacity: 1;
@@ -1338,9 +1320,6 @@ video {
 }
 .p-1 {
 	padding: 0.25rem;
-}
-.p-8 {
-	padding: 2rem;
 }
 .p-56 {
 	padding: 14rem;
@@ -1432,6 +1411,9 @@ video {
 }
 .pt-16 {
 	padding-top: 4rem;
+}
+.pt-10 {
+	padding-top: 2.5rem;
 }
 .pt-4 {
 	padding-top: 1rem;
@@ -1630,10 +1612,6 @@ video {
 	--tw-text-opacity: 1;
 	color: rgba(124, 58, 237, var(--tw-text-opacity));
 }
-.text-\[\#28527A\] {
-	--tw-text-opacity: 1;
-	color: rgba(40, 82, 122, var(--tw-text-opacity));
-}
 .placeholder-gray-400::placeholder {
 	--tw-placeholder-opacity: 1;
 	color: rgba(156, 163, 175, var(--tw-placeholder-opacity));
@@ -1718,14 +1696,6 @@ video {
 	--tw-border-opacity: 1;
 	border-color: rgba(40, 82, 122, var(--tw-border-opacity));
 }
-.hover\:border-\[\#FF8303\]:hover {
-	--tw-border-opacity: 1;
-	border-color: rgba(255, 131, 3, var(--tw-border-opacity));
-}
-.hover\:border-\[\#15883E\]:hover {
-	--tw-border-opacity: 1;
-	border-color: rgba(21, 136, 62, var(--tw-border-opacity));
-}
 .hover\:bg-red-600:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(220, 38, 38, var(--tw-bg-opacity));
@@ -1786,10 +1756,6 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
 }
-.hover\:bg-\[\#15883E\]:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(21, 136, 62, var(--tw-bg-opacity));
-}
 .hover\:text-white:hover {
 	--tw-text-opacity: 1;
 	color: rgba(255, 255, 255, var(--tw-text-opacity));
@@ -1817,10 +1783,6 @@ video {
 .hover\:text-\[\#28527A\]:hover {
 	--tw-text-opacity: 1;
 	color: rgba(40, 82, 122, var(--tw-text-opacity));
-}
-.hover\:text-\[\#FF8303\]:hover {
-	--tw-text-opacity: 1;
-	color: rgba(255, 131, 3, var(--tw-text-opacity));
 }
 .hover\:text-\[\#1d54b9\]:hover {
 	--tw-text-opacity: 1;
@@ -1870,10 +1832,6 @@ video {
 .focus\:ring-\[\#147536\]:focus {
 	--tw-ring-opacity: 1;
 	--tw-ring-color: rgba(20, 117, 54, var(--tw-ring-opacity));
-}
-.focus\:ring-blue-300:focus {
-	--tw-ring-opacity: 1;
-	--tw-ring-color: rgba(147, 197, 253, var(--tw-ring-opacity));
 }
 .active\:bg-black:active {
 	--tw-bg-opacity: 1;
@@ -1986,10 +1944,6 @@ video {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 
-	.md\:grid-cols-6 {
-		grid-template-columns: repeat(6, minmax(0, 1fr));
-	}
-
 	.md\:px-16 {
 		padding-left: 4rem;
 		padding-right: 4rem;
@@ -2054,20 +2008,12 @@ video {
 }
 @media (max-width: 768px) {
 
-	.mmd\:col-span-4 {
-		grid-column: span 4 / span 4;
-	}
-
 	.mmd\:m-3 {
 		margin: 0.75rem;
 	}
 
 	.mmd\:ml-5 {
 		margin-left: 1.25rem;
-	}
-
-	.mmd\:mt-1 {
-		margin-top: 0.25rem;
 	}
 
 	.mmd\:h-full {
