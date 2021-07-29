@@ -163,8 +163,8 @@ export default function FormQuestions() {
 
   return (
     <>
-      <div className="pt-12 md-max:flex md-max:flex-col-reverse">
-        <div className="bg-gray-200 my-2 p-2 col-span-7 h-full">
+      <div className="md-max:flex md-max:flex-col-reverse">
+        <div className="bg-[#429dda] my-2 pt-16 col-span-7 h-full">
           <form
             onSubmit={handleSubmit(submitAnswer)}
             className="flex flex-col gap-y-4 items-center p-5"
@@ -179,7 +179,7 @@ export default function FormQuestions() {
             </button>
             <div className="grid grid-cols-1 mt-5 mx-7">
               <div className="flex items-center justify-center w-full ">
-                <label className="flex flex-col border-4 border-dashed w-96 h-18 hover:bg-gray-100 border-green-300 group">
+                <label className="flex flex-col border-4 border-dashed w-96 h-32 hover:bg-white border-[#ffffff] hover:border-[#053742] group">
                   {uploaded ? (
                     <div className="flex flex-col items-center justify-center h-24 w-full">
                       <img src={uploaded} alt="" srcSet="" />
@@ -187,7 +187,7 @@ export default function FormQuestions() {
                   ) : (
                     <div className="flex flex-col items-center justify-center pt-7">
                       <svg
-                        className="w-10 h-10 text-green-400 group-hover:text-green-600"
+                        className="w-10 h-10 text-[#ffffff] group-hover:text-[#053742]"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -200,7 +200,7 @@ export default function FormQuestions() {
                           d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                         />
                       </svg>
-                      <p className="lowercase text-sm text-gray-400 group-hover:text-green-600 pt-1 tracking-wider">
+                      <p className="lowercase text-sm text-white hover:text-[#053742] group-hover:text-[#053742] pt-1 tracking-wider">
                         Select a photo
                       </p>
                     </div>
@@ -361,7 +361,7 @@ export default function FormQuestions() {
             <div>
               <button
                 type="submit"
-                className="px-8 rounded-lg hover:bg-[#15883E] font-bold p-4 uppercase hover:border-[#15883E] hover:bg-[#147536] text-white bg-yellow-400 font-bold p-4 uppercase"
+                className="px-8 rounded-lg hover:bg-[#053742] font-bold p-2 uppercase hover:border-[#053742] hover:bg-[#147536] text-white bg-yellow-400 font-bold uppercase"
               >
                 +
               </button>
@@ -370,7 +370,7 @@ export default function FormQuestions() {
           <div className="flex justify-center">
             <button
               onClick={saveQuiz}
-              className="rounded-lg bg-[#15883E] font-bold uppercase bg-[#15883E] hover:border-2 text-white hover:border-[#15883E] hover:bg-[#15883E] hover:text-[#fffff] text-white rounded-lg mr-2 px-8 py-4"
+              className="mb-4 rounded-lg bg-[#053742] font-bold uppercase bg-[#053742] hover:border-2 text-white hover:border-[#053742] hover:bg-[#053742] hover:text-[#fffff] text-white rounded-lg mr-2 px-8 py-2"
             >
               Finish
             </button>
