@@ -41,8 +41,8 @@ function Leaderboard({ db, idparams }) {
       const choosenQuiz = data.find(({ roomkey }) => +roomkey === +idparams);
 
       let payload = {
-        playersCount: livegamesData.players.length,
-        date: new Date(),
+        // playersCount: livegamesData.players.length,
+        // date: new Date(),
         players: livegamesData.leaderboard,
         quizTitle: choosenQuiz.title,
         quizId: choosenQuiz.id,
