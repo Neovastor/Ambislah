@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useQuery, useReactiveVar } from '@apollo/client'
+import { useQuery, useReactiveVar, useMutation } from '@apollo/client'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Modal from '../components/Modal'
 import { modalVar } from '../graphql/vars'
-import {GET_ALL_REPORTS} from '../graphql/queiries'
+import {DELETE_REPORT, GET_ALL_REPORTS} from '../graphql/queiries'
 
 export default function Report() {
     const {loading, error, data: dataReports} = useQuery(GET_ALL_REPORTS, {
@@ -12,14 +12,36 @@ export default function Report() {
             access_token: localStorage.access_token
         }
     })
+    const [deleteReport] = useMutation(DELETE_REPORT)
     const openModal = useReactiveVar(modalVar)
     const showModal = () => {
         modalVar(true)
     }
 
 
-    const destroy = () => {
+    const destroy = async (id) => {
+      try {
         console.log('destroy data');
+        await deleteReport({
+          variables: {
+            idReport: id,
+            access_token: localStorage.access_token
+          },
+        })
+        Swal.fire({
+          icon: "success",
+          title: "Success delete report",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "your input not valid",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     }
 
     return (
@@ -88,7 +110,7 @@ export default function Report() {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
                                                 </div>
-                                                <div onClick={destroy} className="w-4 mr-2 cursor-pointer hover:text-yellow-600 hover:scale-110">
+                                                <div onClick={destroy(report._id)} className="w-4 mr-2 cursor-pointer hover:text-yellow-600 hover:scale-110">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>
