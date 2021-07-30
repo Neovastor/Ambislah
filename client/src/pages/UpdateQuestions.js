@@ -16,12 +16,15 @@ export default function UpdateQuestions() {
     const Quiz = useReactiveVar(collectionVar)
     const dataQuestion = useReactiveVar(questionVar)
     const [updateQuizzes] = useMutation(UPDATE_QUIZZES, {
-        refetchQueries: [
-            {
-                query: GET_ALL_QUIZ,
-            },
-        ]
-    })
+      refetchQueries:[
+          {
+              query: GET_ALL_QUIZ, 
+              variables: {
+                  access_token: localStorage.access_token
+              }
+          },
+      ]
+  })
     const [type, setType] = useState('touch')
     const [type1, setType1] = useState(dataQuestion.dataQuizzes.type === 'sound' ? true : false)
     const [type2, setType2] = useState(dataQuestion.dataQuizzes.type === 'touch' ? true : false)
@@ -85,41 +88,62 @@ export default function UpdateQuestions() {
     }
 
     const saveData = async (e) => {
-        const { input1, input2, input3, input4, inputQuestion } = e
-        let answer = ""
-        if (status1) answer = input1
-        if (status2) answer = input2
-        if (status3) answer = input3
-        if (status4) answer = input4
-
-        const choose = [input1, input2, input3, input4]
-        const newData = {
-            type: type,
-            "question": inputQuestion,
-            "image": "null",
-            choose,
-            answer
-        }
-        question[dataQuestion.index] = newData
-
-        await updateQuizzes({
-            variables: {
-                "editQuizzesByIdId": Quiz.dataQuizzes._id,
-                "editQuizzesByIdUserId": Quiz.dataQuizzes.userId,
-                "editQuizzesByIdTitle": Quiz.dataQuizzes.title,
-                "editQuizzesByIdQuestions": question,
-                "editQuizzesByIdTimer": Quiz.dataQuizzes.timer,
-                "editQuizzesByIdMode": Quiz.dataQuizzes.mode,
-                "editQuizzesByIdCreatedAt": Quiz.dataQuizzes.createdAt
+        try {
+            const { input1, input2, input3, input4, inputQuestion } = e
+            let answer = ""
+            if (status1) answer = input1
+            if (status2) answer = input2
+            if (status3) answer = input3
+            if (status4) answer = input4
+    
+            const choose = [input1, input2, input3, input4]
+            const newData = {
+                type: type,
+                "question": inputQuestion,
+                "image": "null",
+                choose,
+                answer
             }
-        })
-        Swal.fire({
-            icon: 'success',
-            title: 'update question successfully',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        history.push('/')
+            question[dataQuestion.index] = newData
+
+            // console.log(Quiz, 'ini quiz ---------' );
+            // console.log(question, 'ini questions ---------' );
+
+            let updateQuiz = {...Quiz.dataQuizzes, questions: question }
+            let idUpdated = updateQuiz._id
+            
+            console.log(updateQuiz);
+
+    
+            await updateQuizzes({
+                variables: {
+                    id: idUpdated,
+                    input: {
+                        title: updateQuiz.title,
+                        questions: updateQuiz.questions,
+                        mode: updateQuiz.mode,
+                        timer: updateQuiz.timer,
+                    },
+                    access_token: localStorage.access_token
+                }
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'update question successfully',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            history.push('/')
+
+        } catch(err) {
+            console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: 'update question failed',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
     }
 
     return (
@@ -201,12 +225,7 @@ export default function UpdateQuestions() {
                         <button type="submit" className="px-8 rounded-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r">+</button>
                     </div> */}
                     <div className="flex justify-center">
-                        <button
-                            type="submit"
-                            className="mb-4 rounded-lg bg-[#053742] font-bold uppercase bg-[#053742] hover:border-2 text-white hover:border-[#053742] hover:bg-[#053742] hover:text-[#fffff] text-white rounded-lg mr-2 px-8 py-2"
-                        >
-                            Update
-                        </button>
+                        <button type="submit" className="mb-4 rounded-lg bg-[#053742] font-bold uppercase bg-[#053742] hover:border-2 text-white hover:border-[#053742] hover:bg-[#053742] hover:text-[#fffff] text-white rounded-lg mr-2 px-8 py-2" > Update </button>
                     </div>
                 </form>
             </div>

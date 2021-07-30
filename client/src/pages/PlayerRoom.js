@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation, Prompt, useParams } from "react-router-dom";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import firebase from "firebase/app";
 // import WaitingRoomPlayer from "../components/WaitingRoomPlayer";
@@ -32,6 +32,7 @@ const videoConstraints = {
 };
 
 function PlayerRoom({ db }) {
+  const history = useHistory()
   const location = useLocation();
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
@@ -187,7 +188,7 @@ function PlayerRoom({ db }) {
         case "a":
           indexChoose = 0;
           quizzes.questions[indexSoal].answer ===
-          quizzes.questions[indexSoal].choose[indexChoose]
+            quizzes.questions[indexSoal].choose[indexChoose]
             ? setOptionA(buttonRight)
             : setOptionA(buttonWrong);
 
@@ -195,21 +196,21 @@ function PlayerRoom({ db }) {
         case "b":
           indexChoose = 1;
           quizzes.questions[indexSoal].answer ===
-          quizzes.questions[indexSoal].choose[indexChoose]
+            quizzes.questions[indexSoal].choose[indexChoose]
             ? setOptionB(buttonRight)
             : setOptionB(buttonWrong);
           break;
         case "c":
           indexChoose = 2;
           quizzes.questions[indexSoal].answer ===
-          quizzes.questions[indexSoal].choose[indexChoose]
+            quizzes.questions[indexSoal].choose[indexChoose]
             ? setOptionC(buttonRight)
             : setOptionC(buttonWrong);
           break;
         case "d":
           indexChoose = 3;
           quizzes.questions[indexSoal].answer ===
-          quizzes.questions[indexSoal].choose[indexChoose]
+            quizzes.questions[indexSoal].choose[indexChoose]
             ? setOptionD(buttonRight)
             : setOptionD(buttonWrong);
           break;
@@ -282,29 +283,20 @@ function PlayerRoom({ db }) {
     }
   }
 
+  const toJoin = () => {
+    history.push('/join')
+  }
+
   if (status === "waiting") {
     return (
-      <div className=" flex flex-col justify-center h-screen">
-        <div className="overflow-x-auto pt-14">
-          <div
-            className="min-w-screen min-h-[777px] flex items-center justify-center font-sans overflow-hidden"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/star.gif)",
-              "background-size": "100% 100%",
-            }}
-          >
-            <div className="w-full lg:w-5/6  pt-5">
-              <div className="bg-transparent shadow-md rounded-lg my-6">
-                <Container>
-                  <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                  {peers.map((peer, index) => {
-                    return <Video key={index} peer={peer} />;
-                  })}
-                </Container>
-              </div>
-            </div>
-          </div>
+      <div className="bg-[#9e2727] min-h-screen mmd:h-full flex flex-auto justify-center items-end">
+        <div className="bg-[#da4242] h-[80%] w-[90%] mmd:pt-8 mt-20">
+          <Container>
+            <StyledVideo muted ref={userVideo} autoPlay playsInline />
+            {peers.map((peer, index) => {
+              return <Video key={index} peer={peer} />;
+            })}
+          </Container>
         </div>
       </div>
     );
@@ -345,14 +337,21 @@ function PlayerRoom({ db }) {
           className="my-2 p-2 col-span-7 min-h-screen"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/podium.jpg)",
+              "linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url(/finish.jpg)",
             "background-size": "100% 100%",
           }}
         >
-          <div className="flex flex-col justify-center items-center pt-[350px]">
-            <h1 className="text text-black bg-white font-extrabold text-2xl">Game Finished</h1>
-            <h2 className="text text-black bg-white font-extrabold text-2xl">Your Score</h2>
-            <h2 className="text text-black bg-white font-semibold text-xl"> {playerTotalScore} </h2>
+          <div className="flex justify-center mt-[350px]">
+            <div className="px-8 py-2 bg-[#E87A2A] rounded-lg">
+              <h1 className="text-center text-white font-extrabold text-2xl">Game Finished</h1>
+              <h2 className="text-center text-white font-extrabold text-2xl">Your Score</h2>
+              <h2 className="text-center text-white font-semibold text-xl"> {playerTotalScore} </h2>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <button onClick={toJoin} className="px-8 py-2 bg-[#E87A2A] rounded-lg text-white">
+              Back Join
+            </button>
           </div>
         </div>
       </div>

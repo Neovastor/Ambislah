@@ -79,6 +79,10 @@ export default function Home() {
         history.push('/create')
     }
 
+    const toJoin = () => {
+        history.push('/join')
+    }
+
     if (loading) return (
         <Loading />
     );
@@ -103,7 +107,10 @@ export default function Home() {
                                         </div>
                                         <div>
                                             <div>
-                                                <button onClick={toLogin} className="bg-[#1d54b9] rounded-full text-white hover:text-[#1d54b9] hover:bg-[#ffffff] px-12 py-1 mt-5 m-2 text-2xl text-bold uppercase">Login</button>
+                                                <button onClick={toLogin} className="bg-[#1d54b9] w-44  rounded-lg text-white hover:text-[#1d54b9] hover:bg-[#ffffff] px-12 py-1 mt-5 m-2 text-2xl text-bold uppercase">Login</button>
+                                            </div>
+                                            <div>
+                                                <button onClick={toJoin} className="bg-[#1d54b9] w-44  rounded-lg text-white hover:text-[#1d54b9] hover:bg-[#ffffff] px-12 py-1 mt-1 m-2 text-2xl text-bold uppercase">Join</button>
                                             </div>
                                             <div>
                                                 <GoogleLogin
@@ -449,7 +456,7 @@ export default function Home() {
                     <div className="text-3xl capitalize font-semibold m-2 mmd:text-2xl">How does Sahoot! work?</div>
                     {/* commerce slide cards */}
                     <div style={{ backgroundColor: '#fff8f4' }} className="h-full">
-                        <div className="container mx-auto  lg:px-20">
+                        <div className="container mx-auto lg:px-20">
                             <div className="grid grid-cols-3 h-full pb-40">
                                 <div className="border-r border-gray-300 mx-3 lg:pl-20">
                                     <div className=" py-10 pb-3 mt-5 h-5/6 bg-red-100 group hover:bg-red-200 cursor-pointer transition ease-out duration-300">

@@ -1,77 +1,97 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CardQuestions from '../components/CardQuestions'
 import { collectionVar } from '../graphql/vars'
 import { useReactiveVar, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { DELETE_QUIZZEZ } from '../graphql/queiries'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2'
+// import firebase from "firebase/app";
 
 export default function Collections({ db = null }) {
     const [removeMovies] = useMutation(DELETE_QUIZZEZ)
     const Quiz = useReactiveVar(collectionVar)
-    const history = useHistory()
-    console.log(Quiz);
-    const id = Quiz.dataQuizzes._id
+    console.log(Quiz, '>>>>>>>>>>>>>>>>>');
+    console.log(Quiz.dataQuizzes._id, 'iddddddd');
+    // const [id, setId] = useState("");
+    const history = useHistory();
 
-    function handleOnSubmit(e) {
-      e.preventDefault();
-      let roomkey = "";
-  
-      fetch(`http://54.166.28.112/quizzes/${id}`, {
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((myJson) => {
-          console.log(myJson);
-  
-          if (db) {
-            for (let i = 0; i < 6; i++) {
-              roomkey = roomkey + String(Math.floor(Math.random() * 10));
+
+    async function handleOnSubmit(e) {
+      console.log('masuk tombol')
+        // e.preventDefault();
+        let roomkey = "";
+        // await setId(Quiz.dataQuizzes._id)
+        // console.log(id, 'ini id??????????/');
+        fetch(`http://54.166.28.112/quizzes/${Quiz.dataQuizzes._id}`, {
+            headers: {
+                access_token: localStorage.access_token
             }
-  
-            const livegamesRef = db.collection("livegames").doc(roomkey);
-  
-            db.collection("quizzes").add({
-              ...myJson,
-              roomkey,
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((myJson) => {
+                // console.log(myJson);
+
+                if (db) {
+                    for (let i = 0; i < 6; i++) {
+                        roomkey = roomkey + String(Math.floor(Math.random() * 10));
+                    }
+
+                    const livegamesRef = db.collection("livegames").doc(roomkey);
+
+                    db.collection("quizzes").add({
+                        ...myJson,
+                        roomkey,
+                    });
+
+                    livegamesRef
+                        .set({
+                            status: "waiting", // live / waiting / done
+                            indexSoal: 0,
+                            leaderboard: [],
+                        })
+                        .then(() => {
+                            history.push(`/waitingroom/${roomkey}`);
+                        })
+                        .catch((error) => {
+                            console.error("Error writing document: ", error);
+                        });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
             });
-  
-            livegamesRef
-              .set({
-                status: "waiting", // live / waiting / done
-                indexSoal: 0,
-                leaderboard: [],
-              })
-              .then(() => {
-                history.push(`/waitingroom/${roomkey}`);
-              })
-              .catch((error) => {
-                console.error("Error writing document: ", error);
-              });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    const toWaitingRoom = () => {
-        history.push("/waitingroom")
     }
 
-    const destory = () => {
-        removeMovies({
-            variables: {
-                "deleteQuizzesByIdId": Quiz.dataQuizzes._id
-            }
-        })
-        history.push("/")
-    }
+    const destory = async () => {
+      try {
+          await removeMovies({
+              variables: {
+                  id: Quiz.dataQuizzes._id,
+                  access_token: localStorage.access_token
+              }
+          })
+          Swal.fire({
+              icon: 'success',
+              title: 'Success delete Quiz',
+              showConfirmButton: false,
+              timer: 1500
+          })
+          history.push("/")
+      }
+      catch(err) {
+          console.log(err);
+          Swal.fire({
+              icon: 'error',
+              title: 'cannot delete Quiz',
+              showConfirmButton: false,
+              timer: 1500
+          })
+      }
+  }
 
     const updated = () => {
         // console.log();
@@ -92,18 +112,18 @@ export default function Collections({ db = null }) {
                     <div className="ml-4 mt-2">
                         <button onClick={updated} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg mr-2">Update</button>
                         <button onClick={destory} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg ml-2">Delete</button>
-                        <button onClick={handleOnSubmit} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-6 py-1 rounded-lg mt-2">Create Room</button>
+                        <button onClick={(e) => handleOnSubmit(e)} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-6 py-1 rounded-lg mt-2">Create Room</button>
                     </div>
                 </div>
             </div>
             <div className="h-20 bg-gradient-to-t from-[#ffc353] to-[#ffc353] ">
 
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 bg-[#ffc353]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 pb-10 bg-[#ffc353]">
                 {
                     Quiz.dataQuizzes.questions.map((e, i) => {
                         return (
-                            <div key={i} className="flex flex-col items-center justify-start bg-[#d49f3c]  p-4 shadow rounded-lg m-2">
+                            <div key={i} className="flex flex-col items-center justify-start bg-[#28527A]  shadow rounded-lg">
                                 <CardQuestions dataQuizzes={e} index={i} />
                             </div>
                         )
@@ -113,40 +133,3 @@ export default function Collections({ db = null }) {
         </>
     )
 }
-
-{/* <div className="grid md:grid-cols-6 gap-4 mmd:grid-cols-3 pt-16 bg-[#f8f8f8]">
-                <div className=" box-border rounded-xl w-full p-4 mmd:col-span-4 grid-rows-2">
-                    <div className="rounded-full h-34 w-34 mt-14 mmd:mt-1 p-8 font-semibold bg-white  ">
-                        <div className="text-center">
-                            <FontAwesomeIcon size="3x" icon={faUser}></FontAwesomeIcon>
-                        </div>
-                        <div className="text-center">Brian</div>
-                    </div>
-                    <div className="bg-[#FDF6F0] box-border h-32 my-2 p-2">Challenge
-                        Overview (Offline quiz still active)</div>
-                </div>
-                <div className=" box-border rounded-xl h-auto w-full p-4 col-span-4">
-                    <div>Paket : {Quiz.dataQuizzes.title}</div>
-                    <div>Mode : {Quiz.dataQuizzes.mode}</div>
-                    <div>
-                        <button onClick={updated} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg mr-2">Update</button>
-                        <button onClick={destory} className="bg-[#28527A] hover:border-2 hover:border-[#28527A] hover:bg-white hover:text-[#28527A] text-white px-2 py-1 rounded-lg ml-2">Delete</button>
-                    </div>
-                    <div>
-                        <div className="flex flex-wrap">
-                            {
-                                Quiz.dataQuizzes.questions.map((e, i) => {
-                                    return (
-                                        <div key={i} className="md:w-1/2 lg:w-1/3 py-4 px-4">
-                                            <CardQuestions dataQuizzes={e} index={i} />
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div className="box-border rounded-xl w-full p-4 mmd:col-span-4 grid-rows-2 mt-14">
-                    <button onClick={toWaitingRoom} className="bg-[#FF8303] hover:border-2 hover:bg-white hover:border-[#FF8303] hover:text-[#FF8303] px-2 py-1 rounded-lg text-white">Create Room</button>
-                </div>
-            </div> */}

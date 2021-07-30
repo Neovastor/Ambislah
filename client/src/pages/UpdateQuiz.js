@@ -16,13 +16,16 @@ export default function UpdateQuiz() {
         refetchQueries: [
             {
                 query: GET_ALL_QUIZ,
+                variables: {
+                    access_token: localStorage.access_token
+                }
             },
         ]
     })
     const [mode, setMode] = useState(Quiz.dataQuizzes.mode)
     const [question, setQuestion] = useState()
-    console.log(question, 'ini question');
-    console.log(mode);
+    // console.log(question, 'ini question');
+    // console.log(mode);
 
     useEffect(() => {
         let arr = []
@@ -39,25 +42,42 @@ export default function UpdateQuiz() {
     }, [])
 
     const onSubmit = async (data) => {
-        await updateQuizzes({
-            variables: {
-                "editQuizzesByIdId": Quiz.dataQuizzes._id,
-                "editQuizzesByIdUserId": Quiz.dataQuizzes.userId,
-                "editQuizzesByIdTitle": data.inputQuiz,
-                "editQuizzesByIdQuestions": question,
-                "editQuizzesByIdTimer": Quiz.dataQuizzes.timer,
-                "editQuizzesByIdMode": mode,
-                "editQuizzesByIdCreatedAt": Quiz.dataQuizzes.createdAt
-            },
-        })
-        Swal.fire({
-            icon: 'success',
-            title: 'Updated successfully',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        history.push('/')
+        try {
+            let updateQuiz = {...Quiz.dataQuizzes, mode: mode}
+            let idUpdated = updateQuiz._id
+            delete updateQuiz._typename
+            delete updateQuiz._id
+            delete updateQuiz.createdAt
+            delete updateQuiz.updatedAt
+
+            await updateQuizzes({
+                variables: {
+                    id: idUpdated,
+                    input: updateQuiz,
+                    access_token: localStorage.access_token
+                }
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'Updated successfully',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            history.push('/')
+
+        }
+        catch(err) {
+            console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: 'update question failed',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
     }
+
+
 
     const option = (e) => {
         setMode(e.target.value);

@@ -70,7 +70,7 @@ function App() {
           <Route exact path="/player/:idroom">
             <PlayerRoom db={db}></PlayerRoom>
           </Route>
-        <Route> <Home exact path="/" /> </Route>
+        <Route> <Home /> </Route>
           
       </Switch>
       <Footer></Footer>

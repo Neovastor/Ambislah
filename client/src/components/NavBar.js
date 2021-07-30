@@ -21,9 +21,9 @@ export default function NavBar() {
     });
   }
 
-  useEffect(() => {
-    history.push('/')
-  }, [localStorage.access_token])
+  // useEffect(() => {
+    // history.push('/')
+  // }, [localStorage.access_token])
 
   return (
     <header className="fixed w-full">
